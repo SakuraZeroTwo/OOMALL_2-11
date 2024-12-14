@@ -33,13 +33,13 @@ public class CustomerDao {
     /**
      * 根据用户名查询顾客
      */
-    public Customer findByUserName(String userName) {
-        CustomerPo customerPo = customerPoMapper.findByUserName(userName);
-        if (customerPo == null) return null;
-
-        Customer customer = new Customer();
-        BeanUtils.copyProperties(customerPo, customer);
-        return customer;
+    public Optional<Customer> findByUserName(String userName) {
+        return Optional.ofNullable(customerPoMapper.findByUserName(userName))
+                .map(po -> {
+                    Customer bo = new Customer();
+                    BeanUtils.copyProperties(po, bo);
+                    return bo;
+                });
     }
 
     /**

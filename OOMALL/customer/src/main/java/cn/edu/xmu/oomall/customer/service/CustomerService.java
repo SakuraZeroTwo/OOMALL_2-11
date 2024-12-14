@@ -17,7 +17,7 @@ public class CustomerService {
      * 根据用户名获取顾客
      */
     public Customer getCustomerByUserName(String userName) {
-        return customerDao.findByUserName(userName);
+        return customerDao.findByUserName(userName).orElse(null);
     }
 
     /**
