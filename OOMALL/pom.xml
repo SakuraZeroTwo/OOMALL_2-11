@@ -44,6 +44,7 @@
         <module>sfexpress</module>
         <module>jtexpress</module>
         <module>ztoexpress</module>
+        <module>customer</module>
     </modules>
 
     <dependencyManagement>
