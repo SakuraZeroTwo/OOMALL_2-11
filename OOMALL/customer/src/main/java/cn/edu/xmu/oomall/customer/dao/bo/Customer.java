@@ -25,4 +25,15 @@ public class Customer {
         this.name = name;
         this.invalid = invalid;
     }
+    public void setInvalid() {
+        if(this.invalid == 1){
+            this.invalid = 0;
+        }
+        else if(this.invalid==0){
+            this.invalid = 1;
+        }
+        else {
+
+        }
+    }
 }

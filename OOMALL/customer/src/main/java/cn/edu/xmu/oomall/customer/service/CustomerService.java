@@ -2,6 +2,7 @@ package cn.edu.xmu.oomall.customer.service;
 
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
+import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,5 +33,12 @@ public class CustomerService {
      */
     public Customer createOrUpdateCustomer(Customer customer) {
         return customerDao.save(customer);
+    }
+    public void updateUserInvalid(Long id){
+        Customer customer = customerDao.findById(id).orElse(null);
+        if(customer!= null){
+        customer.setInvalid();
+        customerDao.save(customer);
+        }
     }
 }

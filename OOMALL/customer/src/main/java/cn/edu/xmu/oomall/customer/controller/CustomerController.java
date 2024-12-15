@@ -30,7 +30,6 @@ public class CustomerController {
         Customer customer = customerService.getCustomerById(id);
         return ResponseEntity.ok(customer);
     }
-
     /**
      * 创建或更新顾客信息
      */
@@ -38,5 +37,20 @@ public class CustomerController {
     public ResponseEntity<Customer> createOrUpdateCustomer(@RequestBody Customer customer) {
         Customer savedCustomer = customerService.createOrUpdateCustomer(customer);
         return ResponseEntity.ok(savedCustomer);
+    }
+    @PutMapping("/{id}/{action}")
+    public ResponseEntity<String> updateUserInvalid(@PathVariable Long id,
+                                                    @PathVariable String action) {
+        // 统一调用服务层方法
+        customerService.updateUserInvalid(id);
+
+        // 判断 action，返回不同的消息
+        if ("ban".equalsIgnoreCase(action)) {
+            return ResponseEntity.ok("Customer " + id + " has been banned.");
+        } else if ("release".equalsIgnoreCase(action)) {
+            return ResponseEntity.ok("Customer " + id + " has been released.");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid action: " + action);
+        }
     }
 }
