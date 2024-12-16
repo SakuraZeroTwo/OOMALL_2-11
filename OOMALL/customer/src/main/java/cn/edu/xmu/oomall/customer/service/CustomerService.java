@@ -37,8 +37,18 @@ public class CustomerService {
     public void updateUserInvalid(Long id){
         Customer customer = customerDao.findById(id).orElse(null);
         if(customer!= null){
-        customer.setInvalid();
+        customer.convertInvalid();
         customerDao.save(customer);
         }
+    }
+    public void deleteUser(Long id){
+        Customer customer = customerDao.findById(id).orElse(null);
+        if(customer != null)
+        {
+            customer.setInvalid(Customer.DELETED);
+            customer.setBeDelete();
+            customerDao.save(customer);
+        }
+
     }
 }

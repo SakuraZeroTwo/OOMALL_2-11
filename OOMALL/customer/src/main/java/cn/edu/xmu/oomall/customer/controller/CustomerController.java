@@ -48,4 +48,9 @@ public class CustomerController {
             return ResponseEntity.ok("Customer " + id + " has been released.");
         }
     }
+    @PutMapping("/{id}/delete")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        customerService.deleteUser(id);
+        return ResponseEntity.ok("Customer " + id + " has been deleted.");
+    }
 }
