@@ -1,10 +1,17 @@
 package cn.edu.xmu.oomall.customer.controller;
 
+import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
+import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
+import cn.edu.xmu.oomall.customer.dao.bo.CartResponse;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
+import cn.edu.xmu.oomall.customer.service.CartService;
 import cn.edu.xmu.oomall.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
@@ -12,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     private final CustomerService customerService;
+    @Autowired
+    private CartService cartService;
 
     /**
      * 通过用户名获取顾客信息
@@ -53,4 +62,15 @@ public class CustomerController {
         customerService.deleteUser(id);
         return ResponseEntity.ok("Customer " + id + " has been deleted.");
     }
+
+    // 获取购物车列表
+    @GetMapping("/{customerId}/cart")
+    public ResponseEntity<ResponseWrapper> getCartList(
+            @PathVariable Long customerId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        ResponseWrapper response = cartService.getCartList(customerId, page, pageSize);
+        return ResponseEntity.ok(response);
+    }
 }
+

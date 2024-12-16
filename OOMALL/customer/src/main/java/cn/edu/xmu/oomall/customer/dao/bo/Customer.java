@@ -1,12 +1,20 @@
 package cn.edu.xmu.oomall.customer.dao.bo;
 
+import cn.edu.xmu.oomall.customer.dao.CartItemDao;
+import cn.edu.xmu.oomall.customer.dao.CustomerDao;
+import cn.edu.xmu.oomall.customer.mapper.po.CartItemPo;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Data
 public class Customer {
@@ -100,4 +108,5 @@ public class Customer {
 
         }
     }
+
 }
