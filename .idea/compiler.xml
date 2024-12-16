@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="product" />
+        <module name="alipay" />
+        <module name="shop" />
+        <module name="ztoexpress" />
+        <module name="freight" />
+        <module name="sfexpress" />
+        <module name="core" />
+        <module name="wechatpay" />
+        <module name="prodorder" />
+        <module name="payment" />
+        <module name="region" />
+        <module name="gateway" />
+        <module name="jtexpress" />
+        <module name="customer" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="alipay" options="-parameters" />
+      <module name="core" options="-parameters" />
+      <module name="customer" options="-parameters" />
+      <module name="freight" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="jtexpress" options="-parameters" />
+      <module name="oomall" options="-parameters" />
+      <module name="payment" options="-parameters" />
+      <module name="prodorder" options="-parameters" />
+      <module name="product" options="-parameters" />
+      <module name="region" options="-parameters" />
+      <module name="sfexpress" options="-parameters" />
+      <module name="shop" options="-parameters" />
+      <module name="wechatpay" options="-parameters" />
+      <module name="ztoexpress" options="-parameters" />
+    </option>
+  </component>
+</project>

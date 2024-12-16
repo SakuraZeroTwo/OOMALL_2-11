@@ -74,7 +74,7 @@ public class AdminRegionControllerTest {
     }
 
     @Test
-    void updateRegionByIdGivenNonExistId() throws Exception {
+    void GivenNonExistIdupdateRegionById() throws Exception {
         Mockito.when(redisUtil.get(Mockito.anyString())).thenReturn(null);
         Mockito.when(redisUtil.set(Mockito.anyString(), Mockito.any(), Mockito.anyLong())).thenReturn(true);
 
