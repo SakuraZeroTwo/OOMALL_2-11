@@ -3,12 +3,9 @@ package cn.edu.xmu.oomall.customer.controller;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.service.CouponService;
 import cn.edu.xmu.oomall.customer.service.CustomerService;
-import cn.edu.xmu.oomall.customer.dao.bo.Coupon;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/customers")

@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,7 @@ import org.springframework.stereotype.Component;
 import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
 @Slf4j
 @Data
-@Component
-public class Customer{
+public class Customer {
     private Long id;
     private String userName;
     private String password;
@@ -26,7 +24,7 @@ public class Customer{
     private Byte invalid;
     private Byte beDelete;
     private String mobile;
-    private Long point;
+    private Integer point;
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
 
@@ -109,6 +107,4 @@ public class Customer{
 
         }
     }
-
-
 }
