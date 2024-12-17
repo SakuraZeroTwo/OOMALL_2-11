@@ -10,6 +10,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import cn.edu.xmu.oomall.customer.dao.bo.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,7 @@ public class Customer {
     private Byte invalid;
     private Byte beDelete;
     private String mobile;
-    private Integer point;
+    private Long point;
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
 

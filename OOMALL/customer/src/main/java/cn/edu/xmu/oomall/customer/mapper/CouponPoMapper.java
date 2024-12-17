@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface CouponPoMapper extends JpaRepository<CouponPo, Long> {
-    List<CouponPo> findByCustomerIdEquals(Long customerId, Pageable pageable);
+    List<CouponPo> findByCustomerId(Long customerId, Pageable pageable);
 }
 

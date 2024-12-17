@@ -21,18 +21,16 @@ import java.util.stream.Collectors;
 @RefreshScope
 @Slf4j
 public class CouponDao {
-
+    @Autowired
     private final CouponPoMapper couponPoMapper;
 
     public List<Coupon> retrieveByCustomerId(Long customerId, Integer page, Integer pageSize) {
         log.debug("retrieveByCustomerId: customerId = {}, page = {}, pageSize = {}", customerId, page, pageSize);
-
         if (customerId == null) {
             return null;
         }
-
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        List<CouponPo> couponPos = this.couponPoMapper.findByCustomerIdEquals(customerId, pageable);
+        List<CouponPo> couponPos = this.couponPoMapper.findByCustomerId(customerId, pageable);
         return couponPos.stream()
                 .map(po -> CloneFactory.copy(new Coupon(), po))
                 .collect(Collectors.toList());

@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.security.Timestamp;
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true, doNotUseGetters = true)
@@ -29,13 +31,13 @@ public class Coupon implements Serializable {
     private String couponName;
     private Long customerId;
     private Long activityId;
-    private Timestamp beginTime;
-    private Timestamp endTime;
+    private LocalDateTime beginTime;
+    private LocalDateTime endTime;
     private Short used;
     private Long creatorId;
     private String creatorName;
     private Long modifierId;
     private String modifierName;
-    private Timestamp gmtCreate;
-    private Timestamp gmtModified;
+    private LocalDateTime gmtCreate;
+    private LocalDateTime gmtModified;
 }
