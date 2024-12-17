@@ -1,5 +1,6 @@
 package cn.edu.xmu.oomall.customer.service;
 
+import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 import cn.edu.xmu.oomall.customer.dao.CouponDao;
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;
 import cn.edu.xmu.oomall.customer.dao.bo.Coupon;

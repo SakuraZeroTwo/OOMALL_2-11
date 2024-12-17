@@ -1,5 +1,7 @@
 package cn.edu.xmu.oomall.customer.dao;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.util.CloneFactory;
 import cn.edu.xmu.oomall.customer.dao.bo.Coupon;
 import cn.edu.xmu.oomall.customer.mapper.po.CouponPo;
@@ -26,9 +28,6 @@ public class CouponDao {
 
     public List<Coupon> retrieveByCustomerId(Long customerId, Integer page, Integer pageSize) {
         log.debug("retrieveByCustomerId: customerId = {}, page = {}, pageSize = {}", customerId, page, pageSize);
-        if (customerId == null) {
-            return null;
-        }
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         List<CouponPo> couponPos = this.couponPoMapper.findByCustomerId(customerId, pageable);
         return couponPos.stream()
