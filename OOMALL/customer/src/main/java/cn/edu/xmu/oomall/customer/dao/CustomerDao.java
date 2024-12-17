@@ -1,5 +1,6 @@
 package cn.edu.xmu.oomall.customer.dao;
 
+import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.mapper.CustomerPoMapper;
 import cn.edu.xmu.oomall.customer.mapper.po.CustomerPo;
@@ -9,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -41,7 +44,20 @@ public class CustomerDao {
                     return bo;
                 });
     }
-
+    /**
+     * 查询所有顾客列表
+     */
+    public List<Customer> findAll() {
+        List<CustomerPo> customerPoList = customerPoMapper.findAll();
+        // 将每个 CustomerPo 转换成 Customer
+        return customerPoList.stream()
+                .map(po -> {
+                    Customer bo = new Customer();
+                    BeanUtils.copyProperties(po, bo);
+                    return bo;
+                })
+                .collect(Collectors.toList());
+    }
     /**
      * 保存或更新顾客信息
      */
@@ -54,4 +70,5 @@ public class CustomerDao {
         BeanUtils.copyProperties(customerPo, bo);
         return bo;
     }
+
 }

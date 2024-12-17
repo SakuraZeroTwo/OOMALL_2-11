@@ -1,5 +1,7 @@
 package cn.edu.xmu.oomall.customer.service;
 
+import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.oomall.customer.controller.dto.CartResponseData;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 import cn.edu.xmu.oomall.customer.dao.CartItemDao;
@@ -26,17 +28,17 @@ public class CartService {
 
     private static final Logger logger = LoggerFactory.getLogger(CartService.class);
     @Autowired
-    private CustomerDao customerDao;
-
-    @Autowired
     private CartItemDao cartItemDao;
-    // 获取购物车列表
+    /**
+     * 获取购物车列表
+     */
     public ResponseWrapper getCartList(Long customerId, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<CartItemPo> cartItemPosPage = cartItemDao.findByCustomerId(customerId, pageable);
 
         if (cartItemPosPage.isEmpty()) {
-            return new ResponseWrapper("Customer not found", null, 1);
+//            return new ReturnObject(ReturnNo.RESOURCE_ID_NOTEXIST,"用户不存在！", null);
+            return new ResponseWrapper("false", null ,2);
         }
 
         List<CartItem> cartItems = cartItemPosPage.getContent().stream()
@@ -46,8 +48,8 @@ public class CartService {
         Long totalPrice = cartItems.stream()
                 .mapToLong(CartItem::getSubtotal)
                 .sum();
-
-        return new ResponseWrapper("success", new CartResponseData(cartItems, totalPrice), 0);
+//        return new ReturnObject(ReturnNo.OK, "success",new CartResponseData(cartItems, totalPrice));
+        return new ResponseWrapper("success", new CartResponseData(cartItems, totalPrice) ,1);
     }
 
     // 将CartItemPo转换为CartItem

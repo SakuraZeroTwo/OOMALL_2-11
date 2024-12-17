@@ -11,9 +11,6 @@ public interface CustomerPoMapper extends JpaRepository<CustomerPo, Long> {
     // 根据用户名查找顾客
     CustomerPo findByUserName(String userName);
 
-    // 根据状态查询顾客列表
-    List<CustomerPo> findByInvalidEquals(Byte invalid);
+    List<CustomerPo> findAll();
 
-    // 查询已删除的顾客
-    List<CustomerPo> findByBeDeletedEquals(Byte beDeleted);
 }
