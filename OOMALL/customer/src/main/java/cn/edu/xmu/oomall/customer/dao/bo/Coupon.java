@@ -11,6 +11,7 @@ import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.security.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +19,7 @@ import java.security.Timestamp;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @CopyFrom({CouponPo.class})
 @Data
-public class Coupon {
+public class Coupon implements Serializable {
     @ToString.Exclude
     @JsonIgnore
     private final static Logger logger = LoggerFactory.getLogger(Coupon.class);

@@ -3,6 +3,7 @@ package cn.edu.xmu.oomall.customer.dao.bo;
 import cn.edu.xmu.oomall.customer.dao.CouponDao;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -17,7 +18,7 @@ import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
 @Slf4j
 @Data
 @Component
-public class Customer {
+public class Customer{
     private Long id;
     private String userName;
     private String password;
@@ -109,33 +110,5 @@ public class Customer {
         }
     }
 
-    @ToString.Exclude
-    private CouponDao couponDao;
 
-    @ToString.Exclude
-    private List<Coupon> couponsList;
-
-    /**
-     * 获取优惠券列表
-     */
-    public List<Coupon> getCouponsList() {
-        log.info("Current couponsList: {}", this.couponsList);
-        log.info("couponDao is: {}", this.couponDao);
-        if (Objects.isNull(this.couponsList) && Objects.nonNull(this.couponDao)) {
-            this.couponsList = this.couponDao.retrieveByCustomerId(this.id, 1, MAX_RETURN);
-            log.info("Retrieved coupons for customer id: {}: {}", this.id, this.couponsList);
-        }
-        else{
-            log.info("else");
-        }
-        return this.couponsList;
-    }
-
-    public CouponDao getCouponDao() {
-        return couponDao;
-    }
-
-    public void setCouponDao(CouponDao couponDao) {
-        this.couponDao = couponDao;
-    }
 }
