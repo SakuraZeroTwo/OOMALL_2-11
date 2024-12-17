@@ -22,7 +22,7 @@ public class CustomerDao {
      * 根据 ID 查询顾客
      */
     public Optional<Customer> findById(Long id) {
-        logger.debug("Attempting to find customer by id: {}", id);
+        logger.info("Attempting to find customer by id: {}", id);
         return customerPoMapper.findById(id).map(po -> {
             Customer bo = new Customer();
             BeanUtils.copyProperties(po, bo);

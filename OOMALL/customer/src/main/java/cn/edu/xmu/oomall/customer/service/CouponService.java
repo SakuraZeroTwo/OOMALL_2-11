@@ -1,5 +1,7 @@
 package cn.edu.xmu.oomall.customer.service;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 import cn.edu.xmu.oomall.customer.dao.CouponDao;
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;
@@ -25,9 +27,18 @@ public class CouponService {
     /**
      * 获取优惠券列表
      */
-    public List<Coupon> getCouponsList(Long id) {
+    public ResponseWrapper getCouponsList(Long id) {
         log.info("Attempting to get coupons list for customer with id: {}", id);
-        return couponDao.retrieveByCustomerId(id,1,MAX_RETURN);
+        Customer customer = customerDao.findById(id).orElse(null);
+        List<Coupon> CouponBoList = couponDao.retrieveByCustomerId(id,1,MAX_RETURN);
+        if(customer == null) {
+            return new ResponseWrapper("customer is not exist",null,1);
+        }
+        if(CouponBoList == null || CouponBoList.isEmpty()) {
+            return new ResponseWrapper("coupons list is empty",null,1);
+        }
+
+        return new ResponseWrapper("success",CouponBoList,1);
     }
 
 }

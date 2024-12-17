@@ -77,8 +77,8 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}/coupon")
-    public ResponseEntity<List<Coupon>> getCouponList(@PathVariable Long id) {
-        List<Coupon> couponList = couponService.getCouponsList(id);
+    public ResponseEntity<ResponseWrapper> getCouponList(@PathVariable Long id) {
+        ResponseWrapper couponList = couponService.getCouponsList(id);
         return ResponseEntity.ok(couponList);
     }
 
