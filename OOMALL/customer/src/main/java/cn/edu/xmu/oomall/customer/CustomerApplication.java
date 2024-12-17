@@ -5,7 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = {"cn.edu.xmu.oomall.customer"})
+
+@SpringBootApplication(scanBasePackages = {"cn.edu.xmu.oomall.customer", "cn.edu.xmu.javaee.core"})
 @EnableDiscoveryClient
 @EnableJpaRepositories
 public class CustomerApplication {
