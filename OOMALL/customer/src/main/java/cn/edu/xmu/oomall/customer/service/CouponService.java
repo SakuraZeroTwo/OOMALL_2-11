@@ -39,7 +39,7 @@ public class CouponService {
             return new ResponseWrapper("coupons list is empty",null,1);
         }
 
-        return new ResponseWrapper("success",CouponBoList,1);
+        return new ResponseWrapper("success",CouponBoList,0);
     }
 
 }
