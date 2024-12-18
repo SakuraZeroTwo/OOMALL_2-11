@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
 @Slf4j
 @Data
-public class Customer {
+public class Customer implements Serializable {
     private Long id;
     private String userName;
     private String password;

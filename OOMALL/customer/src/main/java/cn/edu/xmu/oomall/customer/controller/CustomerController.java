@@ -94,5 +94,25 @@ public class CustomerController {
         return ResponseEntity.ok(couponList);
     }
 
+    /**
+     * 顾客获取优惠券
+     */
+//    @PostMapping("{id}/couponactivites/{activityId}/coupon")
+//    public ResponseEntity<ResponseWrapper> postCouponactivitiesIdCoupons(@PathVariable Long id, @PathVariable Long activityId) {
+//        ResponseWrapper couponList = couponService.postCouponactivitiesIdCoupons(id,activityId);
+//        return ResponseEntity.ok(couponList);
+//    }
+
+    /**
+     * 更新地址信息
+     */
+    @PutMapping("/{id}/address/{addessId}")
+    public ResponseEntity<ResponseWrapper> updateAddressInfo(@PathVariable Long id, @PathVariable Long addressId) {
+        ResponseWrapper updateAddress = customerService.updateAddressInfo(id,addressId);
+        return ResponseEntity.ok(updateAddress);
+    }
+
+
+
 }
 

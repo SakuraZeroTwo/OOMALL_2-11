@@ -6,6 +6,7 @@ import cn.edu.xmu.oomall.customer.controller.dto.CustomerResponseData;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
+import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -112,5 +113,12 @@ public class CustomerService {
             customerDao.save(customer);
         }
 
+    }
+
+    /**
+     * 顾客更新地址信息
+     */
+    public CustomerAddress updateAddressInfo(Long id, Long addressId){
+        return ;
     }
 }
