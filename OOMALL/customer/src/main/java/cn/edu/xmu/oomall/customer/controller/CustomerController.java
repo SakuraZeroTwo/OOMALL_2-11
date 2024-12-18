@@ -1,14 +1,20 @@
 package cn.edu.xmu.oomall.customer.controller;
 
 import cn.edu.xmu.javaee.core.model.ReturnObject;
+import cn.edu.xmu.oomall.customer.controller.dto.CustomerAddressDto;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 
+import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
+import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
 import cn.edu.xmu.oomall.customer.service.CartService;
 import cn.edu.xmu.oomall.customer.service.CouponService;
+import cn.edu.xmu.oomall.customer.service.CustomerAddressService;
 import cn.edu.xmu.oomall.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +25,12 @@ import java.util.List;
 @RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
-
     private final CouponService couponService;
     private final CustomerService customerService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CustomerAddressService customerAddressService;
 
     /**
      * 通过用户名获取顾客信息
@@ -95,24 +102,13 @@ public class CustomerController {
     }
 
     /**
-     * 顾客获取优惠券
-     */
-//    @PostMapping("{id}/couponactivites/{activityId}/coupon")
-//    public ResponseEntity<ResponseWrapper> postCouponactivitiesIdCoupons(@PathVariable Long id, @PathVariable Long activityId) {
-//        ResponseWrapper couponList = couponService.postCouponactivitiesIdCoupons(id,activityId);
-//        return ResponseEntity.ok(couponList);
-//    }
-
-    /**
      * 更新地址信息
      */
-    @PutMapping("/{id}/address/{addessId}")
-    public ResponseEntity<ResponseWrapper> updateAddressInfo(@PathVariable Long id, @PathVariable Long addressId) {
-        ResponseWrapper updateAddress = customerService.updateAddressInfo(id,addressId);
-        return ResponseEntity.ok(updateAddress);
+    @PutMapping("/addresses/{id}")
+    public ResponseEntity<CustomerAddress> updateAddressInfo(@PathVariable Long id, @RequestBody CustomerAddressDto customerAddressDto) {
+        CustomerAddress updatedAddress = customerAddressService.updateAddressInfo(id,customerAddressDto);
+        return ResponseEntity.ok(updatedAddress);
     }
-
-
 
 }
 

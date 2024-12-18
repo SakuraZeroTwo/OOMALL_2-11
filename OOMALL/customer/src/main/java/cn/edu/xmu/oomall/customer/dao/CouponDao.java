@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.beans.BeanUtils;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,13 +27,22 @@ public class CouponDao {
     @Autowired
     private final CouponPoMapper couponPoMapper;
 
+
+
     public List<Coupon> retrieveByCustomerId(Long customerId, Integer page, Integer pageSize) {
         log.debug("retrieveByCustomerId: customerId = {}, page = {}, pageSize = {}", customerId, page, pageSize);
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         List<CouponPo> couponPos = this.couponPoMapper.findByCustomerId(customerId, pageable);
+
         return couponPos.stream()
-                .map(po -> CloneFactory.copy(new Coupon(), po))
+                .map(po -> {
+                    Coupon coupon = new Coupon();
+                    BeanUtils.copyProperties(po, coupon);
+                    return coupon;
+                })
                 .collect(Collectors.toList());
     }
+
 }
+
 

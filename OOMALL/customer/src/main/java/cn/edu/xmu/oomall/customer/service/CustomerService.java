@@ -4,10 +4,14 @@ import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerListResponseData;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerResponseData;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
+import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
+import cn.edu.xmu.oomall.customer.controller.dto.CustomerAddressDto;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +24,8 @@ import java.util.List;
 public class CustomerService {
 
     private final CustomerDao customerDao;
-
+    private final CustomerAddressDao customerAddressDao;
+    private final static Logger logger = LoggerFactory.getLogger(CustomerService.class);
     /**
      * 根据用户名获取顾客
      */
@@ -115,10 +120,5 @@ public class CustomerService {
 
     }
 
-    /**
-     * 顾客更新地址信息
-     */
-    public CustomerAddress updateAddressInfo(Long id, Long addressId){
-        return ;
-    }
+
 }
