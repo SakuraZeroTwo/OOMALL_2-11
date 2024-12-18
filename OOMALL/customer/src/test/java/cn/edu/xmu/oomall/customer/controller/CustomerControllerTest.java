@@ -34,8 +34,6 @@ public class CustomerControllerTest {
     @Test
     void getCouponList() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get(CUSTOMER_HAS_COUPONS,1001)
-                    .param("page","1")
-                    .param("pageSize","100")
                     .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
