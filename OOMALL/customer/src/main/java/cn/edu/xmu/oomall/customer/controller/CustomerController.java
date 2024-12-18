@@ -1,6 +1,7 @@
 package cn.edu.xmu.oomall.customer.controller;
 
 import cn.edu.xmu.javaee.core.model.ReturnObject;
+import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
@@ -63,8 +64,13 @@ public class CustomerController {
      * 更新顾客信息
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
-        Customer updatedCustomer = customerService.updateCustomer(id, customer);
+    public ResponseEntity<Customer> updateCustomerMessage(@PathVariable Long id, @RequestBody CustomerDto customerdto) {
+        Customer updatedCustomer = customerService.updateCustomer(id, customerdto);
+        return ResponseEntity.ok(updatedCustomer);
+    }
+    @PutMapping("/{id}/password")
+    public ResponseEntity<Customer> updateCustomerPassword(@PathVariable Long id, @RequestBody CustomerDto customerdto) {
+        Customer updatedCustomer = customerService.updateCustomer(id, customerdto);
         return ResponseEntity.ok(updatedCustomer);
     }
     @PutMapping("/{id}/{action:ban|release}")

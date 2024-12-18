@@ -95,9 +95,6 @@ public class Customer {
         this.invalid = invalid;
         this.be_deleted = be_deleted;
     }
-    public void setBeDelete() {
-            this.be_deleted = BEDELETED; // 将 null 设置为 1
-    }
     public void convertInvalid() {
         if(this.invalid.equals(INVALID) ){
             this.invalid = VALID;
@@ -106,7 +103,7 @@ public class Customer {
             this.invalid = INVALID;
         }
         else {
-
+            throw new IllegalArgumentException("用户状态错误");
         }
     }
 }

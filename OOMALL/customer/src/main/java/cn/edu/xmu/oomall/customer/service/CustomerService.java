@@ -1,5 +1,6 @@
 package cn.edu.xmu.oomall.customer.service;
 
+import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerListResponseData;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerResponseData;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
@@ -71,22 +72,19 @@ public class CustomerService {
     /**
      * 更新顾客信息
      */
-    public Customer updateCustomer(Long id, Customer customer) {
+    public Customer updateCustomer(Long id, CustomerDto customerdto) {
         // 找到已有顾客
         Customer existingCustomer = customerDao.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
 
         // 只允许更新指定字段
-        if (customer.getUserName() != null) {
-            existingCustomer.setUserName(customer.getUserName());
+        if (customerdto.getPassword() != null) {
+            existingCustomer.setPassword(customerdto.getPassword());
         }
-        if (customer.getPassword() != null) {
-            existingCustomer.setPassword(customer.getPassword());
+        if (customerdto.getName() != null) {
+            existingCustomer.setName(customerdto.getName());
         }
-        if (customer.getName() != null) {
-            existingCustomer.setName(customer.getName());
-        }
-        if (customer.getMobile() != null) {
-            existingCustomer.setMobile(customer.getMobile());
+        if (customerdto.getMobile() != null) {
+            existingCustomer.setMobile(customerdto.getMobile());
         }
         existingCustomer.setGmtModified(LocalDateTime.now());
         // 保存更新后的顾客
@@ -110,7 +108,7 @@ public class CustomerService {
         if(customer != null)
         {
             customer.setInvalid(Customer.DELETED);
-            customer.setBeDelete();
+            customer.setBe_deleted(Customer.BEDELETED);
             customerDao.save(customer);
         }
 
