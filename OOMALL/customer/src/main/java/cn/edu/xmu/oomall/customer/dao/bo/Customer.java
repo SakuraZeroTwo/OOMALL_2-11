@@ -1,14 +1,18 @@
 package cn.edu.xmu.oomall.customer.dao.bo;
 
+import cn.edu.xmu.oomall.customer.dao.AddressDao;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@Data
+@Component
 public class Customer {
     private Long id;
     private String userName;
@@ -34,6 +38,11 @@ public class Customer {
     @ToString.Exclude
     @JsonIgnore
     public static final Byte DELETED = 2;  // 删除
+
+    @Setter
+    @ToString.Exclude
+    @JsonIgnore
+    private AddressDao addressDao;
 
     // 状态名称映射
     @ToString.Exclude
@@ -67,6 +76,11 @@ public class Customer {
         }
     };
 
+    @Autowired
+    public Customer(AddressDao addressDao) {
+        this.addressDao = addressDao;
+    }
+
     /**
      * 是否允许状态迁移
      * @param newStatus 迁移去的状态
@@ -87,7 +101,7 @@ public class Customer {
         this.invalid = invalid;
     }
     public void setBeDelete() {
-            this.beDelete = BEDELETED; // 将 null 设置为 1
+            this.beDelete = BEDELETED;
     }
     public void convertInvalid() {
         if(this.invalid.equals(INVALID) ){
@@ -99,5 +113,93 @@ public class Customer {
         else {
 
         }
+    }
+
+    public Address addAddress(Address address) {
+        address.setConsignee(this.name);
+        address.setMobile(this.mobile);
+        address.setCreatorId(this.id);
+        address.setCreatorName(this.userName);
+        return this.addressDao.insert(address);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Byte getInvalid() {
+        return invalid;
+    }
+
+    public void setInvalid(Byte invalid) {
+        this.invalid = invalid;
+    }
+
+    public Byte getBeDelete() {
+        return beDelete;
+    }
+
+    public void setBeDelete(Byte beDelete) {
+        this.beDelete = beDelete;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Integer getPoint() {
+        return point;
+    }
+
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
+
+    public LocalDateTime getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(LocalDateTime gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public LocalDateTime getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(LocalDateTime gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

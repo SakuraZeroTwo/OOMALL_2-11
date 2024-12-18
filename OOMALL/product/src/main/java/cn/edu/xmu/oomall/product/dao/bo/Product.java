@@ -151,8 +151,8 @@ public class Product extends OOMallObject implements Serializable {
     }
 
     @Setter
-    @JsonIgnore
     @ToString.Exclude
+    @JsonIgnore
     private OnSaleDao onsaleDao;
 
     /**
