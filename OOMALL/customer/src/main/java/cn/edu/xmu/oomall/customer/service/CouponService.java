@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
+import static java.util.Objects.isNull;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
@@ -31,7 +32,7 @@ public class CouponService {
         log.info("Attempting to get coupons list for customer with id: {}", id);
         Customer customer = customerDao.findById(id).orElse(null);
         List<Coupon> CouponBoList = couponDao.retrieveByCustomerId(id,1,MAX_RETURN);
-        if(customer == null) {
+        if(isNull(customer)) {
             return new ResponseWrapper("customer is not exist",null,1);
         }
         if(CouponBoList == null || CouponBoList.isEmpty()) {
