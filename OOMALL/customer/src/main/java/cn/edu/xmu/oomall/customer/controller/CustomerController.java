@@ -30,6 +30,7 @@ public class CustomerController {
      */
     @GetMapping("/username/{username}")
     public ResponseEntity<ResponseWrapper> getCustomerByUserName(@PathVariable("username") String userName) {
+
         ResponseWrapper customer = customerService.getCustomerByUserName(userName);
         return ResponseEntity.ok(customer);
     }
@@ -46,11 +47,6 @@ public class CustomerController {
      * 查询所有顾客
      */
 
-    @GetMapping("/getAllCustomers")
-    public ResponseEntity<ResponseWrapper> retriveUsers() {
-        ResponseWrapper customers = customerService.retriveUsers();
-        return ResponseEntity.ok(customers);
-    }
     /**
      * 创建顾客
      */
@@ -73,21 +69,8 @@ public class CustomerController {
         Customer updatedCustomer = customerService.updateCustomer(id, customerdto);
         return ResponseEntity.ok(updatedCustomer);
     }
-    @PutMapping("/{id}/{action:ban|release}")
-    public ResponseEntity<String> updateUserInvalid(@PathVariable Long id,
-                                                    @PathVariable String action) {
-        customerService.updateUserInvalid(id);
-        if ("ban".equalsIgnoreCase(action)) {
-            return ResponseEntity.ok("Customer " + id + " has been banned.");
-        } else {
-            return ResponseEntity.ok("Customer " + id + " has been released.");
-        }
-    }
-    @PutMapping("/{id}/delete")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
-        customerService.deleteUser(id);
-        return ResponseEntity.ok("Customer " + id + " has been deleted.");
-    }
+
+
 
     /**
      * 获取购物车列表

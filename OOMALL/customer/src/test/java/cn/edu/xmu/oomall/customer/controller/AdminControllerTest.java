@@ -1,5 +1,4 @@
 package cn.edu.xmu.oomall.customer.controller;
 
-public class CustomerControllerTest {
-
+public class AdminControllerTest {
 }
