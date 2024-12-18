@@ -23,7 +23,7 @@ public class Customer {
     private String password;
     private String name;
     private Byte invalid;
-    private Byte beDelete;
+    private Byte be_deleted;
     private String mobile;
     private Long point;
     private LocalDateTime gmtCreate;
@@ -88,14 +88,15 @@ public class Customer {
         }
         return ret;
     }
-    public Customer(Long id, String userName, String name, Byte invalid) {
+    public Customer(Long id, String userName, String name, Byte invalid,Byte be_deleted) {
         this.id = id;
         this.userName = userName;
         this.name = name;
         this.invalid = invalid;
+        this.be_deleted = be_deleted;
     }
     public void setBeDelete() {
-            this.beDelete = BEDELETED; // 将 null 设置为 1
+            this.be_deleted = BEDELETED; // 将 null 设置为 1
     }
     public void convertInvalid() {
         if(this.invalid.equals(INVALID) ){

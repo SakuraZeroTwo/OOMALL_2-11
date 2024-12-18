@@ -23,7 +23,7 @@ public class CustomerPo {
 
     private Long point;
     private Byte invalid;      // 0 有效，1 无效
-    private Byte beDeleted;     // 删除标志位
+    private Byte be_deleted;     // 删除标志位
 
     private Long creatorId;
     private String creatorName;
@@ -83,12 +83,12 @@ public class CustomerPo {
         this.invalid = invalid;
     }
 
-    public Byte getBeDeleted() {
-        return beDeleted;
+    public Byte getBe_deleted() {
+        return be_deleted;
     }
 
-    public void setBeDeleted(Byte beDeleted) {
-        this.beDeleted = beDeleted;
+    public void setBe_deleted(Byte be_deleted) {
+        this.be_deleted = be_deleted;
     }
 
     public Long getCreatorId() {
@@ -156,7 +156,7 @@ public class CustomerPo {
                 ", name='" + name + '\'' +
                 ", point=" + point +
                 ", invalid=" + invalid +
-                ", beDeleted=" + beDeleted +
+                ", beDeleted=" + be_deleted +
                 ", creatorId=" + creatorId +
                 ", creatorName='" + creatorName + '\'' +
                 ", modifierId=" + modifierId +
