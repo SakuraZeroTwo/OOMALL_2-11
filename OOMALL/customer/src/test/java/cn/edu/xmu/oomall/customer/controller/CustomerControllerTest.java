@@ -43,4 +43,19 @@ public class CustomerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data[1].couponName", is("店铺1-优惠活动3-2件9折"))); // 验证第二个元素的 couponName 是否为 "店铺1-优惠活动3-2件9折"
 
     }
+    @Test
+    void testUpdateCustomerMessage() throws Exception {
+        Long Id = 123L;  // 假设更新的是ID为123的用户
+
+        // 假设要更新的客户信息
+        String body = "{\"name\":\"新名字\", \"mobile\":\"1223455\"}";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}", Id)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(body))
+                .andExpect(MockMvcResultMatchers.status().isOk())  // 期望返回 200 OK
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(Id))  // 验证返回的用户ID
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", is("新名字")))  // 验证返回的用户名
+                .andExpect(MockMvcResultMatchers.jsonPath("$.mobile", is("1223455")));  // 验证返回的邮箱
+    }
 }
