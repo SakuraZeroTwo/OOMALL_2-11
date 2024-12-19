@@ -4,6 +4,7 @@ import cn.edu.xmu.javaee.core.util.CloneFactory;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
 import cn.edu.xmu.oomall.customer.mapper.CustomerAddressPoMapper;
+import cn.edu.xmu.oomall.customer.mapper.CustomerPoMapper;
 import cn.edu.xmu.oomall.customer.mapper.po.CustomerAddressPo;
 import cn.edu.xmu.oomall.customer.mapper.po.CustomerPo;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,7 +26,9 @@ import java.util.Optional;
 public class CustomerAddressDao {
     @Autowired
     private final CustomerAddressPoMapper customerAddressPoMapper;
-
+    private CustomerAddressPo customerAddressPo;
+    @Autowired
+    private CustomerPoMapper customerPoMapper;
     /**
      * 根据id查找对应address信息
      */
@@ -48,4 +52,23 @@ public class CustomerAddressDao {
         return bo;
     }
 
+    public void setDefaultAddress(Long customerId, Long addressId) {
+        Optional<CustomerPo> customer = customerPoMapper.findById(customerId);
+        if (!customer.isPresent()) {
+            // 如果顾客不存在，抛出异常
+            throw new RuntimeException("Customer not found!");
+        }
+        Optional<CustomerAddressPo> customerAddress = customerAddressPoMapper.findByCustomerIdAndId(customerId, addressId);
+        if (!customerAddress.isPresent()) {
+            // 如果顾客没有该地址，抛出异常
+            throw new RuntimeException("Address not found for the given customer.");
+        }
+        else {
+            customerAddressPoMapper.updateDefaultAddressByCustomerId(customerId, addressId);
+            CustomerAddressPo addressPo = customerAddress.get();
+            addressPo.setBeDefault((byte) 1);
+            customerAddressPoMapper.save(addressPo);
+        }
+
+    }
 }

@@ -1,9 +1,7 @@
 package cn.edu.xmu.oomall.customer.controller;
 
 import cn.edu.xmu.javaee.core.model.ReturnObject;
-import cn.edu.xmu.oomall.customer.controller.dto.CustomerAddressDto;
-import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
-import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
+import cn.edu.xmu.oomall.customer.controller.dto.*;
 
 import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
@@ -83,14 +81,11 @@ public class CustomerController {
      * 获取购物车列表
      */
     @GetMapping("/{id}/cart")
-    public ResponseEntity<ResponseWrapper> getCartList(
-            @PathVariable Long id,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int pageSize) {
-        ResponseWrapper response = cartService.getCartList(id, page, pageSize);
-        return ResponseEntity.ok(response);
-//        ReturnObject response = cartService.getCartList(id, page, pageSize);
-//        return response;
+    public ReturnObject getCartList(
+            @PathVariable Long id
+            ) {
+        CartResponseData response = cartService.getCartList(id);
+        return new ReturnObject(response);
     }
     /**
      * 获取优惠券列表
@@ -110,5 +105,15 @@ public class CustomerController {
         return ResponseEntity.ok(updatedAddress);
     }
 
+    /**
+     * 设置默认地址
+     */
+    @PutMapping("/default-address/{customerId}")
+    public ReturnObject setDefaultAddress(
+            @PathVariable Long customerId,
+            @RequestParam Long addressId) {
+        customerAddressService.setDefaultAddress(customerId, addressId);
+        return new ReturnObject();
+    }
 }
 
