@@ -74,20 +74,6 @@ public class Customer implements Serializable {
             });
         }
     };
-
-    /**
-     * 是否允许状态迁移
-     * @param newStatus 迁移去的状态
-     */
-    public boolean allowTransitInvalid(Byte newStatus) {
-        boolean ret = false;
-        assert (!Objects.isNull(this.invalid)) : String.format("对象(id=%d)的状态为null", this.getId());
-        Set<Byte> allowStatusSet = toInvalid.get(this.invalid);
-        if (!Objects.isNull(allowStatusSet)) {
-            ret = allowStatusSet.contains(newStatus);
-        }
-        return ret;
-    }
     public Customer(Long id, String userName, String name, Byte invalid,Byte be_deleted) {
         this.id = id;
         this.userName = userName;

@@ -45,17 +45,27 @@ public class CustomerControllerTest {
     }
     @Test
     void testUpdateCustomerMessage() throws Exception {
-        Long Id = 123L;  // 假设更新的是ID为123的用户
-
-        // 假设要更新的客户信息
+        Long Id = 123L;
         String body = "{\"name\":\"新名字\", \"mobile\":\"1223455\"}";
 
         this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}", Id)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(body))
-                .andExpect(MockMvcResultMatchers.status().isOk())  // 期望返回 200 OK
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(Id))  // 验证返回的用户ID
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name", is("新名字")))  // 验证返回的用户名
-                .andExpect(MockMvcResultMatchers.jsonPath("$.mobile", is("1223455")));  // 验证返回的邮箱
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(Id))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", is("新名字")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.mobile", is("1223455")));
+    }
+    @Test
+    void testUpdateCustomerPassword() throws Exception {
+        Long Id = 123L;
+        String body = "{\"password\":\"32145\"}";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/password", Id)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(body))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(Id))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password", is("32145")));
     }
 }
