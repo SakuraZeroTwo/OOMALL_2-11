@@ -24,16 +24,18 @@ public class AdminControllerTest {
     private MockMvc mockMvc;
     @Test
     void testGetUserById() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",123)
+        Long Id = 123L;
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",Id)
             .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("success")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.customer.id").value(123));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.customer.id").value(Id));
     }
     @Test
     void testGetUserByNULLID() throws Exception{
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",0)
+        Long Id = 0L;
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",Id)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.INTERNAL_SERVER_ERR.getErrNo())))
@@ -41,25 +43,36 @@ public class AdminControllerTest {
     }
     @Test
     void testUpdateUserInvalid() throws Exception {
+        Long Id = 123L;
         // 测试封禁用户
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", 123, "ban")
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", Id, "ban")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Customer 123 has been banned."));
+                .andExpect(MockMvcResultMatchers.content().string("Customer " + Id + " has been banned."));
 
         // 测试解封用户
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", 123, "release")
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", Id, "release")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Customer 123 has been released."));
+                .andExpect(MockMvcResultMatchers.content().string("Customer " + Id + " has been released."));
     }
     @Test
     void testBanOrReleaseDeletedUser() throws Exception{
+        Long Id = 12L;
         // 测试封禁或解封已被删除的用户
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", 12, "release")
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", Id, "release")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.content().string("用户状态错误"));  // 预期错误消息
+                .andExpect(MockMvcResultMatchers.content().string("用户状态错误"));
+    }
+    @Test
+    void testDeleteUser() throws Exception {
+        Long Id = 123L;
+
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/delete", Id)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Customer " + Id + " has been deleted."));
     }
 
 
