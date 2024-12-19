@@ -42,4 +42,12 @@ public class CustomerAddressService {
         // 保存更新后的顾客
         return customerAddressDao.save(exitingCustomerAddress);
     }
+    /**
+     * 顾客设置默认地址
+     *
+     */
+    public void setDefaultAddress(Long customerId, Long addressId) {
+
+        customerAddressDao.setDefaultAddress(customerId, addressId);
+    }
 }
