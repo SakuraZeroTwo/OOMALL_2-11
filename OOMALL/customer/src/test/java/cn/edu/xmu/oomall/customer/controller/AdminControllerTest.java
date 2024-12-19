@@ -59,7 +59,7 @@ public class AdminControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", 12, "release")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.content().string("用户状态错误"));  // 预期错误消息
+                .andExpect(MockMvcResultMatchers.content().string("用户状态错误"));  
     }
 
 
