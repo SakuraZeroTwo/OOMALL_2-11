@@ -45,7 +45,7 @@ public class CustomerService {
         if (customer == null) {
             return new ResponseWrapper("User not Found!", null ,2);
         }
-        return new ResponseWrapper("success",new CustomerResponseData(customer),1);
+        return new ResponseWrapper("success",new CustomerResponseData(customer),0);
     }
     /**
      * 查询所有顾客列表

@@ -45,11 +45,6 @@ public class CustomerController {
     /**
      * 通过 ID 获取顾客信息
      */
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseWrapper> getCustomerById(@PathVariable Long id) {
-        ResponseWrapper customer = customerService.getCustomerById(id);
-        return ResponseEntity.ok(customer);
-    }
     /**
      * 查询所有顾客
      */

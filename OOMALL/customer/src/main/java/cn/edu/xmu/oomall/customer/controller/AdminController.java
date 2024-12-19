@@ -18,7 +18,7 @@ import java.util.List;
 import static cn.edu.xmu.javaee.core.model.Constants.PLATFORM;
 
 @RestController
-@RequestMapping(value = "/{did}/customers", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "customers", produces = "application/json;charset=UTF-8")
 @RequiredArgsConstructor
 public class AdminController {
     private final CustomerService customerService;
@@ -26,21 +26,13 @@ public class AdminController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseWrapper> getCustomerById(@PathVariable Long id,@PathVariable Long did) {
-        if (!PLATFORM.equals(did)) {
-            throw new BusinessException(ReturnNo.RESOURCE_ID_OUTSCOPE, String.format(ReturnNo.RESOURCE_ID_OUTSCOPE.getMessage(), "地区", id, did));
-        }
+    public ResponseEntity<ResponseWrapper> getCustomerById(@PathVariable Long id) {
         ResponseWrapper customer = customerService.getCustomerById(id);
         return ResponseEntity.ok(customer);
     }
     @PutMapping("/{id}/{action:ban|release}")
     public ResponseEntity<String> updateUserInvalid(@PathVariable Long id,
-                                                    @PathVariable String action,
-                                                    @PathVariable Long did) {
-        if (!PLATFORM.equals(did)) {
-            throw new BusinessException(ReturnNo.RESOURCE_ID_OUTSCOPE, String.format(ReturnNo.RESOURCE_ID_OUTSCOPE.getMessage(), "地区", did));
-        }
-
+                                                    @PathVariable String action) {
         customerService.updateUserInvalid(id);
         if ("ban".equalsIgnoreCase(action)) {
             return ResponseEntity.ok("Customer " + id + " has been banned.");
@@ -49,18 +41,12 @@ public class AdminController {
         }
     }
     @PutMapping("/{id}/delete")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id,@PathVariable Long did) {
-        if (!PLATFORM.equals(did)) {
-            throw new BusinessException(ReturnNo.RESOURCE_ID_OUTSCOPE, String.format(ReturnNo.RESOURCE_ID_OUTSCOPE.getMessage(), "地区", id, did));
-        }
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         customerService.deleteUser(id);
         return ResponseEntity.ok("Customer " + id + " has been deleted.");
     }
     @GetMapping("/getAllCustomers")
-    public ResponseEntity<ResponseWrapper> retriveUsers(@PathVariable Long did) {
-        if (!PLATFORM.equals(did)) {
-            throw new BusinessException(ReturnNo.RESOURCE_ID_OUTSCOPE, String.format(ReturnNo.RESOURCE_ID_OUTSCOPE.getMessage(), "地区", did));
-        }
+    public ResponseEntity<ResponseWrapper> retriveUsers() {
         ResponseWrapper customers = customerService.retriveUsers();
         return ResponseEntity.ok(customers);
     }
