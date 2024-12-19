@@ -38,7 +38,6 @@ public class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.INTERNAL_SERVER_ERR.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("User not Found!")));
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.data",is(null)));
 
     }
 
