@@ -23,7 +23,7 @@ public class AdminControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    void getUserById() throws Exception {
+    void testGetUserById() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",123)
             .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -32,13 +32,35 @@ public class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.customer.id").value(123));
     }
     @Test
-    void getUserByNULLID() throws Exception{
+    void testGetUserByNULLID() throws Exception{
         this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",0)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.INTERNAL_SERVER_ERR.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("User not Found!")));
-
     }
+    @Test
+    void testUpdateUserInvalid() throws Exception {
+        // 测试封禁用户
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", 123, "ban")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Customer 123 has been banned."));
+
+        // 测试解封用户
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", 123, "release")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Customer 123 has been released."));
+    }
+    @Test
+    void testBanOrReleaseDeletedUser() throws Exception{
+        // 测试封禁或解封已被删除的用户
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", 12, "release")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("用户状态错误"));  // 预期错误消息
+    }
+
 
 }

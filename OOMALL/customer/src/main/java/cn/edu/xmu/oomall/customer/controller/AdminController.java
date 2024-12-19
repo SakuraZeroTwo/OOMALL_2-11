@@ -10,6 +10,7 @@ import cn.edu.xmu.oomall.customer.service.CouponService;
 import cn.edu.xmu.oomall.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,11 +34,16 @@ public class AdminController {
     @PutMapping("/{id}/{action:ban|release}")
     public ResponseEntity<String> updateUserInvalid(@PathVariable Long id,
                                                     @PathVariable String action) {
-        customerService.updateUserInvalid(id);
-        if ("ban".equalsIgnoreCase(action)) {
-            return ResponseEntity.ok("Customer " + id + " has been banned.");
-        } else {
-            return ResponseEntity.ok("Customer " + id + " has been released.");
+        try {
+            customerService.updateUserInvalid(id);
+            if ("ban".equalsIgnoreCase(action)) {
+                return ResponseEntity.ok("Customer " + id + " has been banned.");
+            } else {
+                return ResponseEntity.ok("Customer " + id + " has been released.");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("用户状态错误");
         }
     }
     @PutMapping("/{id}/delete")
