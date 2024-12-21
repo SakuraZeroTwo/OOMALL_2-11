@@ -48,6 +48,10 @@ public class CustomerDao {
      */
     public List<Customer> findAll() {
         List<CustomerPo> customerPoList = customerPoMapper.findAll();
+        if (customerPoList.isEmpty()) {
+//            return new ResponseWrapper("User not Found!", null ,2);
+            throw new RuntimeException("User not Found!");
+        }
         // 将每个 CustomerPo 转换成 Customer
         return customerPoList.stream()
                 .map(po -> {

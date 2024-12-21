@@ -2,6 +2,7 @@ package cn.edu.xmu.oomall.customer.controller;
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
+import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
@@ -52,9 +53,10 @@ public class AdminController {
         return ResponseEntity.ok("Customer " + id + " has been deleted.");
     }
     @GetMapping("/getAllCustomers")
-    public ResponseEntity<ResponseWrapper> retriveUsers() {
-        ResponseWrapper customers = customerService.retriveUsers();
-        return ResponseEntity.ok(customers);
+    public ReturnObject retriveUsers() {
+        List<Customer> customers =  customerService.retriveUsers();
+//        return ResponseEntity.ok(customers);
+        return new ReturnObject(customers);
     }
 
 }
