@@ -29,17 +29,17 @@ public class AdminControllerTest {
             .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("success")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.customer.id").value(Id));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.id").value(Id));
     }
     @Test
     void testGetUserByNULLID() throws Exception{
         Long Id = 0L;
         this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",Id)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.INTERNAL_SERVER_ERR.getErrNo())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("User not Found!")));
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.AUTH_ID_NOTEXIST.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("登录用户id不存在")));
     }
     @Test
     void testUpdateUserInvalid() throws Exception {
@@ -48,13 +48,15 @@ public class AdminControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", Id, "ban")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Customer " + Id + " has been banned."));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
 
         // 测试解封用户
         this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", Id, "release")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Customer " + Id + " has been released."));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
     }
     @Test
     void testBanOrReleaseDeletedUser() throws Exception{
@@ -62,8 +64,9 @@ public class AdminControllerTest {
         // 测试封禁或解封已被删除的用户
         this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", Id, "release")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.content().string("用户状态错误"));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.STATENOTALLOW.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("顾客对象（id=12）已删除状态禁止此操作")));
     }
     @Test
     void testDeleteUser() throws Exception {
@@ -72,8 +75,8 @@ public class AdminControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/delete", Id)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Customer " + Id + " has been deleted."));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
+
     }
-
-
 }

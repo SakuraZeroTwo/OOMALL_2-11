@@ -32,20 +32,20 @@
 
     <modules>
         <module>core</module>
-        <module>payment</module>
-        <module>shop</module>
-        <module>product</module>
-        <module>prodorder</module>
-        <module>gateway</module>
-        <module>alipay</module>
-        <module>wechatpay</module>
-        <module>region</module>
-        <module>freight</module>
-        <module>sfexpress</module>
-        <module>jtexpress</module>
-        <module>ztoexpress</module>
-        <module>customer</module>
-        <module>comment</module>
+<!--        <module>payment</module>-->
+<!--        <module>shop</module>-->
+<!--        <module>product</module>-->
+<!--        <module>prodorder</module>-->
+<!--        <module>gateway</module>-->
+<!--        <module>alipay</module>-->
+<!--        <module>wechatpay</module>-->
+<!--        <module>region</module>-->
+<!--        <module>freight</module>-->
+<!--        <module>sfexpress</module>-->
+<!--        <module>jtexpress</module>-->
+<!--        <module>ztoexpress</module>-->
+<!--        <module>customer</module>-->
+<!--        <module>comment</module>-->
     </modules>
 
     <dependencyManagement>
