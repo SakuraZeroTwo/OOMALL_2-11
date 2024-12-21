@@ -1,9 +1,11 @@
 package cn.edu.xmu.oomall.comment.controller;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
+import cn.edu.xmu.oomall.comment.CommentApplication;
 import cn.edu.xmu.oomall.comment.controller.dto.*;
 
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
+import cn.edu.xmu.oomall.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,4 +19,10 @@ import java.util.List;
 @RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CustomerCommentController {
+    private final CommentService commentService;
+    @GetMapping("/{id}")
+    public ResponseEntity<Comment> getCommentById(@PathVariable Long id) {
+        Comment comment = this.commentService.getCommentById(id);
+        return ResponseEntity.ok(comment);
+    }
 }
