@@ -3,9 +3,6 @@ package cn.edu.xmu.oomall.customer.service;
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
-import cn.edu.xmu.oomall.customer.controller.dto.CustomerListResponseData;
-import cn.edu.xmu.oomall.customer.controller.dto.CustomerResponseData;
-import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
@@ -18,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -72,7 +68,7 @@ public class CustomerService {
      */
     public Customer createCustomer(Customer customer) {
     // 只允许创建时传入用户名和密码
-    if (customer.getUserName() == null || customer.getPassword() == null) {
+    if (customer.getUserName() == null) {
         throw new BusinessException(ReturnNo.CUSTOMERNAME_ISNULL);
     } else if (customer.getPassword() == null) {
         throw new BusinessException(ReturnNo.CUSTOMERPASSWORD_ISNULL);
