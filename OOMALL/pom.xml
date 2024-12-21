@@ -45,6 +45,7 @@
         <module>jtexpress</module>
         <module>ztoexpress</module>
         <module>customer</module>
+        <module>comment</module>
     </modules>
 
     <dependencyManagement>
