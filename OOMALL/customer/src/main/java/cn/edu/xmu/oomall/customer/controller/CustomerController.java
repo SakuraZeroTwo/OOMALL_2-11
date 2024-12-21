@@ -98,35 +98,36 @@ public class CustomerController {
      * 更新地址信息
      */
     @PutMapping("/addresses/{id}")
-    public ResponseEntity<CustomerAddress> updateAddressInfo(@PathVariable Long id, @RequestBody CustomerAddressDto customerAddressDto) {
+    public ReturnObject updateAddressInfo(@PathVariable Long id, @RequestBody CustomerAddressDto customerAddressDto) {
         CustomerAddress updatedAddress = customerAddressService.updateAddressInfo(id,customerAddressDto);
-        return ResponseEntity.ok(updatedAddress);
+        return new ReturnObject();
     }
 
     /**
      * 设置默认地址
      */
     @PutMapping("/default-address/{customerId}")
-    public ReturnObject setDefaultAddress(
-            @PathVariable Long customerId,
-            @RequestParam Long addressId) {
+    public ReturnObject setDefaultAddress(@PathVariable Long customerId, @RequestParam Long addressId) {
         customerAddressService.setDefaultAddress(customerId, addressId);
         return new ReturnObject();
     }
-
+    /**
+     * 获取地址信息
+     */
     @GetMapping("/{id}/addresses")
-    public ReturnObject getAddressesByCustomerId(@PathVariable Long id,@RequestParam(defaultValue = "1") Integer page,
+    public ReturnObject getAddressesByCustomerId(@PathVariable Long id,
+                                                 @RequestParam(defaultValue = "1") Integer page,
                                                  @RequestParam(defaultValue = "10") Integer pageSize) {
         List<CustomerAddress> addresses = this.customerAddressService.retrieveByCustomerId(id,page,pageSize);
         return new ReturnObject(new PageVo<>(addresses,page,pageSize));
     }
-
+    /**
+     * 添加用户地址
+     */
     @PostMapping("/address/{customerId}")
-    public ResponseEntity<CustomerAddress> addAddress(@RequestBody CustomerAddressDto addressDto,@PathVariable Long customerId) {
+    public ReturnObject addAddress(@RequestBody CustomerAddressDto addressDto,@PathVariable Long customerId) {
         CustomerAddress savedAddress = this.customerAddressService.addAddress(addressDto,customerId);
-        return ResponseEntity.ok(savedAddress);
+        return new ReturnObject();
     }
-
-
 }
 
