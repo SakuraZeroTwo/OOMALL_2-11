@@ -3,7 +3,6 @@ package cn.edu.xmu.oomall.customer.service;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.oomall.customer.controller.dto.CartResponseData;
-import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 import cn.edu.xmu.oomall.customer.dao.CartItemDao;
 import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.oomall.customer.mapper.po.CartItemPo;
@@ -21,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
