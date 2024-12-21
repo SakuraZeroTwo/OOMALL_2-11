@@ -5,11 +5,13 @@ import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 
+import cn.edu.xmu.oomall.customer.controller.vo.CustomerVo;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.service.CartService;
 import cn.edu.xmu.oomall.customer.service.CouponService;
 import cn.edu.xmu.oomall.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,9 @@ public class AdminController {
     @GetMapping("/{id}")
     public ReturnObject getCustomerById(@PathVariable Long id) {
         Customer customer = customerService.getCustomerById(id);
-        return new ReturnObject(customer);
+        CustomerVo customerVo = new CustomerVo();
+        BeanUtils.copyProperties(customer, customerVo);
+        return new ReturnObject(customerVo);
     }
     @PutMapping("/{id}/{action:ban|release}")
     public ResponseEntity<String> updateUserInvalid(@PathVariable Long id,
