@@ -19,10 +19,11 @@ import java.util.List;
 @RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CustomerCommentController {
-    private final CommentService commentService;
+    @Autowired
+    private CommentService commentService;
     @GetMapping("/{id}")
-    public ResponseEntity<Comment> getCommentById(@PathVariable Long id) {
+    public ReturnObject getCommentById(@PathVariable Long id) {
         Comment comment = this.commentService.getCommentById(id);
-        return ResponseEntity.ok(comment);
+        return new ReturnObject(comment);
     }
 }
