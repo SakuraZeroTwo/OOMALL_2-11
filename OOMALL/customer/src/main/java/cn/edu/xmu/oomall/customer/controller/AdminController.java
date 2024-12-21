@@ -37,29 +37,28 @@ public class AdminController {
         return new ReturnObject(customerVo);
     }
     @PutMapping("/{id}/{action:ban|release}")
-    public ResponseEntity<String> updateUserInvalid(@PathVariable Long id,
+    public ReturnObject updateUserInvalid(@PathVariable Long id,
                                                     @PathVariable String action) {
         try {
             customerService.updateUserInvalid(id);
             if ("ban".equalsIgnoreCase(action)) {
-                return ResponseEntity.ok("Customer " + id + " has been banned.");
+                return new ReturnObject();
             } else {
-                return ResponseEntity.ok("Customer " + id + " has been released.");
+                return new ReturnObject();
             }
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("用户状态错误");
+            throw new BusinessException(ReturnNo.STATENOTALLOW,
+                    String.format(ReturnNo.STATENOTALLOW.getMessage(), "顾客", id,"已删除"));
         }
     }
     @PutMapping("/{id}/delete")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ReturnObject deleteUser(@PathVariable Long id) {
         customerService.deleteUser(id);
-        return ResponseEntity.ok("Customer " + id + " has been deleted.");
+        return new ReturnObject();
     }
     @GetMapping("/getAllCustomers")
     public ReturnObject retriveUsers() {
         List<Customer> customers =  customerService.retriveUsers();
-//        return ResponseEntity.ok(customers);
         return new ReturnObject(customers);
     }
 
