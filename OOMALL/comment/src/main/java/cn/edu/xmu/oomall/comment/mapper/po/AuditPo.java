@@ -25,4 +25,84 @@ public class AuditPo {
     public String modifierName;
     public LocalDateTime gmtCreate;
     public LocalDateTime gmtModified;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Long commentId) {
+        this.commentId = commentId;
+    }
+
+    public Long getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
+    }
+
+    public Byte getAuditResult() {
+        return auditResult;
+    }
+
+    public void setAuditResult(Byte auditResult) {
+        this.auditResult = auditResult;
+    }
+
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public Long getModifierId() {
+        return modifierId;
+    }
+
+    public void setModifierId(Long modifierId) {
+        this.modifierId = modifierId;
+    }
+
+    public String getModifierName() {
+        return modifierName;
+    }
+
+    public void setModifierName(String modifierName) {
+        this.modifierName = modifierName;
+    }
+
+    public LocalDateTime getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(LocalDateTime gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public LocalDateTime getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(LocalDateTime gmtModified) {
+        this.gmtModified = gmtModified;
+    }
 }
