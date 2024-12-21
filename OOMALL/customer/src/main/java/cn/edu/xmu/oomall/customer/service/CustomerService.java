@@ -9,9 +9,11 @@ import cn.edu.xmu.oomall.customer.dao.CustomerDao;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerAddressDto;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,18 +47,22 @@ public class CustomerService {
         if (customer == null) {
             return new ResponseWrapper("User not Found!", null ,2);
         }
-        return new ResponseWrapper("success",new CustomerResponseData(customer),1);
+        return new ResponseWrapper("success",new CustomerResponseData(customer),0);
     }
     /**
      * 查询所有顾客列表
      */
-    public ResponseWrapper retriveUsers() {
+    public List<Customer> retriveUsers() {
         // 获取所有顾客
         List<Customer> customers = customerDao.findAll();
-        if (customers.isEmpty()) {
-            return new ResponseWrapper("User not Found!", null ,2);
-        }
-        return new ResponseWrapper("success",new CustomerListResponseData(customers),1);
+//        if (customers.isEmpty()) {
+////            return new ResponseWrapper("User not Found!", null ,2);
+//            throw new RuntimeException("User not Found!");
+//        }
+//        return new ResponseWrapper("success",new CustomerListResponseData(customers),1);
+//        List <CustomerDto> customerDtoList = new List<CustomerDto>();
+//        BeanUtils.copyProperties(customers, customerDtoList);
+        return customers;
     }
 
     /**

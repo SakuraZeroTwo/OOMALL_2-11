@@ -6,11 +6,15 @@ import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.javaee.core.util.CloneFactory;
 import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
+import cn.edu.xmu.javaee.core.config.OpenFeignConfig;
+import cn.edu.xmu.oomall.customer.controller.dto.CartResponseData;
+import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.oomall.customer.mapper.CartItemPoMapper;
 import cn.edu.xmu.oomall.customer.mapper.po.CartItemPo;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -21,6 +25,8 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.Objects;
 import cn.edu.xmu.javaee.core.mapper.RedisUtil;
 
@@ -44,6 +50,32 @@ public class CartItemDao {
     // 查询指定 customerId 的购物车项
     public Page<CartItemPo> findByCustomerId(Long customerId, Pageable pageable) {
         return cartItemPoMapper.findByCustomerId(customerId, pageable);
+    public Optional<CartItemPo> findByCustomerId(Long customerId) {
+        return cartItemPoMapper.findBycustomerId(customerId);
+    }
+
+    /**
+     * 获取购物车列表
+     */
+    public CartResponseData getCartList(Long customerId){
+        Optional<CartItemPo> cartItemPo = this.findByCustomerId(customerId);
+        if (cartItemPo.isEmpty()) {
+            throw new RuntimeException("User not found!");
+        }
+
+        List<CartItem> cartItems = cartItemPo.stream()
+                .map(this::convertCartItemPoToBo)
+                .collect(Collectors.toList());
+
+        Long totalPrice = cartItems.stream()
+                .mapToLong(CartItem::getSubtotal)
+                .sum();
+        return new CartResponseData(cartItems,totalPrice);
+    }
+    private CartItem convertCartItemPoToBo(CartItemPo po) {
+        CartItem item = new CartItem();
+        BeanUtils.copyProperties(po, item);
+        return item;
     }
 
     public CartItem findByProductId(Long customerId,Long productId)

@@ -44,14 +44,8 @@ public class CartService {
     /**
      * 获取购物车列表
      */
-    public ResponseWrapper getCartList(Long customerId, int page, int pageSize) {
-        Pageable pageable = PageRequest.of(page, pageSize);
-        Page<CartItemPo> cartItemPosPage = cartItemDao.findByCustomerId(customerId, pageable);
-
-        if (cartItemPosPage.isEmpty()) {
-//            return new ReturnObject(ReturnNo.RESOURCE_ID_NOTEXIST,"用户不存在！", null);
-            return new ResponseWrapper("false", null ,2);
-        }
+    public CartResponseData getCartList(Long customerId) {
+        return cartItemDao.getCartList(customerId);
 
         List<CartItem> cartItems = cartItemPosPage.getContent().stream()
                 .map(this::convertCartItemPoToBo)
