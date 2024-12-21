@@ -1,0 +1,77 @@
+2024-12-19 11:54:32.006 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-12-19 11:54:32.633 [main] INFO  com.alibaba.nacos.client.utils.ParamUtil - [settings] [req-serv] nacos-server port:8848
+2024-12-19 11:54:32.633 [main] INFO  com.alibaba.nacos.client.utils.ParamUtil - [settings] [http-client] connect timeout:1000
+2024-12-19 11:54:32.634 [main] INFO  com.alibaba.nacos.client.utils.ParamUtil - PER_TASK_CONFIG_SIZE: 3000.0
+2024-12-19 11:54:32.636 [Thread-5] INFO  c.a.n.client.auth.ram.identify.CredentialWatcher - null No credential found
+2024-12-19 11:54:32.653 [main] INFO  com.alibaba.nacos.common.labels - DefaultLabelsCollectorManager get labels.....
+2024-12-19 11:54:32.657 [main] INFO  com.alibaba.nacos.common.labels - Process LabelsCollector with [name:defaultNacosLabelsCollector]
+2024-12-19 11:54:32.657 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect properties raw labels: null
+2024-12-19 11:54:32.658 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect properties labels: {}
+2024-12-19 11:54:32.658 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect jvm raw labels: null
+2024-12-19 11:54:32.658 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect jvm labels: {}
+2024-12-19 11:54:32.658 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect env raw labels: null
+2024-12-19 11:54:32.658 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect env labels: {}
+2024-12-19 11:54:32.659 [main] INFO  com.alibaba.nacos.common.labels - DefaultLabelsCollectorManager get labels finished,labels :{}
+2024-12-19 11:54:32.664 [main] INFO  c.a.n.p.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2024-12-19 11:54:32.665 [main] INFO  c.a.n.p.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2024-12-19 11:54:32.669 [main] INFO  c.a.n.client.config.impl.LocalConfigInfoProcessor - LOCAL_SNAPSHOT_PATH:C:\Users\chen\nacos\config
+2024-12-19 11:54:32.672 [main] INFO  com.alibaba.nacos.common.remote.client - [RpcClientFactory] create a new rpc client of 18260066-1e94-4219-8631-7c7341661adf_config-0
+2024-12-19 11:54:32.696 [main] INFO  com.alibaba.nacos.common.remote.client - [18260066-1e94-4219-8631-7c7341661adf_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$618/0x000002d6243bb2d0
+2024-12-19 11:54:32.697 [main] INFO  com.alibaba.nacos.common.remote.client - [18260066-1e94-4219-8631-7c7341661adf_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$619/0x000002d6243bb6f0
+2024-12-19 11:54:32.697 [main] INFO  com.alibaba.nacos.common.remote.client - [18260066-1e94-4219-8631-7c7341661adf_config-0] Registry connection listener to current client:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$1
+2024-12-19 11:54:32.697 [main] INFO  com.alibaba.nacos.common.remote.client - [18260066-1e94-4219-8631-7c7341661adf_config-0] RpcClient init, ServerListFactory = com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$2
+2024-12-19 11:54:32.704 [main] INFO  com.alibaba.nacos.common.remote.client - [18260066-1e94-4219-8631-7c7341661adf_config-0] Try to connect to server on start up, server: {serverIp = 'nacos', server main port = 8848}
+2024-12-19 11:54:32.745 [main] INFO  c.a.nacos.common.remote.client.grpc.GrpcClient - grpc client connection server:nacos ip,serverPort:9848,grpcTslConfig:{"sslProvider":"","enableTls":false,"mutualAuthEnable":false,"trustAll":false}
+2024-12-19 11:54:33.781 [main] INFO  c.a.n.common.ability.AbstractAbilityControlManager - Ready to get current node abilities...
+2024-12-19 11:54:33.782 [main] INFO  c.a.n.common.ability.AbstractAbilityControlManager - Ready to initialize current node abilities, support modes: [SDK_CLIENT]
+2024-12-19 11:54:33.783 [main] INFO  c.a.n.common.ability.AbstractAbilityControlManager - Initialize current abilities finish...
+2024-12-19 11:54:33.783 [main] INFO  c.a.n.c.ability.discover.NacosAbilityManagerHolder - [AbilityControlManager] Successfully initialize AbilityControlManager
+2024-12-19 11:54:33.853 [main] INFO  com.alibaba.nacos.common.remote.client - [18260066-1e94-4219-8631-7c7341661adf_config-0] Success to connect to server [nacos:8848] on start up, connectionId = 1734580473216_10.0.0.4_61832
+2024-12-19 11:54:33.854 [com.alibaba.nacos.client.remote.worker.0] INFO  com.alibaba.nacos.common.remote.client - [18260066-1e94-4219-8631-7c7341661adf_config-0] Notify connected event to listeners.
+2024-12-19 11:54:33.856 [main] INFO  com.alibaba.nacos.common.remote.client - [18260066-1e94-4219-8631-7c7341661adf_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+2024-12-19 11:54:33.856 [com.alibaba.nacos.client.remote.worker.0] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [18260066-1e94-4219-8631-7c7341661adf_config-0] Connected,notify listen context...
+2024-12-19 11:54:33.856 [main] INFO  com.alibaba.nacos.common.remote.client - [18260066-1e94-4219-8631-7c7341661adf_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$640/0x000002d624508880
+2024-12-19 11:54:33.905 [main] INFO  com.alibaba.nacos.client.config.impl.Limiter - limitTime:5.0
+2024-12-19 11:54:33.977 [main] WARN  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Ignore the empty nacos configuration and get it based on dataId[oomall-gateway] & group[DEFAULT_GROUP]
+2024-12-19 11:54:34.033 [main] WARN  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Ignore the empty nacos configuration and get it based on dataId[oomall-gateway.yaml] & group[DEFAULT_GROUP]
+2024-12-19 11:54:34.035 [main] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: [BootstrapPropertySource {name='bootstrapProperties-oomall-gateway.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oomall-gateway,DEFAULT_GROUP'}]
+2024-12-19 11:54:34.041 [main] INFO  cn.edu.xmu.oomall.gateway.GatewayApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-19 11:54:34.542 [main] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=1d43c6c9-40eb-3697-b085-205ab8ad1ecb
+2024-12-19 11:54:36.024 [main] DEBUG o.s.cloud.gateway.config.GatewayProperties - Routes supplied from Gateway Properties: [RouteDefinition{id='region', predicates=[PredicateDefinition{name='Path', args={_genkey_0=/region/**}}], filters=[FilterDefinition{name='StripPrefix', args={_genkey_0=1}}], uri=lb://region-service, order=0, metadata={}}, RouteDefinition{id='payment', predicates=[PredicateDefinition{name='Path', args={_genkey_0=/payment/**}}], filters=[FilterDefinition{name='StripPrefix', args={_genkey_0=1}}], uri=lb://payment-service, order=0, metadata={}}, RouteDefinition{id='product', predicates=[PredicateDefinition{name='Path', args={_genkey_0=/product/**}}], filters=[FilterDefinition{name='StripPrefix', args={_genkey_0=1}}], uri=lb://product-service, order=0, metadata={}}, RouteDefinition{id='shop', predicates=[PredicateDefinition{name='Path', args={_genkey_0=/shop/**}}], filters=[FilterDefinition{name='StripPrefix', args={_genkey_0=1}}], uri=lb://shop-service, order=0, metadata={}}, RouteDefinition{id='freight', predicates=[PredicateDefinition{name='Path', args={_genkey_0=/freight/**}}], filters=[FilterDefinition{name='StripPrefix', args={_genkey_0=1}}], uri=lb://freight-service, order=0, metadata={}}]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [After]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Before]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Between]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Cookie]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Header]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Host]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Method]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Path]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Query]
+2024-12-19 11:54:36.121 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [ReadBody]
+2024-12-19 11:54:36.122 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [RemoteAddr]
+2024-12-19 11:54:36.122 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+2024-12-19 11:54:36.122 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Weight]
+2024-12-19 11:54:36.122 [main] INFO  o.s.c.gateway.route.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [CloudFoundryRouteService]
+2024-12-19 11:54:36.741 [main] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2024-12-19 11:54:39.156 [main] WARN  o.s.b.w.r.c.AnnotationConfigReactiveWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2024-12-19 11:54:39.167 [main] INFO  o.s.b.a.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-12-19 11:54:39.188 [main] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2024-12-19 11:54:39.190 [Thread-6] WARN  c.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2024-12-19 11:54:39.190 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2024-12-19 11:54:39.191 [Thread-8] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Destruction of the end
+2024-12-19 11:54:39.191 [Thread-6] WARN  c.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end

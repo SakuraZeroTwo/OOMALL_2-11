@@ -1,0 +1,209 @@
+2024-12-19 11:54:15.880 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-12-19 11:54:16.612 [main] INFO  com.alibaba.nacos.client.utils.ParamUtil - [settings] [req-serv] nacos-server port:8848
+2024-12-19 11:54:16.613 [main] INFO  com.alibaba.nacos.client.utils.ParamUtil - [settings] [http-client] connect timeout:1000
+2024-12-19 11:54:16.614 [main] INFO  com.alibaba.nacos.client.utils.ParamUtil - PER_TASK_CONFIG_SIZE: 3000.0
+2024-12-19 11:54:16.616 [Thread-2] INFO  c.a.n.client.auth.ram.identify.CredentialWatcher - null No credential found
+2024-12-19 11:54:16.636 [main] INFO  com.alibaba.nacos.common.labels - DefaultLabelsCollectorManager get labels.....
+2024-12-19 11:54:16.638 [main] INFO  com.alibaba.nacos.common.labels - Process LabelsCollector with [name:defaultNacosLabelsCollector]
+2024-12-19 11:54:16.638 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect properties raw labels: null
+2024-12-19 11:54:16.639 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect properties labels: {}
+2024-12-19 11:54:16.640 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect jvm raw labels: null
+2024-12-19 11:54:16.640 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect jvm labels: {}
+2024-12-19 11:54:16.640 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect env raw labels: null
+2024-12-19 11:54:16.640 [main] INFO  com.alibaba.nacos.common.labels - default nacos collect env labels: {}
+2024-12-19 11:54:16.640 [main] INFO  com.alibaba.nacos.common.labels - DefaultLabelsCollectorManager get labels finished,labels :{}
+2024-12-19 11:54:16.646 [main] INFO  c.a.n.p.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2024-12-19 11:54:16.648 [main] INFO  c.a.n.p.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2024-12-19 11:54:16.653 [main] INFO  c.a.n.client.config.impl.LocalConfigInfoProcessor - LOCAL_SNAPSHOT_PATH:C:\Users\chen\nacos\config
+2024-12-19 11:54:16.659 [main] INFO  com.alibaba.nacos.common.remote.client - [RpcClientFactory] create a new rpc client of dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0
+2024-12-19 11:54:16.681 [main] INFO  com.alibaba.nacos.common.remote.client - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$636/0x00000186233abaf0
+2024-12-19 11:54:16.682 [main] INFO  com.alibaba.nacos.common.remote.client - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$637/0x00000186233abf10
+2024-12-19 11:54:16.682 [main] INFO  com.alibaba.nacos.common.remote.client - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] Registry connection listener to current client:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$1
+2024-12-19 11:54:16.683 [main] INFO  com.alibaba.nacos.common.remote.client - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] RpcClient init, ServerListFactory = com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$2
+2024-12-19 11:54:16.692 [main] INFO  com.alibaba.nacos.common.remote.client - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] Try to connect to server on start up, server: {serverIp = 'nacos', server main port = 8848}
+2024-12-19 11:54:16.744 [main] INFO  c.a.nacos.common.remote.client.grpc.GrpcClient - grpc client connection server:nacos ip,serverPort:9848,grpcTslConfig:{"sslProvider":"","enableTls":false,"mutualAuthEnable":false,"trustAll":false}
+2024-12-19 11:54:17.704 [main] INFO  c.a.n.common.ability.AbstractAbilityControlManager - Ready to get current node abilities...
+2024-12-19 11:54:17.705 [main] INFO  c.a.n.common.ability.AbstractAbilityControlManager - Ready to initialize current node abilities, support modes: [SDK_CLIENT]
+2024-12-19 11:54:17.706 [main] INFO  c.a.n.common.ability.AbstractAbilityControlManager - Initialize current abilities finish...
+2024-12-19 11:54:17.706 [main] INFO  c.a.n.c.ability.discover.NacosAbilityManagerHolder - [AbilityControlManager] Successfully initialize AbilityControlManager
+2024-12-19 11:54:17.777 [main] INFO  com.alibaba.nacos.common.remote.client - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] Success to connect to server [nacos:8848] on start up, connectionId = 1734580457098_10.0.0.4_61686
+2024-12-19 11:54:17.778 [com.alibaba.nacos.client.remote.worker.0] INFO  com.alibaba.nacos.common.remote.client - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] Notify connected event to listeners.
+2024-12-19 11:54:17.778 [com.alibaba.nacos.client.remote.worker.0] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] Connected,notify listen context...
+2024-12-19 11:54:17.778 [main] INFO  com.alibaba.nacos.common.remote.client - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+2024-12-19 11:54:17.778 [main] INFO  com.alibaba.nacos.common.remote.client - [dabc4947-08e8-4c9d-96ab-ffd77edf248e_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$656/0x0000018623535518
+2024-12-19 11:54:17.828 [main] INFO  com.alibaba.nacos.client.config.impl.Limiter - limitTime:5.0
+2024-12-19 11:54:17.895 [main] WARN  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Ignore the empty nacos configuration and get it based on dataId[alipay-service] & group[DEFAULT_GROUP]
+2024-12-19 11:54:17.947 [main] WARN  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Ignore the empty nacos configuration and get it based on dataId[alipay-service.yaml] & group[DEFAULT_GROUP]
+2024-12-19 11:54:17.948 [main] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: [BootstrapPropertySource {name='bootstrapProperties-alipay-service.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-alipay-service,DEFAULT_GROUP'}]
+2024-12-19 11:54:17.954 [main] INFO  cn.edu.xmu.oomall.alipay.AliPayApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-19 11:54:20.098 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-19 11:54:20.100 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-12-19 11:54:20.126 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 0 JPA repository interfaces.
+2024-12-19 11:54:20.135 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-19 11:54:20.136 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-12-19 11:54:20.153 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2024-12-19 11:54:20.482 [main] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=a4a6e66a-885f-32ff-90d1-6624ab6bf97a
+2024-12-19 11:54:20.988 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.apache.rocketmq.spring.autoconfigure.ListenerContainerConfiguration' of type [org.apache.rocketmq.spring.autoconfigure.ListenerContainerConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2024-12-19 11:54:20.995 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.apache.rocketmq.spring.autoconfigure.MessageConverterConfiguration' of type [org.apache.rocketmq.spring.autoconfigure.MessageConverterConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2024-12-19 11:54:21.096 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'createRocketMQMessageConverter' of type [org.apache.rocketmq.spring.support.RocketMQMessageConverter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2024-12-19 11:54:21.108 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2024-12-19 11:54:21.116 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2024-12-19 11:54:21.120 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda$825/0x0000018623756c18] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2024-12-19 11:54:21.128 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2024-12-19 11:54:21.140 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'rocketmq-org.apache.rocketmq.spring.autoconfigure.RocketMQProperties' of type [org.apache.rocketmq.spring.autoconfigure.RocketMQProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2024-12-19 11:54:21.148 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'rocketMQMessageListenerContainerRegistrar' of type [org.apache.rocketmq.spring.support.RocketMQMessageListenerContainerRegistrar] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2024-12-19 11:54:21.545 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-12-19 11:54:21.548 [main] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [2.0.8] using APR version [1.7.4].
+2024-12-19 11:54:21.553 [main] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2024-12-19 11:54:21.571 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-12-19 11:54:21.575 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-12-19 11:54:21.575 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2024-12-19 11:54:21.692 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-12-19 11:54:21.692 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3724 ms
+2024-12-19 11:54:22.517 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2024-12-19 11:54:23.522 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-12-19 11:54:23.599 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-12-19 11:54:23.647 [main] INFO  o.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-12-19 11:54:24.041 [main] INFO  o.s.o.j.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-12-19 11:54:24.670 [main] INFO  o.h.e.t.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-12-19 11:54:24.676 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-12-19 11:54:28.583 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-12-19 11:54:28.730 [main] INFO  o.s.cloud.openfeign.FeignClientFactoryBean - For 'payment-service' URL not provided. Will try picking an instance via load-balancing.
+2024-12-19 11:54:29.181 [main] INFO  o.a.r.s.s.RocketMQMessageListenerContainerRegistrar - Register the listener to container, listenerBeanName:notifyService, containerBeanName:org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer_1
+2024-12-19 11:54:31.915 [main] INFO  o.a.r.s.autoconfigure.RocketMQAutoConfiguration - a producer (alipay_callback_group) init on namesrv rocketmq-namesrv:9876
+2024-12-19 11:54:33.279 [main] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2024-12-19 11:54:33.300 [main] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 19 endpoints beneath base path '/actuator'
+2024-12-19 11:54:33.410 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-12-19 11:54:33.437 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2024-12-19 11:54:33.443 [main] INFO  com.alibaba.nacos.client.naming - initializer namespace from ans.namespace attribute : null
+2024-12-19 11:54:33.444 [main] INFO  com.alibaba.nacos.client.naming - initializer namespace from ALIBABA_ALIWARE_NAMESPACE attribute :null
+2024-12-19 11:54:33.445 [main] INFO  com.alibaba.nacos.client.naming - initializer namespace from namespace attribute :null
+2024-12-19 11:54:33.452 [main] INFO  com.alibaba.nacos.client.naming - FailoverDataSource type is class com.alibaba.nacos.client.naming.backups.datasource.DiskFailoverDataSource
+2024-12-19 11:54:33.459 [main] INFO  c.a.n.p.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2024-12-19 11:54:33.460 [main] INFO  c.a.n.p.auth.spi.client.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2024-12-19 11:54:33.465 [main] INFO  com.alibaba.nacos.common.remote.client - [RpcClientFactory] create a new rpc client of 75b38128-c3f2-49ff-962b-2cbb3825a3ac
+2024-12-19 11:54:33.469 [main] INFO  com.alibaba.nacos.client.naming - Create naming rpc client for uuid->75b38128-c3f2-49ff-962b-2cbb3825a3ac
+2024-12-19 11:54:33.470 [main] INFO  com.alibaba.nacos.common.remote.client - [75b38128-c3f2-49ff-962b-2cbb3825a3ac] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+2024-12-19 11:54:33.470 [main] INFO  com.alibaba.nacos.common.remote.client - [75b38128-c3f2-49ff-962b-2cbb3825a3ac] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+2024-12-19 11:54:33.471 [main] INFO  com.alibaba.nacos.common.remote.client - [75b38128-c3f2-49ff-962b-2cbb3825a3ac] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+2024-12-19 11:54:33.472 [main] INFO  com.alibaba.nacos.common.remote.client - [75b38128-c3f2-49ff-962b-2cbb3825a3ac] Try to connect to server on start up, server: {serverIp = 'nacos', server main port = 8848}
+2024-12-19 11:54:33.472 [main] INFO  c.a.nacos.common.remote.client.grpc.GrpcClient - grpc client connection server:nacos ip,serverPort:9848,grpcTslConfig:{"sslProvider":"","enableTls":false,"mutualAuthEnable":false,"trustAll":false}
+2024-12-19 11:54:33.686 [main] INFO  com.alibaba.nacos.common.remote.client - [75b38128-c3f2-49ff-962b-2cbb3825a3ac] Success to connect to server [nacos:8848] on start up, connectionId = 1734580473131_10.0.0.4_61830
+2024-12-19 11:54:33.686 [main] INFO  com.alibaba.nacos.common.remote.client - [75b38128-c3f2-49ff-962b-2cbb3825a3ac] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+2024-12-19 11:54:33.686 [com.alibaba.nacos.client.remote.worker.0] INFO  com.alibaba.nacos.common.remote.client - [75b38128-c3f2-49ff-962b-2cbb3825a3ac] Notify connected event to listeners.
+2024-12-19 11:54:33.686 [main] INFO  com.alibaba.nacos.common.remote.client - [75b38128-c3f2-49ff-962b-2cbb3825a3ac] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$656/0x0000018623535518
+2024-12-19 11:54:33.686 [com.alibaba.nacos.client.remote.worker.0] INFO  com.alibaba.nacos.client.naming - Grpc connection connect
+2024-12-19 11:54:33.687 [main] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] public registering service alipay-service with instance Instance{instanceId='null', ip='10.30.53.224', port=8080, weight=1.0, healthy=true, enabled=true, ephemeral=true, clusterName='', serviceName='null', metadata={IPv6=null, preserved.register.source=SPRING_CLOUD}}
+2024-12-19 11:54:33.751 [main] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, DEFAULT_GROUP alipay-service 10.30.53.224:8080 register finished
+2024-12-19 11:54:37.620 [main] ERROR o.a.r.s.s.RocketMQMessageListenerContainerRegistrar - Started container failed. DefaultRocketMQListenerContainer{consumerGroup='alipay-notify-group', namespace='', namespaceV2='', nameServer='rocketmq-namesrv:9876', topic='alipay-notify-topic', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false, instanceName=DEFAULT}
+java.lang.IllegalStateException: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to null failed
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:843)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:574)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.updateTopicSubscribeInfoWhenSubscriptionChanged(DefaultMQPushConsumerImpl.java:1237)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:999)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:735)
+	at org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer.start(DefaultRocketMQListenerContainer.java:353)
+	at org.apache.rocketmq.spring.support.RocketMQMessageListenerContainerRegistrar.startContainer(RocketMQMessageListenerContainerRegistrar.java:114)
+	at org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor.start(RocketMQMessageListenerBeanPostProcessor.java:73)
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285)
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:472)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257)
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:990)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:628)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at cn.edu.xmu.oomall.alipay.AliPayApplication.main(AliPayApplication.java:19)
+Caused by: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to null failed
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.invokeSync(NettyRemotingClient.java:574)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:2030)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:2021)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:782)
+	... 21 common frames omitted
+2024-12-19 11:54:37.625 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2024-12-19 11:54:38.252 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor'
+2024-12-19 11:54:38.268 [main] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2024-12-19 11:54:38.269 [main] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] public deregistering service alipay-service with instance: Instance{instanceId='null', ip='10.30.53.224', port=8080, weight=1.0, healthy=true, enabled=true, ephemeral=true, clusterName='', serviceName='null', metadata={}}
+2024-12-19 11:54:38.345 [main] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2024-12-19 11:54:38.347 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.cache.ServiceInfoHolder do shutdown begin
+2024-12-19 11:54:38.347 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.backups.FailoverReactor do shutdown begin
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.backups.FailoverReactor do shutdown stop
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.cache.ServiceInfoHolder do shutdown stop
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate do shutdown begin
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.core.ServiceInfoUpdateService do shutdown begin
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.core.ServiceInfoUpdateService do shutdown stop
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.core.ServerListManager do shutdown begin
+2024-12-19 11:54:38.348 [main] WARN  com.alibaba.nacos.client.naming - [NamingHttpClientManager] Start destroying NacosRestTemplate
+2024-12-19 11:54:38.348 [main] WARN  com.alibaba.nacos.client.naming - [NamingHttpClientManager] Destruction of the end
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.core.ServerListManager do shutdown stop
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.remote.http.NamingHttpClientProxy do shutdown begin
+2024-12-19 11:54:38.348 [main] WARN  com.alibaba.nacos.client.naming - [NamingHttpClientManager] Start destroying NacosRestTemplate
+2024-12-19 11:54:38.348 [main] WARN  com.alibaba.nacos.client.naming - [NamingHttpClientManager] Destruction of the end
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.remote.http.NamingHttpClientProxy do shutdown stop
+2024-12-19 11:54:38.348 [main] INFO  com.alibaba.nacos.client.naming - Shutdown naming grpc client proxy for  uuid->75b38128-c3f2-49ff-962b-2cbb3825a3ac
+2024-12-19 11:54:38.349 [main] INFO  com.alibaba.nacos.client.naming - Shutdown grpc redo service executor java.util.concurrent.ScheduledThreadPoolExecutor@390d47db[Running, pool size = 1, active threads = 0, queued tasks = 1, completed tasks = 1]
+2024-12-19 11:54:38.349 [main] INFO  com.alibaba.nacos.common.remote.client - Shutdown rpc client, set status to shutdown
+2024-12-19 11:54:38.349 [main] INFO  com.alibaba.nacos.common.remote.client - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@6aa09c35[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+2024-12-19 11:54:38.349 [main] INFO  com.alibaba.nacos.common.remote.client - Close current connection 1734580473131_10.0.0.4_61830
+2024-12-19 11:54:38.354 [main] INFO  c.a.nacos.common.remote.client.grpc.GrpcClient - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@58fb9020[Running, pool size = 11, active threads = 0, queued tasks = 0, completed tasks = 11]
+2024-12-19 11:54:38.354 [main] INFO  com.alibaba.nacos.client.naming - shutdown and remove naming rpc client  for uuid ->75b38128-c3f2-49ff-962b-2cbb3825a3ac
+2024-12-19 11:54:38.356 [main] INFO  c.a.n.client.auth.ram.identify.CredentialWatcher - [null] CredentialWatcher is stopped
+2024-12-19 11:54:38.356 [main] INFO  c.a.n.client.auth.ram.identify.CredentialService - [null] CredentialService is freed
+2024-12-19 11:54:38.356 [main] INFO  com.alibaba.nacos.client.naming - com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate do shutdown stop
+2024-12-19 11:54:38.401 [grpc-nio-worker-ELG-1-4] INFO  c.a.n.shaded.io.grpc.internal.AbstractClientStream - Received trailers on closed stream:
+ Metadata()
+ {2}
+2024-12-19 11:54:40.630 [main] INFO  o.a.r.s.support.DefaultRocketMQListenerContainer - container destroyed, DefaultRocketMQListenerContainer{consumerGroup='alipay-notify-group', namespace='', namespaceV2='', nameServer='rocketmq-namesrv:9876', topic='alipay-notify-topic', consumeMode=CONCURRENTLY, selectorType=TAG, selectorExpression='*', messageModel=CLUSTERING', tlsEnable=false, instanceName=DEFAULT}
+2024-12-19 11:54:41.694 [com.alibaba.nacos.client.Worker.2] INFO  c.a.n.client.auth.ram.identify.CredentialWatcher - null No credential found
+2024-12-19 11:54:43.471 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-19 11:54:43.472 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2024-12-19 11:54:43.477 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2024-12-19 11:54:43.477 [main] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2024-12-19 11:54:43.553 [main] INFO  o.s.b.a.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-12-19 11:54:43.569 [main] ERROR org.springframework.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Failed to start bean 'org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288)
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:472)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257)
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:990)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:628)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at cn.edu.xmu.oomall.alipay.AliPayApplication.main(AliPayApplication.java:19)
+Caused by: java.lang.RuntimeException: java.lang.IllegalStateException: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to null failed
+	at org.apache.rocketmq.spring.support.RocketMQMessageListenerContainerRegistrar.startContainer(RocketMQMessageListenerContainerRegistrar.java:117)
+	at org.apache.rocketmq.spring.annotation.RocketMQMessageListenerBeanPostProcessor.start(RocketMQMessageListenerBeanPostProcessor.java:73)
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285)
+	... 13 common frames omitted
+Caused by: java.lang.IllegalStateException: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to null failed
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:843)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:574)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.updateTopicSubscribeInfoWhenSubscriptionChanged(DefaultMQPushConsumerImpl.java:1237)
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:999)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:735)
+	at org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer.start(DefaultRocketMQListenerContainer.java:353)
+	at org.apache.rocketmq.spring.support.RocketMQMessageListenerContainerRegistrar.startContainer(RocketMQMessageListenerContainerRegistrar.java:114)
+	... 15 common frames omitted
+Caused by: org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to null failed
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient.invokeSync(NettyRemotingClient.java:574)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:2030)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.getTopicRouteInfoFromNameServer(MQClientAPIImpl.java:2021)
+	at org.apache.rocketmq.client.impl.factory.MQClientInstance.updateTopicRouteInfoFromNameServer(MQClientInstance.java:782)
+	... 21 common frames omitted
+2024-12-19 11:54:45.539 [Thread-3] WARN  c.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2024-12-19 11:54:45.539 [Thread-5] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2024-12-19 11:54:45.539 [Thread-5] WARN  com.alibaba.nacos.common.notify.NotifyCenter - [NotifyCenter] Destruction of the end
+2024-12-19 11:54:45.540 [Thread-3] WARN  c.alibaba.nacos.common.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end

@@ -106,4 +106,11 @@ public class Customer implements Serializable {
             throw new IllegalArgumentException("用户状态错误");
         }
     }
+
+    public CartItem addToCart(CartItem cartItem,Long price)
+    {
+        cartItem.setCustomerId(this.getId());
+        cartItem.setPrice(price);
+        return cartItem;
+    }
 }

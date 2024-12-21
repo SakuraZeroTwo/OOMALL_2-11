@@ -20,7 +20,7 @@ import java.io.UnsupportedEncodingException;
  * 消费订单模块发出的新订单消息
  */
 @Service
-@RocketMQMessageListener(topic = "New-Order", consumerGroup = "goods-new-order", consumeThreadMax = 1, consumeThreadNumber = 1)
+//@RocketMQMessageListener(topic = "New-Order", consumerGroup = "goods-new-order", consumeThreadMax = 1, consumeThreadNumber = 1)
 @RequiredArgsConstructor
 public class NewOrderConsumer implements RocketMQListener<Message> {
 

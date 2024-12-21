@@ -1,11 +1,18 @@
 package cn.edu.xmu.oomall.customer.controller;
 
+import cn.edu.xmu.javaee.core.aop.LoginUser;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
+import cn.edu.xmu.javaee.core.model.dto.UserDto;
+import cn.edu.xmu.javaee.core.model.vo.IdNameTypeVo;
+import cn.edu.xmu.javaee.core.util.CloneFactory;
+import cn.edu.xmu.javaee.core.validation.NewGroup;
+import cn.edu.xmu.oomall.customer.controller.dto.CartItemDto;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerAddressDto;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 
-import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
+import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
 import cn.edu.xmu.oomall.customer.service.CartService;
@@ -13,13 +20,10 @@ import cn.edu.xmu.oomall.customer.service.CouponService;
 import cn.edu.xmu.oomall.customer.service.CustomerAddressService;
 import cn.edu.xmu.oomall.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
@@ -31,6 +35,7 @@ public class CustomerController {
     private CartService cartService;
     @Autowired
     private CustomerAddressService customerAddressService;
+
 
     /**
      * 通过用户名获取顾客信息
@@ -108,6 +113,15 @@ public class CustomerController {
     public ResponseEntity<CustomerAddress> updateAddressInfo(@PathVariable Long id, @RequestBody CustomerAddressDto customerAddressDto) {
         CustomerAddress updatedAddress = customerAddressService.updateAddressInfo(id,customerAddressDto);
         return ResponseEntity.ok(updatedAddress);
+    }
+
+    @PostMapping
+    public ResponseEntity<ResponseWrapper> addToCart(@LoginUser UserDto user, @Validated(NewGroup.class) @RequestBody CartItemDto dto)
+    {
+        CartItem cartItem = CloneFactory.copy(new CartItem(), dto);
+        CartItem newCartItem = this.cartService.addToCart(user,cartItem);
+        ResponseWrapper response = new ResponseWrapper("成功", newCartItem, 0);
+        return ResponseEntity.ok(response);
     }
 
 }
