@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
+@Slf4j
+@Data
 public class Audit extends OOMallObject implements Serializable{
     private Long commentId;
     private Long adminId;

@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AuditPo {
+public class
+AuditPo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
@@ -24,7 +25,7 @@ public class AuditPo {
     public Long modifierId;
     public String modifierName;
     public LocalDateTime gmtCreate;
-    public LocalDateTime gmtModified;
+    public LocalDateTime gmtModifier;
 
     public Long getId() {
         return id;
@@ -98,11 +99,11 @@ public class AuditPo {
         this.gmtCreate = gmtCreate;
     }
 
-    public LocalDateTime getGmtModified() {
-        return gmtModified;
+    public LocalDateTime getGmtModifier() {
+        return gmtModifier;
     }
 
-    public void setGmtModified(LocalDateTime gmtModified) {
-        this.gmtModified = gmtModified;
+    public void setGmtModifier(LocalDateTime gmtModifier) {
+        this.gmtModifier = gmtModifier;
     }
 }
