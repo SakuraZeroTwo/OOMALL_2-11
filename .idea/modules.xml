@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/OOMALL_2-11.iml" filepath="$PROJECT_DIR$/.idea/OOMALL_2-11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OOMALL/customer/customer.iml" filepath="$PROJECT_DIR$/OOMALL/customer/customer.iml" />
     </modules>
   </component>
 </project>

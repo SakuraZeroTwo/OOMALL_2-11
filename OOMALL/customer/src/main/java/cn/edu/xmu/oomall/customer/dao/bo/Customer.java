@@ -21,7 +21,7 @@ public class Customer {
     private Byte invalid;
     private Byte beDelete;
     private String mobile;
-    private Integer point;
+    private Long point;
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
 
@@ -179,11 +179,11 @@ public class Customer {
         this.mobile = mobile;
     }
 
-    public Integer getPoint() {
+    public Long getPoint() {
         return point;
     }
 
-    public void setPoint(Integer point) {
+    public void setPoint(Long point) {
         this.point = point;
     }
 

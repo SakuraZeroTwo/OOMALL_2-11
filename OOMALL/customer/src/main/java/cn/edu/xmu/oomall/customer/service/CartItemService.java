@@ -37,4 +37,12 @@ import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
             }
         }
 
+        public void delProductInCartById(Long cartItemID){
+            this.cartItemDao.delProductInCartById(cartItemID);
+        }
+
+//        public void delAllProductInCartByCustomerId(Long customerId){
+//
+//        }
+
 }

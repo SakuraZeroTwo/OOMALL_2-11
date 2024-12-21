@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class CustomerPo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

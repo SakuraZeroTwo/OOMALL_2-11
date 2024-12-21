@@ -100,4 +100,17 @@ public class CustomerController {
         this.cartItemService.updateProductInCart(cartItem,customerId);
         return new ReturnObject();
     }
+
+    @DeleteMapping("/cartItem/{cartItemId}")
+    public ReturnObject deleteProductInCart(@PathVariable Long cartItemId) {
+        this.cartItemService.delProductInCartById(cartItemId);
+        return new ReturnObject();
+    }
+
+//    @DeleteMapping("/cartItem/{customerId}")
+//    public ReturnObject deleteAllProductInCartByCustomerId(@PathVariable Long customerId) {
+//        this.cartItemService.delAllProductInCartByCustomerId(customerId);
+//        return new ReturnObject();
+//    }
+
 }

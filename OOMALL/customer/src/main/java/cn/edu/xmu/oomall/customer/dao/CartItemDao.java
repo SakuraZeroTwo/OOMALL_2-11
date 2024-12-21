@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -34,5 +35,12 @@ public class CartItemDao {
             return cartItem;
         }
         return null;
+    }
+
+    public void delProductInCartById(Long cartItemId) {
+        if (!this.cartItemPoMapper.existsById(cartItemId)) {
+            throw new IllegalArgumentException("Cart item with id " + cartItemId + " does not exist.");
+        }
+        this.cartItemPoMapper.deleteById(cartItemId);
     }
 }
