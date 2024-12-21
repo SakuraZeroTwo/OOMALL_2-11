@@ -11,6 +11,7 @@ import cn.edu.xmu.oomall.customer.controller.dto.CartItemDto;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerAddressDto;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
+import cn.edu.xmu.javaee.core.model.vo.PageVo;
 import cn.edu.xmu.oomall.customer.controller.dto.*;
 
 import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -137,5 +139,14 @@ public class CustomerController {
         customerAddressService.setDefaultAddress(customerId, addressId);
         return new ReturnObject();
     }
+
+    @GetMapping("/{id}/addresses")
+    public ReturnObject getAddressesByCustomerId(@PathVariable Long id,@RequestParam(defaultValue = "1") Integer page,
+                                                 @RequestParam(defaultValue = "10") Integer pageSize) {
+        List<CustomerAddress> addresses = this.customerAddressService.retrieveByCustomerId(id,page,pageSize);
+        return new ReturnObject(new PageVo<>(addresses,page,pageSize));
+    }
+
+
 }
 
