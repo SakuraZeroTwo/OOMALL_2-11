@@ -17,6 +17,7 @@
         <module name="wechatpay" />
         <module name="prodorder" />
         <module name="payment" />
+        <module name="comment" />
         <module name="region" />
         <module name="gateway" />
         <module name="jtexpress" />
@@ -27,6 +28,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="alipay" options="-parameters" />
+      <module name="comment" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="customer" options="-parameters" />
       <module name="freight" options="-parameters" />
