@@ -22,7 +22,7 @@ public class CartItemDao {
     private CartItemPoMapper cartItemPoMapper;
 
     public List<CartItemPo> findByCustomerId(Long customerId) {
-        return cartItemPoMapper.findBycustomerId(customerId);
+        return cartItemPoMapper.findByCustomerId(customerId);
     }
 
     /**
