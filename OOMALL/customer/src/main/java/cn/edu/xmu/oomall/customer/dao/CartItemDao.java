@@ -21,7 +21,7 @@ public class CartItemDao {
     @Autowired
     private CartItemPoMapper cartItemPoMapper;
 
-    public Optional<CartItemPo> findByCustomerId(Long customerId) {
+    public List<CartItemPo> findByCustomerId(Long customerId) {
         return cartItemPoMapper.findBycustomerId(customerId);
     }
 
@@ -29,7 +29,7 @@ public class CartItemDao {
      * 获取购物车列表
      */
     public CartResponseData getCartList(Long customerId){
-        Optional<CartItemPo> cartItemPo = this.findByCustomerId(customerId);
+        List<CartItemPo> cartItemPo = this.findByCustomerId(customerId);
         if (cartItemPo.isEmpty()) {
             throw new RuntimeException("User not found!");
         }

@@ -15,12 +15,6 @@ public class CartItem {
     private Long quantity;
     private Long price;
 
-
-
-    // 计算购物车项的小计价格
-//    public Long calculateSubtotal() {
-//        return this.price * this.quantity;
-//    }
     public Long getSubtotal() {
         return quantity * price;
     }

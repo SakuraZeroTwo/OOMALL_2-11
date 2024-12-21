@@ -35,7 +35,6 @@ public class CartService {
      */
     public CartResponseData getCartList(Long customerId) {
         return cartItemDao.getCartList(customerId);
-
     }
 
 }

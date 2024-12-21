@@ -78,9 +78,7 @@ public class CustomerController {
      * 获取购物车列表
      */
     @GetMapping("/{id}/cart")
-    public ReturnObject getCartList(
-            @PathVariable Long id
-            ) {
+    public ReturnObject getCartList(@PathVariable Long id) {
         CartResponseData response = cartService.getCartList(id);
         return new ReturnObject(response);
     }
