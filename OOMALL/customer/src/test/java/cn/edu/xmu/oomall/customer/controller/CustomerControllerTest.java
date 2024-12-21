@@ -44,6 +44,27 @@ public class CustomerControllerTest {
 
     }
     @Test
+    void testgetCartListSuccess() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}/cart", 706)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.items.length()", is(3)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.items[0].productId", is(4163)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.items[1].productId", is(1901)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.items[2].productId", is(3148)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.totalPrice", is(157156)));
+    }
+    @Test
+    void testgetCartList_UserNotFound() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}/cart", 9999) // 假设 9999 是不存在的用户 ID
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError()) // 状态码 500
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(2))) // 验证错误码
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("User not found!"))); // 验证错误消息
+    }
+    @Test
     void testUpdateCustomerMessage() throws Exception {
         Long Id = 123L;
         String body = "{\"name\":\"新名字\", \"mobile\":\"1223455\"}";

@@ -101,6 +101,9 @@ public enum ReturnNo {
     CUSTOMER_MOBILEEXIST(613,"电话已被注册"),
     CUSTOMER_MOBILEDIFF(614,"与系统预留的电话不一致"),
     CUSTOMER_CARTNOTALLOW(615,"商品(id = %d)不能加入购物车"),
+    CUSTOMERNAME_NOTEXIST(616,"用户名不存在"),
+    CUSTOMERNAME_ISNULL(617,"用户名为空"),
+    CUSTOMERPASSWORD_ISNULL(618,"密码为空"),
 
     COUPON_NOTBEGIN(696,"未到优惠卷领取时间"),
     COUPON_FINISH(697,"优惠卷领罄"),
