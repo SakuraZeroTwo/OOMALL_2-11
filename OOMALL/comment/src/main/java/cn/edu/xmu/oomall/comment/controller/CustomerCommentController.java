@@ -32,14 +32,14 @@ public class CustomerCommentController {
 
     @Autowired
     private CommentService commentService;
-
-    @PostMapping("/comment/{id}/comment")
-    public ReturnObject appendComment(@PathVariable Long commentId, @LoginUser UserDto user,
-                                         @Validated(NewGroup.class) @RequestBody CommentDto dto) {
-
-        Comment comment = CloneFactory.copy(new Comment(), dto);
-        Comment newComment = this.commentService.appendComment(id, region, user);
-        IdNameTypeVo vo = IdNameTypeVo.builder().id(newRegion.getId()).name(newRegion.getName()).build();
-        return new ReturnObject(ReturnNo.CREATED, vo);
-    }
+//
+//    @PostMapping("/comment/{id}/comment")
+//    public ReturnObject appendComment(@PathVariable Long commentId, @LoginUser UserDto user,
+//                                         @Validated(NewGroup.class) @RequestBody CommentDto dto) {
+//
+//        Comment comment = CloneFactory.copy(new Comment(), dto);
+//        Comment newComment = this.commentService.appendComment(id, region, user);
+//        IdNameTypeVo vo = IdNameTypeVo.builder().id(newRegion.getId()).name(newRegion.getName()).build();
+//        return new ReturnObject(ReturnNo.CREATED, vo);
+//    }
 }
