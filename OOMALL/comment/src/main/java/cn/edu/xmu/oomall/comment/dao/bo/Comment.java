@@ -23,6 +23,10 @@ public class Comment extends OOMallObject implements Serializable {
     private  int rating;
     private  Byte status;
     private  Byte appendStatus;
+
+    public static final Byte TOBEAUDIT = 0;//待审核
+    public static final Byte VALID = 1;//有效
+    public static final Byte DELETED = 2;//隐藏
     @Override
     public void setGmtCreate(LocalDateTime gmtCreate) {
         this.gmtCreate=gmtCreate;
