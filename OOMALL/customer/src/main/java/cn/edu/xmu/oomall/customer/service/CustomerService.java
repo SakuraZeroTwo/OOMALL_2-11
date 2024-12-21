@@ -1,5 +1,7 @@
 package cn.edu.xmu.oomall.customer.service;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerListResponseData;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerResponseData;
@@ -42,12 +44,12 @@ public class CustomerService {
     /**
      * 根据 ID 获取顾客
      */
-    public ResponseWrapper getCustomerById(Long id) {
+    public Customer getCustomerById(Long id) {
         Customer customer = customerDao.findById(id).orElse(null);
         if (customer == null) {
-            return new ResponseWrapper("User not Found!", null ,2);
+            throw new BusinessException(ReturnNo.AUTH_ID_NOTEXIST);
         }
-        return new ResponseWrapper("success",new CustomerResponseData(customer),0);
+        return customer;
     }
     /**
      * 查询所有顾客列表

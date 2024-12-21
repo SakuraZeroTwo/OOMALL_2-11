@@ -28,9 +28,9 @@ public class AdminController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseWrapper> getCustomerById(@PathVariable Long id) {
-        ResponseWrapper customer = customerService.getCustomerById(id);
-        return ResponseEntity.ok(customer);
+    public ReturnObject getCustomerById(@PathVariable Long id) {
+        Customer customer = customerService.getCustomerById(id);
+        return new ReturnObject(customer);
     }
     @PutMapping("/{id}/{action:ban|release}")
     public ResponseEntity<String> updateUserInvalid(@PathVariable Long id,
