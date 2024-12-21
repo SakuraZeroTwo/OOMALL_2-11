@@ -1,6 +1,7 @@
 package cn.edu.xmu.oomall.customer.dao.bo;
 
 import cn.edu.xmu.oomall.customer.dao.CouponDao;
+import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
 @Slf4j
 @Data
+@Component
 public class Customer implements Serializable {
     private Long id;
     private String userName;
@@ -29,7 +31,7 @@ public class Customer implements Serializable {
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
 
-    public Customer() {}
+    public Customer(){}
     // 状态常量定义
     public static final Byte NOBEDELETED = 0;     // 有效
     public static final Byte BEDELETED = 1;     // 有效
@@ -74,12 +76,15 @@ public class Customer implements Serializable {
             });
         }
     };
-    public Customer(Long id, String userName, String name, Byte invalid,Byte be_deleted) {
+
+    private CustomerAddressDao customerAddressDao;
+    public Customer(Long id, String userName, String name, Byte invalid, Byte be_deleted, CustomerAddressDao customerAddressDao) {
         this.id = id;
         this.userName = userName;
         this.name = name;
         this.invalid = invalid;
         this.be_deleted = be_deleted;
+        this.customerAddressDao = customerAddressDao;
     }
     public void convertInvalid() {
         if(this.invalid.equals(INVALID) ){
@@ -92,4 +97,20 @@ public class Customer implements Serializable {
             throw new IllegalArgumentException("用户状态错误");
         }
     }
+
+    //新增地址addAddress，创建者
+    public CustomerAddress addAddress(CustomerAddress address) {
+        address.setCreatorName(this.userName);
+        return customerAddressDao.save(address);
+    }
+
+    public CustomerAddressDao getCustomerAddressDao() {
+        return customerAddressDao;
+    }
+
+    public void setCustomerAddressDao(CustomerAddressDao customerAddressDao) {
+        this.customerAddressDao = customerAddressDao;
+    }
+
+
 }
