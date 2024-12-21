@@ -23,10 +23,14 @@
         <module name="customer" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="comment" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="alipay" options="-parameters" />
+      <module name="comment" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="customer" options="-parameters" />
       <module name="freight" options="-parameters" />
