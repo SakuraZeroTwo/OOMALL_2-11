@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -50,4 +51,10 @@ public class CustomerAddressService {
 
         customerAddressDao.setDefaultAddress(customerId, addressId);
     }
+
+    public List<CustomerAddress> retrieveByCustomerId(Long id, Integer page, Integer pageSize) {
+        List<CustomerAddress> addresses = this.customerAddressDao.retrieveByCustomerId(id,page,pageSize);
+        return addresses;
+    }
+
 }

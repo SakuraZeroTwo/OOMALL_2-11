@@ -14,10 +14,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -71,4 +75,16 @@ public class CustomerAddressDao {
         }
 
     }
+    public List<CustomerAddress> retrieveByCustomerId(Long id,Integer page,Integer pageSize) throws RuntimeException {
+        Pageable pageable= PageRequest.of(page - 1,pageSize, Sort.by("regionId").descending());
+        List<CustomerAddressPo> retObj = this.customerAddressPoMapper.findByCustomerIdIs(id,pageable);
+        return retObj.stream()
+                .map(po -> {
+                    CustomerAddress address = new CustomerAddress(); // 创建目标对象
+                    BeanUtils.copyProperties(po, address); // 复制属性
+                    return address; // 返回目标对象
+                })
+                .collect(Collectors.toList());
+    }
 }
+
