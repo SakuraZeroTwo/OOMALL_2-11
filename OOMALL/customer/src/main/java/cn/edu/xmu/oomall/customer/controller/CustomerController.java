@@ -147,6 +147,12 @@ public class CustomerController {
         return new ReturnObject(new PageVo<>(addresses,page,pageSize));
     }
 
+    @PostMapping("/address/{customerId}")
+    public ResponseEntity<CustomerAddress> addAddress(@RequestBody CustomerAddressDto addressDto,@PathVariable Long customerId) {
+        CustomerAddress savedAddress = this.customerAddressService.addAddress(addressDto,customerId);
+        return ResponseEntity.ok(savedAddress);
+    }
+
 
 }
 
