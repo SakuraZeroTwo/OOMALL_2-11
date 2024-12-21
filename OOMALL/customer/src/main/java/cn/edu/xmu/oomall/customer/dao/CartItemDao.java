@@ -48,8 +48,6 @@ public class CartItemDao {
 
     private final RedisUtil redisUtil;
     // 查询指定 customerId 的购物车项
-    public Page<CartItemPo> findByCustomerId(Long customerId, Pageable pageable) {
-        return cartItemPoMapper.findByCustomerId(customerId, pageable);
     public Optional<CartItemPo> findByCustomerId(Long customerId) {
         return cartItemPoMapper.findBycustomerId(customerId);
     }

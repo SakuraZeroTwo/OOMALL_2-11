@@ -47,17 +47,7 @@ public class CartService {
     public CartResponseData getCartList(Long customerId) {
         return cartItemDao.getCartList(customerId);
 
-        List<CartItem> cartItems = cartItemPosPage.getContent().stream()
-                .map(this::convertCartItemPoToBo)
-                .collect(Collectors.toList());
-
-        Long totalPrice = cartItems.stream()
-                .mapToLong(CartItem::getSubtotal)
-                .sum();
-//        return new ReturnObject(ReturnNo.OK, "success",new CartResponseData(cartItems, totalPrice));
-        return new ResponseWrapper("success", new CartResponseData(cartItems, totalPrice) ,1);
     }
-
     // 将CartItemPo转换为CartItem
     private CartItem convertCartItemPoToBo(CartItemPo po) {
         CartItem item = new CartItem();
