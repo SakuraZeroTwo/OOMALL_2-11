@@ -28,18 +28,14 @@ public class CouponService {
     /**
      * 获取优惠券列表
      */
-    public ResponseWrapper getCouponsList(Long id) {
+    public List<Coupon> getCouponsList(Long id) {
         log.info("Attempting to get coupons list for customer with id: {}", id);
         Customer customer = customerDao.findById(id).orElse(null);
         List<Coupon> CouponBoList = couponDao.retrieveByCustomerId(id,1,MAX_RETURN);
         if(isNull(customer)) {
-            return new ResponseWrapper("customer is not exist",null,1);
+            throw new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST);
         }
-        if(CouponBoList == null || CouponBoList.isEmpty()) {
-            return new ResponseWrapper("coupons list is empty",null,1);
-        }
-
-        return new ResponseWrapper("success",CouponBoList,0);
+        return CouponBoList;
     }
 
 }

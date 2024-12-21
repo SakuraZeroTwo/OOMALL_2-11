@@ -4,7 +4,10 @@ import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
 import cn.edu.xmu.oomall.customer.controller.dto.*;
 
+import cn.edu.xmu.oomall.customer.controller.vo.CouponVo;
+import cn.edu.xmu.oomall.customer.controller.vo.CustomerVo;
 import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
+import cn.edu.xmu.oomall.customer.dao.bo.Coupon;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
 import cn.edu.xmu.oomall.customer.service.CartService;
@@ -12,13 +15,16 @@ import cn.edu.xmu.oomall.customer.service.CouponService;
 import cn.edu.xmu.oomall.customer.service.CustomerAddressService;
 import cn.edu.xmu.oomall.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.message.ReusableMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,40 +42,35 @@ public class CustomerController {
      * 通过用户名获取顾客信息
      */
     @GetMapping("/username/{username}")
-    public ResponseEntity<ResponseWrapper> getCustomerByUserName(@PathVariable("username") String userName) {
+    public ReturnObject getCustomerByUserName(@PathVariable("username") String userName) {
 
-        ResponseWrapper customer = customerService.getCustomerByUserName(userName);
-        return ResponseEntity.ok(customer);
+        Customer customer = customerService.getCustomerByUserName(userName);
+        CustomerVo customerVo = new CustomerVo();
+        BeanUtils.copyProperties(customer, customerVo);
+        return new ReturnObject(customerVo);
     }
-
-    /**
-     * 通过 ID 获取顾客信息
-     */
-    /**
-     * 查询所有顾客
-     */
 
     /**
      * 创建顾客
      */
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+    public ReturnObject createCustomer(@RequestBody Customer customer) {
         Customer createdCustomer = customerService.createCustomer(customer);
-        return ResponseEntity.ok(createdCustomer);
+        return new ReturnObject();
     }
 
     /**
      * 更新顾客信息
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomerMessage(@PathVariable Long id, @RequestBody CustomerDto customerdto) {
+    public ReturnObject updateCustomerMessage(@PathVariable Long id, @RequestBody CustomerDto customerdto) {
         Customer updatedCustomer = customerService.updateCustomer(id, customerdto);
-        return ResponseEntity.ok(updatedCustomer);
+        return new ReturnObject();
     }
     @PutMapping("/{id}/password")
-    public ResponseEntity<Customer> updateCustomerPassword(@PathVariable Long id, @RequestBody CustomerDto customerdto) {
+    public ReturnObject updateCustomerPassword(@PathVariable Long id, @RequestBody CustomerDto customerdto) {
         Customer updatedCustomer = customerService.updateCustomer(id, customerdto);
-        return ResponseEntity.ok(updatedCustomer);
+        return new ReturnObject();
     }
 
 
@@ -86,9 +87,11 @@ public class CustomerController {
      * 获取优惠券列表
      */
     @GetMapping("/{id}/coupon")
-    public ResponseEntity<ResponseWrapper> getCouponList(@PathVariable Long id) {
-        ResponseWrapper couponList = couponService.getCouponsList(id);
-        return ResponseEntity.ok(couponList);
+    public ReturnObject getCouponList(@PathVariable Long id) {
+        List <Coupon> couponList = couponService.getCouponsList(id);
+        List<CouponVo> couponVoList = new ArrayList<>();
+//        BeanUtils(couponList,couponVoList);
+        return new ReturnObject(couponList);
     }
 
     /**

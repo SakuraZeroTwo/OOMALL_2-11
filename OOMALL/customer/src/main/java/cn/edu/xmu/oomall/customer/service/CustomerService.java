@@ -33,12 +33,12 @@ public class CustomerService {
     /**
      * 根据用户名获取顾客
      */
-    public ResponseWrapper getCustomerByUserName(String userName) {
+    public Customer getCustomerByUserName(String userName) {
         Customer customer = customerDao.findByUserName(userName).orElse(null);
         if (customer == null) {
-            return new ResponseWrapper("User not Found!", null ,2);
+            throw new BusinessException(ReturnNo.CUSTOMERNAME_NOTEXIST);
         }
-        return new ResponseWrapper("success",new CustomerResponseData(customer),1);
+        return customer;
     }
 
     /**
@@ -73,9 +73,13 @@ public class CustomerService {
     public Customer createCustomer(Customer customer) {
     // 只允许创建时传入用户名和密码
     if (customer.getUserName() == null || customer.getPassword() == null) {
-        throw new IllegalArgumentException("用户名和密码不能为空");
-    }
+        throw new BusinessException(ReturnNo.CUSTOMERNAME_ISNULL);
+    } else if (customer.getPassword() == null) {
+        throw new BusinessException(ReturnNo.CUSTOMERPASSWORD_ISNULL);
 
+    } else if(customerDao.findByUserName(customer.getUserName()).isPresent()){
+        throw new BusinessException(ReturnNo.CUSTOMER_NAMEEXIST);
+    }
     // 设置创建时间为当前时间
     customer.setGmtCreate(LocalDateTime.now());
 
@@ -88,7 +92,7 @@ public class CustomerService {
      */
     public Customer updateCustomer(Long id, CustomerDto customerdto) {
         // 找到已有顾客
-        Customer existingCustomer = customerDao.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
+        Customer existingCustomer = customerDao.findById(id).orElseThrow(() -> new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST));
 
         // 只允许更新指定字段
         if (customerdto.getPassword() != null) {
