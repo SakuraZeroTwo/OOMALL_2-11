@@ -2,10 +2,13 @@ package cn.edu.xmu.oomall.customer.service;
 
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerAddressDto;
 import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
+import cn.edu.xmu.oomall.customer.dao.CustomerDao;
+import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +21,7 @@ import java.util.List;
 public class CustomerAddressService {
 
 
+    private final CustomerDao customerDao;
     private final CustomerAddressDao customerAddressDao;
     private final static Logger logger = LoggerFactory.getLogger(CustomerService.class);
     /**
@@ -55,6 +59,15 @@ public class CustomerAddressService {
     public List<CustomerAddress> retrieveByCustomerId(Long id, Integer page, Integer pageSize) {
         List<CustomerAddress> addresses = this.customerAddressDao.retrieveByCustomerId(id,page,pageSize);
         return addresses;
+    }
+
+    public CustomerAddress addAddress(CustomerAddressDto addressDto,Long customerId) {
+        CustomerAddress address = new CustomerAddress();
+        BeanUtils.copyProperties(addressDto, address);
+        Customer customer = customerDao.findById(customerId).orElseThrow(() -> new RuntimeException("Customer"+customerId+"not found"));
+        customer.setCustomerAddressDao(this.customerAddressDao);
+        address.setCustomerId(customerId);
+        return customer.addAddress(address);
     }
 
 }
