@@ -17,15 +17,13 @@
         <module name="wechatpay" />
         <module name="prodorder" />
         <module name="payment" />
+        <module name="comment" />
         <module name="region" />
         <module name="gateway" />
         <module name="jtexpress" />
         <module name="customer" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="comment" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

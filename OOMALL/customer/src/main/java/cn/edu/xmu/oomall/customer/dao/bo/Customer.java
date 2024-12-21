@@ -97,12 +97,12 @@ public class Customer implements Serializable {
         }
     }
 
-    public CartItem addToCart(CartItem cartItem,Long price)
-    {
-        cartItem.setCustomerId(this.getId());
-        cartItem.setPrice(price);
-        return cartItem;
-    }
+//    public CartItem addToCart(CartItem cartItem,Long price)
+//    {
+//        cartItem.setCustomerId(this.getId());
+//        cartItem.setPrice(price);
+//        return cartItem;
+//    }
 
     //新增地址addAddress，创建者
     public CustomerAddress addAddress(CustomerAddress address) {

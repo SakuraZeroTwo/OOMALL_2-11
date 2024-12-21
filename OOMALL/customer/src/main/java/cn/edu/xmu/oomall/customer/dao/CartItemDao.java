@@ -76,53 +76,53 @@ public class CartItemDao {
         return item;
     }
 
-    public CartItem findByProductId(Long customerId,Long productId)
-    {
-        assert (!Objects.isNull(productId)) : "id can not be null"; //如果条件为假则抛错
-
-        String key = String.format(CUSTOMER_PRO_KEY, customerId, productId);
-        CartItem bo = (CartItem) redisUtil.get(CUSTOMER_PRO_KEY); //从缓存中获取该顾客该商品的cartItem
-        if (Objects.isNull(bo)) {
-            // 缓存中没有
-            CartItemPo po = cartItemPoMapper.findByCustomerIdAndProductId(customerId,productId); //在数据库中查找
-            bo = CloneFactory.copy(new CartItem(), po);
-            redisUtil.set(key, bo, timeout);
-            return bo;
-        }
-        else
-        {
-            logger.debug("findById: hit in redis product_key = {}, cartItem = {}", key, bo);
-            return bo;
-        }
-    }
-
-    public CartItem insert (UserDto user, CartItem bo) throws RuntimeException
-    {
-        bo.setId(null);
-        bo.setCreator(user); //记录操作者信息
-        bo.setGmtCreate(LocalDateTime.now()); //设置操作时间
-        CartItemPo po = CloneFactory.copy(new CartItemPo(), bo); //进行bo和po的转换
-        logger.debug("save: po = {}", po);
-        po = cartItemPoMapper.save(po);
-        bo.setId(po.getId());
-
-        String key = String.format(CUSTOMER_PRO_KEY, bo.getCustomerId(), bo.getProductId());
-        redisUtil.set(key, bo, timeout); //新加入购物车商品置入缓存
-        return bo;
-    }
-
-    public CartItem update (UserDto user, CartItem bo) throws RuntimeException
-    {
-        bo.setModifier(user);
-        bo.setGmtModified(LocalDateTime.now());
-        CartItemPo po = CloneFactory.copy(new CartItemPo(), bo);
-        logger.debug("save: po = {}", po);
-        CartItemPo updatePo = cartItemPoMapper.save(po);
-        if (IDNOTEXIST.equals(updatePo.getId())) {
-            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, String.format(ReturnNo.RESOURCE_ID_NOTEXIST.getMessage(), "购物车商品", bo.getId()));
-        } //更新需要检查更新结果
-        String key = String.format(CUSTOMER_PRO_KEY, bo.getCustomerId(), bo.getProductId());
-        redisUtil.set(key, bo, timeout);
-        return bo;
-    }
+//    public CartItem findByProductId(Long customerId,Long productId)
+//    {
+//        assert (!Objects.isNull(productId)) : "id can not be null"; //如果条件为假则抛错
+//
+//        String key = String.format(CUSTOMER_PRO_KEY, customerId, productId);
+//        CartItem bo = (CartItem) redisUtil.get(CUSTOMER_PRO_KEY); //从缓存中获取该顾客该商品的cartItem
+//        if (Objects.isNull(bo)) {
+//            // 缓存中没有
+//            CartItemPo po = cartItemPoMapper.findByCustomerIdAndProductId(customerId,productId); //在数据库中查找
+//            bo = CloneFactory.copy(new CartItem(), po);
+//            redisUtil.set(key, bo, timeout);
+//            return bo;
+//        }
+//        else
+//        {
+//            logger.debug("findById: hit in redis product_key = {}, cartItem = {}", key, bo);
+//            return bo;
+//        }
+//    }
+//
+//    public CartItem insert (UserDto user, CartItem bo) throws RuntimeException
+//    {
+//        bo.setId(null);
+//        bo.setCreator(user); //记录操作者信息
+//        bo.setGmtCreate(LocalDateTime.now()); //设置操作时间
+//        CartItemPo po = CloneFactory.copy(new CartItemPo(), bo); //进行bo和po的转换
+//        logger.debug("save: po = {}", po);
+//        po = cartItemPoMapper.save(po);
+//        bo.setId(po.getId());
+//
+//        String key = String.format(CUSTOMER_PRO_KEY, bo.getCustomerId(), bo.getProductId());
+//        redisUtil.set(key, bo, timeout); //新加入购物车商品置入缓存
+//        return bo;
+//    }
+//
+//    public CartItem update (UserDto user, CartItem bo) throws RuntimeException
+//    {
+//        bo.setModifier(user);
+//        bo.setGmtModified(LocalDateTime.now());
+//        CartItemPo po = CloneFactory.copy(new CartItemPo(), bo);
+//        logger.debug("save: po = {}", po);
+//        CartItemPo updatePo = cartItemPoMapper.save(po);
+//        if (IDNOTEXIST.equals(updatePo.getId())) {
+//            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, String.format(ReturnNo.RESOURCE_ID_NOTEXIST.getMessage(), "购物车商品", bo.getId()));
+//        } //更新需要检查更新结果
+//        String key = String.format(CUSTOMER_PRO_KEY, bo.getCustomerId(), bo.getProductId());
+//        redisUtil.set(key, bo, timeout);
+//        return bo;
+//    }
 }

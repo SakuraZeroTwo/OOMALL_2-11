@@ -120,14 +120,14 @@ public class CustomerController {
         return ResponseEntity.ok(updatedAddress);
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseWrapper> addToCart(@LoginUser UserDto user, @Validated(NewGroup.class) @RequestBody CartItemDto dto)
-    {
-        CartItem cartItem = CloneFactory.copy(new CartItem(), dto);
-        CartItem newCartItem = this.cartService.addToCart(user,cartItem);
-        ResponseWrapper response = new ResponseWrapper("成功", newCartItem, 0);
-        return ResponseEntity.ok(response);
-    }
+//    @PostMapping
+//    public ResponseEntity<ResponseWrapper> addToCart(@LoginUser UserDto user, @Validated(NewGroup.class) @RequestBody CartItemDto dto)
+//    {
+//        CartItem cartItem = CloneFactory.copy(new CartItem(), dto);
+//        CartItem newCartItem = this.cartService.addToCart(user,cartItem);
+//        ResponseWrapper response = new ResponseWrapper("成功", newCartItem, 0);
+//        return ResponseEntity.ok(response);
+//    }
 
     /**
      * 设置默认地址
