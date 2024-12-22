@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface CartItemPoMapper extends JpaRepository<CartItemPo, Long> {
-    Optional<CartItemPo> findBycustomerId(Long customerId);
-    Page<CartItemPo> findByCustomerId(Long customerId, Pageable pageable);
+    List<CartItemPo> findByCustomerId(Long customerId);
     CartItemPo findByCustomerIdAndProductId(Long customerId, Long productId);
 }

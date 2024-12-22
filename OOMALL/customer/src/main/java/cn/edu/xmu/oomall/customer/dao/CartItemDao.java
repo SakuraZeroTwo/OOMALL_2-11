@@ -7,6 +7,8 @@ import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.javaee.core.util.CloneFactory;
 import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.javaee.core.config.OpenFeignConfig;
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.customer.controller.dto.CartResponseData;
 import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.oomall.customer.mapper.CartItemPoMapper;
@@ -48,17 +50,16 @@ public class CartItemDao {
 
     private final RedisUtil redisUtil;
     // 查询指定 customerId 的购物车项
-    public Optional<CartItemPo> findByCustomerId(Long customerId) {
-        return cartItemPoMapper.findBycustomerId(customerId);
+    public List<CartItemPo> findByCustomerId(Long customerId) {
+        return cartItemPoMapper.findByCustomerId(customerId);
     }
-
     /**
      * 获取购物车列表
      */
     public CartResponseData getCartList(Long customerId){
-        Optional<CartItemPo> cartItemPo = this.findByCustomerId(customerId);
+        List<CartItemPo> cartItemPo = this.findByCustomerId(customerId);
         if (cartItemPo.isEmpty()) {
-            throw new RuntimeException("User not found!");
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST,"用户不存在");
         }
 
         List<CartItem> cartItems = cartItemPo.stream()

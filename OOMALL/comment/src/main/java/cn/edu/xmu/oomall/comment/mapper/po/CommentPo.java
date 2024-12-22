@@ -1,38 +1,34 @@
 package cn.edu.xmu.oomall.comment.mapper.po;
 
-import cn.edu.xmu.javaee.core.aop.CopyFrom;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comment_comment")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CommentPo{
+public class CommentPo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String comment;
-    private Long customerId;
-    private Long productId;
-    private Long orderId;
-    private int rating;
-    private Byte status;
-    private Long creatorId;
-    private String creatorName;
-    private Long modifierId;
-    private String modifierName;
-    private LocalDateTime gmtCreate;
-    private LocalDateTime gmtModified;
-
-
+    public Long id;
+    public String content;
+    public Long customerId;
+    public Long productId;
+    public Long orderId;
+    public int rating;
+    public Byte status;
+    public Byte appendStatus;
+    public Long creatorId;
+    public String creatorName;
+    public Long modifierId;
+    public String modifierName;
+    public LocalDateTime gmtCreate;
+    public LocalDateTime gmtModifier;
 
     public Long getId() {
         return id;
@@ -40,6 +36,14 @@ public class CommentPo{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Long getCustomerId() {
@@ -74,12 +78,20 @@ public class CommentPo{
         this.rating = rating;
     }
 
-    public Byte getStatus(Byte status) {
+    public Byte getStatus() {
         return status;
     }
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public Byte getAppendStatus() {
+        return appendStatus;
+    }
+
+    public void setAppendStatus(Byte appendStatus) {
+        this.appendStatus = appendStatus;
     }
 
     public Long getCreatorId() {
@@ -122,12 +134,11 @@ public class CommentPo{
         this.gmtCreate = gmtCreate;
     }
 
-    public LocalDateTime getGmtModified() {
-        return gmtModified;
+    public LocalDateTime getGmtModifier() {
+        return gmtModifier;
     }
 
-    public void setGmtModified(LocalDateTime gmtModified) {
-        this.gmtModified = gmtModified;
+    public void setGmtModifier(LocalDateTime gmtModifier) {
+        this.gmtModifier = gmtModifier;
     }
-
 }

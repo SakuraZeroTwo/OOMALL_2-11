@@ -8,6 +8,7 @@ import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.javaee.core.model.vo.IdNameTypeVo;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
 import cn.edu.xmu.javaee.core.validation.NewGroup;
+import cn.edu.xmu.oomall.comment.CommentApplication;
 import cn.edu.xmu.oomall.comment.controller.dto.*;
 
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
@@ -30,9 +31,14 @@ import static cn.edu.xmu.javaee.core.model.Constants.PLATFORM;
 @RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CustomerCommentController {
-
     @Autowired
     private CommentService commentService;
+    @GetMapping("/{id}")
+    public ReturnObject getCommentById(@PathVariable Long id) {
+        Comment comment = this.commentService.getCommentById(id);
+        return new ReturnObject(comment);
+    }
+
 
     @PostMapping("/comment/{id}/comment")
     public ReturnObject appendComment(@PathVariable Long commentId, @LoginUser UserDto user,

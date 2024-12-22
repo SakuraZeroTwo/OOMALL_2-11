@@ -1,5 +1,7 @@
 package cn.edu.xmu.oomall.customer.service;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerAddressDto;
 import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;
@@ -30,7 +32,7 @@ public class CustomerAddressService {
      */
     public CustomerAddress updateAddressInfo(Long id, CustomerAddressDto customeraddressdto) {
         logger.info("Attempting to find address information by id: {}", id);
-        CustomerAddress exitingCustomerAddress = customerAddressDao.findById(id).orElseThrow(() -> new RuntimeException("CustomerAddress not found"));
+        CustomerAddress exitingCustomerAddress = customerAddressDao.findById(id).orElseThrow(() -> new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST));
         if (customeraddressdto.getRegionId() != null) {
             exitingCustomerAddress.setRegionId(customeraddressdto.getRegionId());
         }
@@ -64,10 +66,9 @@ public class CustomerAddressService {
     public CustomerAddress addAddress(CustomerAddressDto addressDto,Long customerId) {
         CustomerAddress address = new CustomerAddress();
         BeanUtils.copyProperties(addressDto, address);
-        Customer customer = customerDao.findById(customerId).orElseThrow(() -> new RuntimeException("Customer"+customerId+"not found"));
+        Customer customer = customerDao.findById(customerId).orElseThrow(() -> new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST));
         customer.setCustomerAddressDao(this.customerAddressDao);
         address.setCustomerId(customerId);
         return customer.addAddress(address);
     }
-
 }
