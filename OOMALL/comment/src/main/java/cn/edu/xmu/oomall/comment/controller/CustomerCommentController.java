@@ -15,6 +15,7 @@ import cn.edu.xmu.oomall.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.http.ResponseEntity;
@@ -32,14 +33,14 @@ public class CustomerCommentController {
 
     @Autowired
     private CommentService commentService;
-//
-//    @PostMapping("/comment/{id}/comment")
-//    public ReturnObject appendComment(@PathVariable Long commentId, @LoginUser UserDto user,
-//                                         @Validated(NewGroup.class) @RequestBody CommentDto dto) {
-//
-//        Comment comment = CloneFactory.copy(new Comment(), dto);
-//        Comment newComment = this.commentService.appendComment(id, region, user);
-//        IdNameTypeVo vo = IdNameTypeVo.builder().id(newRegion.getId()).name(newRegion.getName()).build();
-//        return new ReturnObject(ReturnNo.CREATED, vo);
-//    }
+
+    @PostMapping("/comment/{id}/comment")
+    public ReturnObject appendComment(@PathVariable Long commentId, @LoginUser UserDto user,
+                                         @Validated(NewGroup.class) @RequestBody CommentDto dto) {
+        Comment comment = new Comment();
+        BeanUtils.copyProperties(dto, comment);
+        Comment newComment = this.commentService.appendComment(commentId, comment, user);
+        IdNameTypeVo vo = IdNameTypeVo.builder().id(newComment.getId()).build();
+        return new ReturnObject(ReturnNo.CREATED, vo);
+    }
 }

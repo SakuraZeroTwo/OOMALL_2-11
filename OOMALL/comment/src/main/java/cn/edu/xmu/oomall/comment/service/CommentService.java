@@ -8,6 +8,7 @@ import cn.edu.xmu.oomall.comment.controller.dto.CommentDto;
 import cn.edu.xmu.oomall.comment.dao.CommentDao;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
 import cn.edu.xmu.oomall.comment.dao.bo.Audit;
+import cn.edu.xmu.oomall.comment.mapper.CommentPoMapper;
 import cn.edu.xmu.oomall.comment.mapper.po.CommentPo;
 import org.springframework.data.domain.Page;
 import lombok.RequiredArgsConstructor;
@@ -32,4 +33,12 @@ public class CommentService {
     @Autowired
     private CommentDao commentDao;
 
+
+    public Comment appendComment(Long commentId,Comment appendComment,UserDto user) {
+
+        Comment comment = commentDao.findById(commentId);
+        Comment newComment = comment.appendComment(appendComment);
+        commentDao.insert(newComment,user);
+        return newComment;
+    }
 }

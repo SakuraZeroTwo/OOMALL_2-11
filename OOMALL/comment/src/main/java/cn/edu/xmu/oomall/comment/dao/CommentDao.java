@@ -32,4 +32,29 @@ import static cn.edu.xmu.javaee.core.model.Constants.IDNOTEXIST;
 @Repository
 @RequiredArgsConstructor
 public class CommentDao {
+    @Autowired
+    private CommentPoMapper commentPoMapper;
+
+    public Comment findById(Long id) {
+        Optional<CommentPo> po = commentPoMapper.findById(id);
+        if (po.isPresent()) {
+            Comment bo = new Comment();
+            BeanUtils.copyProperties(po.get(), bo);
+            return bo;
+        }
+        else{
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, String.format(ReturnNo.RESOURCE_ID_NOTEXIST.getMessage(), "评论", id));
+        }
+    }
+
+    public Comment insert(Comment bo, UserDto user) throws RuntimeException {
+        bo.setId(null);
+        bo.setCreator(user);
+        bo.setGmtCreate(LocalDateTime.now());
+        CommentPo po = new CommentPo();
+        BeanUtils.copyProperties(bo, po);
+        po = commentPoMapper.save(po);
+        bo.setId(po.getId());
+        return bo;
+    }
 }
