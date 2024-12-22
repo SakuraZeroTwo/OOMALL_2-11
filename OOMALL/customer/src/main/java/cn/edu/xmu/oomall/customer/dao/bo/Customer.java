@@ -86,6 +86,18 @@ public class Customer implements Serializable {
         this.be_deleted = be_deleted;
         this.customerAddressDao = customerAddressDao;
     }
+
+    public Customer(Long id, String userName, String password, String name, Byte invalid, Byte be_deleted, String mobile, Long point) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.invalid = invalid;
+        this.be_deleted = be_deleted;
+        this.mobile = mobile;
+        this.point = point;
+    }
+
     public void convertInvalid() {
         if(this.invalid.equals(INVALID) ){
             this.invalid = VALID;

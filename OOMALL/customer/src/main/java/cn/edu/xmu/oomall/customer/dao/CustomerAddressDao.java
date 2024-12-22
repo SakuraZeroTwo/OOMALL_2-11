@@ -1,5 +1,7 @@
 package cn.edu.xmu.oomall.customer.dao;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.util.CloneFactory;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
@@ -60,12 +62,12 @@ public class CustomerAddressDao {
         Optional<CustomerPo> customer = customerPoMapper.findById(customerId);
         if (!customer.isPresent()) {
             // 如果顾客不存在，抛出异常
-            throw new RuntimeException("Customer not found!");
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, "顾客不存在");
         }
         Optional<CustomerAddressPo> customerAddress = customerAddressPoMapper.findByCustomerIdAndId(customerId, addressId);
         if (!customerAddress.isPresent()) {
             // 如果顾客没有该地址，抛出异常
-            throw new RuntimeException("Address not found for the given customer.");
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, "地址不存在");
         }
         else {
             customerAddressPoMapper.updateDefaultAddressByCustomerId(customerId, addressId);

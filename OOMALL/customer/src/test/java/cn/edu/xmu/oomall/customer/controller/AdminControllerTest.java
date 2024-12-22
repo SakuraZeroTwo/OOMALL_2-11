@@ -2,7 +2,10 @@ package cn.edu.xmu.oomall.customer.controller;
 
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.customer.CustomerApplication;
+import cn.edu.xmu.oomall.customer.dao.bo.Customer;
+import cn.edu.xmu.oomall.customer.service.CustomerService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +16,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = CustomerApplication.class)
 @AutoConfigureMockMvc
@@ -22,6 +29,8 @@ import static org.hamcrest.CoreMatchers.is;
 public class AdminControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @Mock
+    private CustomerService customerService;
     @Test
     void testGetUserById() throws Exception {
         Long Id = 123L;
@@ -78,5 +87,17 @@ public class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
 
+    }
+    @Test
+    void testretriveAllUsers() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/getAllCustomers")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())  // 验证返回状态码
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(0)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.length()", is(24285)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data[0].userName", is("699275")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data[1].userName", is("105048")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data[6].userName", is("696909")));
     }
 }

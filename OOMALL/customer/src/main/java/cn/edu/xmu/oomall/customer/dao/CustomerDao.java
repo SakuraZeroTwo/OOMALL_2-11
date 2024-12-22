@@ -1,5 +1,7 @@
 package cn.edu.xmu.oomall.customer.dao;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.mapper.CustomerPoMapper;
@@ -48,10 +50,10 @@ public class CustomerDao {
      */
     public List<Customer> findAll() {
         List<CustomerPo> customerPoList = customerPoMapper.findAll();
-        if (customerPoList.isEmpty()) {
-//            return new ResponseWrapper("User not Found!", null ,2);
-            throw new RuntimeException("User not Found!");
-        }
+//        if (customerPoList.isEmpty()) {
+////            return new ResponseWrapper("User not Found!", null ,2);
+//            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST,);
+//        }
         // 将每个 CustomerPo 转换成 Customer
         return customerPoList.stream()
                 .map(po -> {

@@ -1,6 +1,8 @@
 package cn.edu.xmu.oomall.customer.dao;
 
 import cn.edu.xmu.javaee.core.config.OpenFeignConfig;
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.customer.controller.dto.CartResponseData;
 import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.oomall.customer.mapper.CartItemPoMapper;
@@ -31,7 +33,7 @@ public class CartItemDao {
     public CartResponseData getCartList(Long customerId){
         List<CartItemPo> cartItemPo = this.findByCustomerId(customerId);
         if (cartItemPo.isEmpty()) {
-            throw new RuntimeException("User not found!");
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST,"用户不存在");
         }
 
         List<CartItem> cartItems = cartItemPo.stream()

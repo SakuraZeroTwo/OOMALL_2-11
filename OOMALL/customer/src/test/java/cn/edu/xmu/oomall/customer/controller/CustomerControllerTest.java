@@ -17,10 +17,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
-
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
+
 
 @SpringBootTest(classes = CustomerApplication.class)
 @AutoConfigureMockMvc
@@ -37,7 +36,7 @@ public class CustomerControllerTest {
                     .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("success")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.length()", is(2)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data[0].couponName", is("店铺1-优惠活动3-2件9折"))) // 验证第一个元素的 couponName 是否为 "店铺1-优惠活动3-2件9折"
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data[1].couponName", is("店铺1-优惠活动3-2件9折"))); // 验证第二个元素的 couponName 是否为 "店铺1-优惠活动3-2件9折"
@@ -60,9 +59,9 @@ public class CustomerControllerTest {
     void testgetCartList_UserNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}/cart", 9999) // 假设 9999 是不存在的用户 ID
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isInternalServerError()) // 状态码 500
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(2))) // 验证错误码
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("User not found!"))); // 验证错误消息
+                .andExpect(MockMvcResultMatchers.status().isNotFound()) //
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo()))) // 验证错误码
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("用户不存在"))); // 验证错误消息
     }
     @Test
     void testUpdateCustomerMessage() throws Exception {
@@ -88,4 +87,43 @@ public class CustomerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
     }
+    @Test
+    void testSetDefaultAddressSuccess() throws Exception {
+        Long customerId = 13L;
+        Long addressId = 12L;
+
+        // 模拟成功设置默认地址
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/default-address/{customerId}", customerId)
+                        .param("addressId", addressId.toString())
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
+    }
+    @Test
+    void testSetDefaultAddress_UserNotFound() throws Exception {
+        Long customerId = 132222L;
+        Long addressId = 12L;
+
+        // 模拟成功设置默认地址
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/default-address/{customerId}", customerId)
+                        .param("addressId", addressId.toString())
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("顾客不存在")));
+    }
+    @Test
+    void testSetDefaultAddress_AddressNotFound() throws Exception {
+        Long customerId = 1233L;
+        Long addressId = 12L;
+        // 模拟成功设置默认地址
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/default-address/{customerId}", customerId)
+                        .param("addressId", addressId.toString())
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("地址不存在")));
+    }
+
 }
