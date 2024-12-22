@@ -32,11 +32,11 @@ public class CouponService {
     public List<CouponVo> getCouponsList(Long id) {
         log.info("Attempting to get coupons list for customer with id: {}", id);
         Customer customer = customerDao.findById(id).orElse(null);
-        List<CouponVo> CouponBoList = couponDao.retrieveByCustomerId(id,1,MAX_RETURN);
+        List<CouponVo> CouponVoList = couponDao.retrieveByCustomerId(id,1,MAX_RETURN);
         if(isNull(customer)) {
             throw new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST);
         }
-        return CouponBoList;
+        return CouponVoList;
     }
 
 }

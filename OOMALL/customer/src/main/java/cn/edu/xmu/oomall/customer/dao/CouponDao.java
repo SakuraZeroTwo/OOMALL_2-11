@@ -28,8 +28,6 @@ public class CouponDao {
     @Autowired
     private final CouponPoMapper couponPoMapper;
 
-
-
     public List<CouponVo> retrieveByCustomerId(Long customerId, Integer page, Integer pageSize) {
         log.debug("retrieveByCustomerId: customerId = {}, page = {}, pageSize = {}", customerId, page, pageSize);
         Pageable pageable = PageRequest.of(page - 1, pageSize);
