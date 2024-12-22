@@ -3,6 +3,7 @@ package cn.edu.xmu.oomall.customer.service;
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
+import cn.edu.xmu.oomall.customer.controller.vo.CouponVo;
 import cn.edu.xmu.oomall.customer.dao.CouponDao;
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;
 import cn.edu.xmu.oomall.customer.dao.bo.Coupon;
@@ -28,10 +29,10 @@ public class CouponService {
     /**
      * 获取优惠券列表
      */
-    public List<Coupon> getCouponsList(Long id) {
+    public List<CouponVo> getCouponsList(Long id) {
         log.info("Attempting to get coupons list for customer with id: {}", id);
         Customer customer = customerDao.findById(id).orElse(null);
-        List<Coupon> CouponBoList = couponDao.retrieveByCustomerId(id,1,MAX_RETURN);
+        List<CouponVo> CouponBoList = couponDao.retrieveByCustomerId(id,1,MAX_RETURN);
         if(isNull(customer)) {
             throw new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST);
         }

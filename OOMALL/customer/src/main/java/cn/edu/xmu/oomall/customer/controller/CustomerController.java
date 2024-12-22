@@ -88,8 +88,8 @@ public class CustomerController {
      */
     @GetMapping("/{id}/coupon")
     public ReturnObject getCouponList(@PathVariable Long id) {
-        List <Coupon> couponList = couponService.getCouponsList(id);
-        List<CouponVo> couponVoList = new ArrayList<>();
+        List <CouponVo> couponList = couponService.getCouponsList(id);
+//        List<CouponVo> couponVoList = new ArrayList<>();
 //        BeanUtils(couponList,couponVoList);
         return new ReturnObject(couponList);
     }

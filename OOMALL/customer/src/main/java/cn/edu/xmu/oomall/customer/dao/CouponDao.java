@@ -4,6 +4,7 @@ import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.util.CloneFactory;
 import cn.edu.xmu.oomall.customer.dao.bo.Coupon;
+import cn.edu.xmu.oomall.customer.controller.vo.CouponVo;
 import cn.edu.xmu.oomall.customer.mapper.po.CouponPo;
 import cn.edu.xmu.oomall.customer.mapper.CouponPoMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,16 +30,16 @@ public class CouponDao {
 
 
 
-    public List<Coupon> retrieveByCustomerId(Long customerId, Integer page, Integer pageSize) {
+    public List<CouponVo> retrieveByCustomerId(Long customerId, Integer page, Integer pageSize) {
         log.debug("retrieveByCustomerId: customerId = {}, page = {}, pageSize = {}", customerId, page, pageSize);
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         List<CouponPo> couponPos = this.couponPoMapper.findByCustomerId(customerId, pageable);
 
         return couponPos.stream()
                 .map(po -> {
-                    Coupon coupon = new Coupon();
-                    BeanUtils.copyProperties(po, coupon);
-                    return coupon;
+                    CouponVo couponVo = new CouponVo();
+                    BeanUtils.copyProperties(po, couponVo);
+                    return couponVo;
                 })
                 .collect(Collectors.toList());
     }
