@@ -2,6 +2,7 @@ package cn.edu.xmu.oomall.comment.dao;
 
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.oomall.comment.controller.vo.CommentVo;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
 import cn.edu.xmu.oomall.comment.mapper.CommentPoMapper;
 import cn.edu.xmu.oomall.comment.mapper.po.CommentPo;
@@ -12,7 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -57,5 +61,18 @@ public class CommentDao {
         Comment bo = new Comment();
         BeanUtils.copyProperties(customerPo, bo);
         return bo;
+    }
+
+    public List <CommentVo> findCommentList()
+    {
+        List<CommentPo> commentPoList = commentPoMapper.findAll();
+        if (commentPoList == null) {
+            commentPoList = new ArrayList<>();  // 返回空列表而非null
+        }
+        return commentPoList.stream().map(po -> {
+            CommentVo vo = new CommentVo();
+            BeanUtils.copyProperties(po, vo);
+            return vo;
+        }).collect(Collectors.toList());
     }
 }
