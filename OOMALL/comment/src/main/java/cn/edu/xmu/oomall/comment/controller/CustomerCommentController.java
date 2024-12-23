@@ -40,13 +40,13 @@ public class CustomerCommentController {
         return new ReturnObject(comment);
     }
 
-    @PostMapping("/comment/{id}/comment")
-    public ReturnObject appendComment(@PathVariable Long commentId, @LoginUser UserDto user,
-                                         @Validated(NewGroup.class) @RequestBody CommentDto dto) {
+    @PostMapping("/{id}/comment")
+    public ReturnObject appendComment(@PathVariable Long id,@Validated(NewGroup.class) @RequestBody CommentDto dto) {
         Comment comment = new Comment();
         BeanUtils.copyProperties(dto, comment);
-        Comment newComment = this.commentService.appendComment(commentId, comment, user);
-        CommentVo vo = new CommentVo(newComment.getCustomerId(),newComment.getProductId(), newComment.getOrderId(), newComment.getContent(), newComment.getRating(), newComment.getStatus());
-        return new ReturnObject(ReturnNo.CREATED, vo);
+        Comment newComment = this.commentService.appendComment(id, comment);
+        CommentVo vo = new CommentVo(1L,2L,3L,"1",4,(byte)0);
+
+        return new ReturnObject(dto);
     }
 }

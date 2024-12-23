@@ -72,11 +72,6 @@
             <artifactId>hamcrest</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>cn.edu.xmu.oomall</groupId>
-            <artifactId>product</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
 </project>

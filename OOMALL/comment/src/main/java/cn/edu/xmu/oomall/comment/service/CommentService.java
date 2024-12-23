@@ -28,14 +28,15 @@ public class CommentService {
     }
 
 
-    public Comment appendComment(Long commentId, Comment appendComment, UserDto user) {
+    public Comment appendComment(Long commentId, Comment appendComment) {
         Comment comment = commentDao.findById(commentId);
         if(comment==null) {
+            log.error("Comment not found for commentId: {}", commentId);
             throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, String.format(ReturnNo.RESOURCE_ID_NOTEXIST.getMessage(), comment.getId()));
         }
         else{
             Comment newComment = comment.appendComment(appendComment);
-            commentDao.save(newComment);
+            newComment = commentDao.insert(newComment);
             return newComment;
         }
     }

@@ -2,6 +2,7 @@ package cn.edu.xmu.oomall.comment.dao;
 
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
 import cn.edu.xmu.oomall.comment.mapper.CommentPoMapper;
 import cn.edu.xmu.oomall.comment.mapper.po.CommentPo;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 
@@ -56,6 +58,17 @@ public class CommentDao {
 
         Comment bo = new Comment();
         BeanUtils.copyProperties(customerPo, bo);
+        return bo;
+    }
+
+    public Comment insert (Comment bo) throws RuntimeException
+    {
+        bo.setId(null);
+        bo.setGmtCreate(LocalDateTime.now()); //设置操作时间
+        CommentPo po = new CommentPo();
+        BeanUtils.copyProperties(bo, po);
+        po = commentPoMapper.save(po);
+        bo.setId(po.getId());
         return bo;
     }
 }
