@@ -1,5 +1,8 @@
 package cn.edu.xmu.oomall.comment.dao.bo;
+import cn.edu.xmu.javaee.core.aop.CopyFrom;
 import cn.edu.xmu.javaee.core.model.bo.OOMallObject;
+import cn.edu.xmu.oomall.comment.controller.dto.CommentDto;
+import cn.edu.xmu.oomall.comment.mapper.po.CommentPo;
 import lombok.AllArgsConstructor;
 import cn.edu.xmu.oomall.comment.controller.dto.AuditDto;
 import cn.edu.xmu.oomall.comment.dao.AuditDao;
@@ -22,6 +25,7 @@ import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
 @Data
 @AllArgsConstructor
 @Component
+@CopyFrom({CommentPo.class, CommentDto.class})
 public class Comment extends OOMallObject implements Serializable {
     private  Long id;
     private  String content;
@@ -72,4 +76,6 @@ public class Comment extends OOMallObject implements Serializable {
         comment.setAppendStatus((byte)0);
         return comment;
     }
+
+
 }

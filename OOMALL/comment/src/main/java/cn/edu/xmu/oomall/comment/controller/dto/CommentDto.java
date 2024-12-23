@@ -25,4 +25,19 @@ public class CommentDto {
     @Min(value = 1, message = "数量必须大于等于 1")
     private  int rating;
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 }

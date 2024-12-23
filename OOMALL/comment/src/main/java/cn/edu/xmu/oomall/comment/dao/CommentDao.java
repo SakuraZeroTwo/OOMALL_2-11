@@ -28,7 +28,7 @@ public class CommentDao {
     public Comment findById(Long id) {
         Optional<CommentPo> commentPo = commentPoMapper.findById(id);
         if(!commentPo.isPresent()){
-            throw new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST);
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST);
         }
         else {
             Comment bo = new Comment();

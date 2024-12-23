@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,12 +42,13 @@ public class CustomerCommentController {
     }
 
     @PostMapping("/{id}/comment")
-    public ReturnObject appendComment(@PathVariable Long id,@Validated(NewGroup.class) @RequestBody CommentDto dto) {
+    public ReturnObject appendComment(@PathVariable Long id, @Validated(NewGroup.class) @RequestBody CommentDto dto) {
         Comment comment = new Comment();
         BeanUtils.copyProperties(dto, comment);
         Comment newComment = this.commentService.appendComment(id, comment);
-        CommentVo vo = new CommentVo(1L,2L,3L,"1",4,(byte)0);
-
-        return new ReturnObject(dto);
+        CommentVo vo = new CommentVo();
+        BeanUtils.copyProperties(newComment, vo);
+        return new ReturnObject(ReturnNo.CREATED, vo);
     }
+
 }

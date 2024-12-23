@@ -65,4 +65,3 @@ oomall:
       default: 10
   region:
     timeout: 3600
-

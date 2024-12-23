@@ -1,7 +1,11 @@
 package cn.edu.xmu.oomall.customer.controller.vo;
 
+import lombok.AllArgsConstructor;
+
 import java.time.LocalDateTime;
 
+
+@AllArgsConstructor
 public class CustomerVo {
     private Long id;
     private String userName;   // 用户名// 密码
