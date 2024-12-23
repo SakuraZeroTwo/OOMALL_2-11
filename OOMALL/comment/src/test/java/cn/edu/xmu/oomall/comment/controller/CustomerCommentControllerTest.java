@@ -49,7 +49,6 @@ class CustomerCommentControllerTest {
         originalComment.setStatus(Comment.TOBEAUDIT);
 
         when(commentDao.findById(123L)).thenReturn(originalComment);
-
         mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", 123L)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{ \"content\": \"这是追加的评论\", \"rating\": 5 }"))
