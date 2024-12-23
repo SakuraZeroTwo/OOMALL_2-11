@@ -113,6 +113,7 @@ public class Customer implements Serializable {
     //新增地址addAddress，创建者
     public CustomerAddress addAddress(CustomerAddress address) {
         address.setCreatorName(this.userName);
+        address.setGmtCreate(LocalDateTime.now());
         return customerAddressDao.save(address);
     }
 

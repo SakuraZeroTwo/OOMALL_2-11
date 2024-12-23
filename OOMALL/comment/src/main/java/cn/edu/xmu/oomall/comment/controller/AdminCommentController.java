@@ -1,4 +1,5 @@
 package cn.edu.xmu.oomall.comment.controller;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.oomall.comment.controller.dto.*;
 
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class AdminCommentController {
     private final CommentService commentService;
     private final AuditService auditService;
-    @PutMapping("{commentId}/delete")
+    @PutMapping("/{commentId}/delete")
     public ReturnObject deleteCommentById(@PathVariable Long commentId)
     {
         this.commentService.deleteCommentById(commentId);
-        return new ReturnObject();
+        return new ReturnObject(ReturnNo.OK);
     }
     @PutMapping("{commentId}/audit")
     public  ReturnObject auditComment(@PathVariable Long commentId,@RequestBody AuditDto auditdto)
