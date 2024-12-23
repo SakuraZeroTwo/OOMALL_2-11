@@ -20,11 +20,10 @@ import org.springframework.stereotype.Component;
 import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
 @Slf4j
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Component
-
 public class Comment extends OOMallObject implements Serializable {
+    private  Long id;
     private  String content;
     private  Long CustomerId;
     private  Long ProductId;
@@ -68,7 +67,9 @@ public class Comment extends OOMallObject implements Serializable {
         comment.setCustomerId(this.CustomerId);
         comment.setProductId(this.ProductId);
         comment.setOrderId(this.OrderId);
-        comment.setStatus((byte)2);
+        comment.setRating(this.rating);
+        comment.setStatus(TOBEAUDIT);
+        comment.setAppendStatus((byte)0);
         return comment;
     }
 }

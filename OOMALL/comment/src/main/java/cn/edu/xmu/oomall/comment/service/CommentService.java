@@ -1,5 +1,8 @@
 package cn.edu.xmu.oomall.comment.service;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.oomall.comment.dao.CommentDao;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +25,15 @@ public class CommentService {
     }
 
 
-    public Comment appendComment(Long commentId,Comment appendComment,UserDto user) {
-
+    public Comment appendComment(Long commentId, Comment appendComment, UserDto user) {
         Comment comment = commentDao.findById(commentId);
-        Comment newComment = comment.appendComment(appendComment);
-        commentDao.insert(newComment,user);
-        return newComment;
+        if(comment==null) {
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, String.format(ReturnNo.RESOURCE_ID_NOTEXIST.getMessage(), comment.getId()));
+        }
+        else{
+            Comment newComment = comment.appendComment(appendComment);
+            commentDao.save(newComment);
+            return newComment;
+        }
     }
 }

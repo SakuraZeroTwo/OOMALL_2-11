@@ -11,6 +11,7 @@ import cn.edu.xmu.javaee.core.validation.NewGroup;
 import cn.edu.xmu.oomall.comment.CommentApplication;
 import cn.edu.xmu.oomall.comment.controller.dto.*;
 
+import cn.edu.xmu.oomall.comment.controller.vo.CommentVo;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
 import cn.edu.xmu.oomall.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -39,14 +40,13 @@ public class CustomerCommentController {
         return new ReturnObject(comment);
     }
 
-
     @PostMapping("/comment/{id}/comment")
     public ReturnObject appendComment(@PathVariable Long commentId, @LoginUser UserDto user,
                                          @Validated(NewGroup.class) @RequestBody CommentDto dto) {
         Comment comment = new Comment();
         BeanUtils.copyProperties(dto, comment);
         Comment newComment = this.commentService.appendComment(commentId, comment, user);
-        IdNameTypeVo vo = IdNameTypeVo.builder().id(newComment.getId()).build();
+        CommentVo vo = new CommentVo(newComment.getCustomerId(),newComment.getProductId(), newComment.getOrderId(), newComment.getContent(), newComment.getRating(), newComment.getStatus());
         return new ReturnObject(ReturnNo.CREATED, vo);
     }
 }

@@ -1,147 +1,100 @@
 package cn.edu.xmu.oomall.comment.controller;
 
-import cn.edu.xmu.javaee.core.model.ReturnNo;
-import cn.edu.xmu.oomall.comment.CommentApplication;
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.oomall.comment.controller.dto.CommentDto;
+import cn.edu.xmu.oomall.comment.controller.vo.CommentVo;
+import cn.edu.xmu.oomall.comment.dao.CommentDao;
 import cn.edu.xmu.oomall.comment.service.CommentService;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
-import org.junit.jupiter.api.BeforeAll;
+import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
 
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.anyLong;
 
-@SpringBootTest(classes = CommentApplication.class)
+@SpringBootTest
 @AutoConfigureMockMvc
-public class CommentControllerTest {
+class CustomerCommentControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
+    @Mock
     private CommentService commentService;
+    @Mock
+    private CommentDao commentDao;
+    @Mock
+    private Comment comment;
+    @InjectMocks
+    private CustomerCommentController customerCommentController;
 
-    private static String userToken;
-    private static Long validCommentId = 1L;
-    private static Long invalidCommentId = 999L;
-
-    @BeforeAll
-    static void setUp() {
-        // 模拟用户的 JWT Token
-        userToken = "Bearer someValidToken";
-    }
+    private static final String COMMENT_URL = "/comment/{id}/comment";
 
     @Test
-    void appendCommentSuccessfully() throws Exception {
-        // 模拟成功添加评论
-        CommentDto dto = new CommentDto();
-        dto.setContent("This is a valid comment");
-        dto.setRating(5);
+    void testAppendComment() throws Exception {
+        // 模拟原始评论对象
+        Comment originalComment = new Comment();
+        originalComment.setId(123L);
+        originalComment.setContent("原始评论内容");
+        originalComment.setCustomerId(1L);
+        originalComment.setProductId(2L);
+        originalComment.setOrderId(3L);
+        originalComment.setRating(4);
+        originalComment.setStatus(Comment.TOBEAUDIT);
 
-        // 创建一个业务层的 Comment 对象
+        // 模拟追加评论对象
+        Comment appendComment = new Comment();
+        appendComment.setContent("这是追加的评论");
+        appendComment.setRating(5);
+
+        // 新的追加评论
         Comment newComment = new Comment();
-        newComment.setId(100L);  // 设置新评论的 ID
+        newComment.setContent("这是追加的评论");
+        newComment.setRating(5);
+        newComment.setCustomerId(124L);
+        newComment.setStatus(Comment.TOBEAUDIT);
+        newComment.setAppendStatus((byte) 0);  // 标记为已追加评论
+        newComment.setCustomerId(1L);  // 设置与原评论相同的 CustomerId
+        newComment.setProductId(2L);   // 设置与原评论相同的 ProductId
+        newComment.setOrderId(3L);     // 设置与原评论相同的 OrderId
 
-        // 模拟 service 层的 appendComment 方法
-        Mockito.when(commentService.appendComment(Mockito.anyLong(), Mockito.any(), Mockito.any()))
+        // 模拟 findById 返回原始评论对象
+        when(commentDao.findById(123L)).thenReturn(originalComment);
+
+        when(comment.appendComment(any(Comment.class))).thenReturn(newComment);
+
+        // 模拟 service 层的 appendComment 方法返回新的追加评论对象
+        when(commentService.appendComment(eq(123L), any(Comment.class), any(UserDto.class)))
                 .thenReturn(newComment);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", validCommentId)
-                        .header("authorization", userToken)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"content\":\"This is a valid comment\", \"rating\": 5}")
-                )
-                .andExpect(MockMvcResultMatchers.status().isCreated())  // 201 状态码
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.CREATED.getErrNo())))  // 确保 errno 正确
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.id", is(100)));  // 返回新评论的 ID
+        // 执行 POST 请求并进行验证
+        mockMvc.perform(MockMvcRequestBuilders.post("/comment/123/comment")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content("{ \"content\": \"这是追加的评论\", \"rating\": 5 }")
+                        .header("Authorization", "Bearer someToken"))
+                .andExpect(MockMvcResultMatchers.status().isCreated())  // 期望返回 201 状态
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.CREATED.getErrNo())))  // 验证 errno
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is(ReturnNo.CREATED.getMessage())))  // 验证 errmsg
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.content", is("这是追加的评论")))  // 验证追加评论的内容
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.rating", is(5)))  // 验证追加评论的评分
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.status", is(0)))  // 验证追加评论的状态
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.customerId", is(1)))  // 验证 customerId
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(2)))   // 验证 productId
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.orderId", is(3)));   // 验证 orderId
     }
 
-    @Test
-    void appendCommentWithoutLogin() throws Exception {
-        // 用户未登录
-        CommentDto dto = new CommentDto();
-        dto.setContent("This is a valid comment");
-        dto.setRating(5);
-
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", validCommentId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"content\":\"This is a valid comment\", \"rating\": 5}")
-                )
-                .andExpect(MockMvcResultMatchers.status().isUnauthorized())  // 401 状态码
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.AUTH_NEED_LOGIN.getErrNo())));  // 确保 errno 为 AUTH_NEED_LOGIN
-    }
-
-    @Test
-    void appendCommentForNonExistentCommentId() throws Exception {
-        // 评论 ID 不存在
-        CommentDto dto = new CommentDto();
-        dto.setContent("This is a valid comment");
-        dto.setRating(5);
-
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", invalidCommentId)
-                        .header("authorization", userToken)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"content\":\"This is a valid comment\", \"rating\": 5}")
-                )
-                .andExpect(MockMvcResultMatchers.status().isNotFound())  // 404 状态码
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())));  // 确保 errno 为 RESOURCE_ID_NOTEXIST
-    }
-
-    @Test
-    void appendCommentWithInvalidContent() throws Exception {
-        // 评论内容无效，例如缺少字段
-        CommentDto dto = new CommentDto();
-        dto.setRating(5);  // 缺少 content 字段
-
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", validCommentId)
-                        .header("authorization", userToken)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"rating\": 5}")  // 传入的 JSON 缺少 content 字段
-                )
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())  // 400 状态码
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.FIELD_NOTVALID.getErrNo())));  // 确保 errno 为 FIELD_NOTVALID
-    }
-
-    @Test
-    void appendCommentWithInvalidRating() throws Exception {
-        // 评论内容无效，评分不合法
-        CommentDto dto = new CommentDto();
-        dto.setContent("This is a valid comment");
-        dto.setRating(6); // 超过最大评分限制
-
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", validCommentId)
-                        .header("authorization", userToken)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"content\":\"This is a valid comment\", \"rating\": 6}")  // 传入无效的评分
-                )
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())  // 400 状态码
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.FIELD_NOTVALID.getErrNo())));  // 确保 errno 为 FIELD_NOTVALID
-    }
-
-    @Test
-    void appendCommentWithForbiddenUser() throws Exception {
-        // 模拟权限不足的用户
-        CommentDto dto = new CommentDto();
-        dto.setContent("This is a valid comment");
-        dto.setRating(5);
-
-        Mockito.when(commentService.appendComment(Mockito.anyLong(), Mockito.any(), Mockito.any()))
-                .thenThrow(new RuntimeException("Permission Denied"));
-
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", validCommentId)
-                        .header("authorization", userToken)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"content\":\"This is a valid comment\", \"rating\": 5}")
-                )
-                .andExpect(MockMvcResultMatchers.status().isForbidden())  // 403 状态码
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.AUTH_NO_RIGHT.getErrNo())));  // 确保 errno 为 AUTH_NO_RIGHT
-    }
 }

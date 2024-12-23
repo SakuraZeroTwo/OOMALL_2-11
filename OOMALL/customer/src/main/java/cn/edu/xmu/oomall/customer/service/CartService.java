@@ -61,7 +61,7 @@ public class CartService {
         assert (onSale!=null):"no related onsale.";
         if(OnSale.ADVSALE.equals(onSale.getType())||OnSale.GROUPON.equals(onSale.getType()))
         {
-            throw new BusinessException(ReturnNo.CUSTOMER_CARTNOTALLOW, String.format(ReturnNo.CUSTOMER_CARTNOTALLOW.getMessage(), cartItem.getCustomerId()));
+            throw new BusinessException(ReturnNo.CUSTOMER_CARTNOTALLOW, String.format(ReturnNo.CUSTOMER_CARTNOTALLOW.getMessage(), cartItem.getProductId()));
         }
         else
         {
