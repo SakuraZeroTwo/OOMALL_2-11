@@ -52,6 +52,15 @@ public class CustomerControllerTest {
 
     }
     @Test
+    void getCouponListGivenNotExist() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get(CUSTOMER_HAS_COUPONS,-1)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(608)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("登录用户id不存在")));
+    }
+
+    @Test
     void testgetCartListSuccess() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}/cart", 706)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -135,6 +144,26 @@ public class CustomerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("地址不存在")));
     }
 
+    @Test
+    void updateAddressInfo() throws Exception {
+        String body = "{\"regionId\":2417, \"address\":\"人民南路\", \"consignee\":\"祁同伟\", \"mobile\":\"15970114514\"}";
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/addresses/{addressId}",123)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(body))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
+    }
+    @Test
+    void updateAddressInfoGivenAddressNotExist() throws Exception {
+        String body = "{\"regionId\":2417, \"address\":\"人民南路\", \"consignee\":\"祁同伟\", \"mobile\":\"15970114514\"}";
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/addresses/{addressId}",-1)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(body))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("地址不存在")));
+    }
 
     //addToCart
     //正常流程测试

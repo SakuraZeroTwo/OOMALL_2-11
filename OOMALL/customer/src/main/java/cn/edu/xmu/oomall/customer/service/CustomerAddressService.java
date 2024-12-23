@@ -32,7 +32,7 @@ public class CustomerAddressService {
      */
     public CustomerAddress updateAddressInfo(Long id, CustomerAddressDto customeraddressdto) {
         logger.info("Attempting to find address information by id: {}", id);
-        CustomerAddress exitingCustomerAddress = customerAddressDao.findById(id).orElseThrow(() -> new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST));
+        CustomerAddress exitingCustomerAddress = customerAddressDao.findById(id).orElseThrow(() -> new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST,"地址不存在"));
         if (customeraddressdto.getRegionId() != null) {
             exitingCustomerAddress.setRegionId(customeraddressdto.getRegionId());
         }
