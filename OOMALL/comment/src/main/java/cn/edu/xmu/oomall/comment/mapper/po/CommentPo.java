@@ -29,5 +29,4 @@ public class CommentPo {
     public String modifierName;
     public LocalDateTime gmtCreate;
     public LocalDateTime gmtModifier;
-
 }

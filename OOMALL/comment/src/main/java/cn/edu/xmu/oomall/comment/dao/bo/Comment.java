@@ -54,16 +54,6 @@ public class Comment extends OOMallObject implements Serializable {
         return newAudit;
     }
 
-    @Override
-    public void setGmtCreate(LocalDateTime gmtCreate) {
-        this.gmtCreate=gmtCreate;
-    }
-
-    @Override
-    public void setGmtModified(LocalDateTime gmtModified) {
-        this.gmtModified=gmtModified;
-    }
-
     public Comment appendComment(Comment comment)
     {
         this.appendStatus=(byte)1;
@@ -77,5 +67,13 @@ public class Comment extends OOMallObject implements Serializable {
         return comment;
     }
 
+    @Override
+    public void setGmtCreate(LocalDateTime gmtCreate) {
+        this.gmtCreate=gmtCreate;
+    }
 
+    @Override
+    public void setGmtModified(LocalDateTime gmtModified) {
+        this.gmtModified=gmtModified;
+    }
 }
