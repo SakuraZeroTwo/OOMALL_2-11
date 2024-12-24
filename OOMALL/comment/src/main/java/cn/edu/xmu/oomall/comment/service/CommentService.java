@@ -70,7 +70,6 @@ public class CommentService {
         else{
             Comment newComment = originComment.appendComment(comment);
             commentDao.save(newComment);
-            if(true)throw new BusinessException(ReturnNo.AUTH_INVALID_JWT);
             return newComment;
         }
     }

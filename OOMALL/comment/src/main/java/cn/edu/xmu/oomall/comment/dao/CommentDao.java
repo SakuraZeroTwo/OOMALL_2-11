@@ -61,7 +61,6 @@ public class CommentDao {
         CommentPo customerPo = new CommentPo();
         BeanUtils.copyProperties(comment, customerPo);
         commentPoMapper.save(customerPo);
-
         Comment bo = new Comment();
         BeanUtils.copyProperties(customerPo, bo);
         return bo;

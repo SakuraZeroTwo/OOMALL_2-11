@@ -89,12 +89,12 @@ public class CustomerCommentControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", 1L)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{ \"content\": \"这是追加的评论\", \"rating\": 5 }"))
-//                .andExpect(MockMvcResultMatchers.status().isCreated())  // 验证返回状态码
+                .andExpect(MockMvcResultMatchers.status().isCreated())  // 验证返回状态码
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.content", is("这是追加的评论")))  // 验证返回内容
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.rating", is(5)))  // 验证返回评分
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.status", is(0)))  // 验证返回状态
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.customerId", is(1)))  // 验证 customerId
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(1550)))  // 验证 productId
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(1553)))  // 验证 productId
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.orderId", is(1)));  // 验证 orderId
     }
 
@@ -113,13 +113,8 @@ public class CustomerCommentControllerTest {
     }
     @Test
     void testAppendCommentWhenOriginCommentNotFound() throws Exception {
-        // 创建一个合法的 CommentDto 对象
-        CommentDto validDto = new CommentDto();
-        validDto.setContent("这是追加的评论");
-        validDto.setRating(5);
-
         // 执行 POST 请求
-        mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", 1L)
+        mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", 5L)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{ \"content\": \"这是追加的评论\", \"rating\": 5 }"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());  // 验证返回的错误消息
