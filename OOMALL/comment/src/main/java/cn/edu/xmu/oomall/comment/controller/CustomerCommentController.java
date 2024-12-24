@@ -1,4 +1,5 @@
 package cn.edu.xmu.oomall.comment.controller;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
 import cn.edu.xmu.oomall.comment.CommentApplication;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 
 import java.util.List;
 @RestController
@@ -50,7 +52,7 @@ public class CustomerCommentController {
     }
 
     @PostMapping("/{id}/comment")
-    public ReturnObject appendComment(@PathVariable Long id, @Validated(NewGroup.class) @RequestBody CommentDto dto) {
+    public ReturnObject appendComment(@PathVariable Long id, @Validated @RequestBody CommentDto dto) {
         Comment comment = new Comment();
         BeanUtils.copyProperties(dto, comment);
         Comment newComment = this.commentService.appendComment(id, comment);

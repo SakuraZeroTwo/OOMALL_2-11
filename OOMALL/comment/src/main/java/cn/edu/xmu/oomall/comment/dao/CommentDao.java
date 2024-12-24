@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -76,14 +77,4 @@ public class CommentDao {
         }).collect(Collectors.toList());
     }
 
-    public Comment insert (Comment bo) throws RuntimeException
-    {
-        bo.setId(null);
-        bo.setGmtCreate(LocalDateTime.now()); //设置操作时间
-        CommentPo po = new CommentPo();
-        BeanUtils.copyProperties(bo, po);
-        po = commentPoMapper.save(po);
-        bo.setId(po.getId());
-        return bo;
-    }
 }
