@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,6 +35,21 @@ public class CartService {
      */
     public CartResponseData getCartList(Long customerId) {
         return cartItemDao.getCartList(customerId);
+    }
+
+    public CartItem updateProductInCart(Long cartItemId,Long quantity){
+        CartItemPo cartItemPo = this.cartItemDao.findPoById(cartItemId);
+        cartItemPo.setQuantity(quantity);
+        cartItemPo.setGmtModified(LocalDateTime.now());
+        this.cartItemDao.save(cartItemPo);
+        CartItem cartItem = new CartItem();
+        BeanUtils.copyProperties(cartItemPo,cartItem);
+        return cartItem;
+    }
+
+    public void deleteProductInCart(Long cartItemId){
+        CartItem cartItem = this.cartItemDao.findById(cartItemId);
+        this.cartItemDao.deleteProductInCart(cartItemId);
     }
 
 }

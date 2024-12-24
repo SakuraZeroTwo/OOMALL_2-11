@@ -1,5 +1,7 @@
 package cn.edu.xmu.oomall.customer.controller;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
 import cn.edu.xmu.oomall.customer.controller.dto.*;
@@ -7,6 +9,7 @@ import cn.edu.xmu.oomall.customer.controller.dto.*;
 import cn.edu.xmu.oomall.customer.controller.vo.CouponVo;
 import cn.edu.xmu.oomall.customer.controller.vo.CustomerVo;
 import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
+import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.oomall.customer.dao.bo.Coupon;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
@@ -112,13 +116,17 @@ public class CustomerController {
         return new ReturnObject();
     }
     /**
-     * 获取地址信息
+     * 获取地址信息列表
      */
     @GetMapping("/{id}/addresses")
     public ReturnObject getAddressesByCustomerId(@PathVariable Long id,
                                                  @RequestParam(defaultValue = "1") Integer page,
                                                  @RequestParam(defaultValue = "10") Integer pageSize) {
         List<CustomerAddress> addresses = this.customerAddressService.retrieveByCustomerId(id,page,pageSize);
+        if (addresses.isEmpty() ) {
+            return new ReturnObject(ReturnNo.RESOURCE_ID_NOTEXIST, "顾客Id不存在");
+        }
+
         return new ReturnObject(new PageVo<>(addresses,page,pageSize));
     }
     /**
@@ -126,8 +134,25 @@ public class CustomerController {
      */
     @PostMapping("/address/{customerId}")
     public ReturnObject addAddress(@RequestBody CustomerAddressDto addressDto,@PathVariable Long customerId) {
-        CustomerAddress savedAddress = this.customerAddressService.addAddress(addressDto,customerId);
-        return new ReturnObject();
+        try {
+            CustomerAddress savedAddress = this.customerAddressService.addAddress(addressDto, customerId);
+            return new ReturnObject(ReturnNo.CREATED, savedAddress);
+        } catch (BusinessException ex) {
+            // 根据错误码返回对应的错误信息
+                return new ReturnObject(ReturnNo.RESOURCE_ID_NOTEXIST, "登录用户id不存在");
+        }
+    }
+
+    @PutMapping("/{cartItemId}/cart/update")
+    public ReturnObject updateProductInCart(@PathVariable Long cartItemId, @RequestParam Long quantity) {
+        CartItem savedCartItem = this.cartService.updateProductInCart(cartItemId,quantity);
+        return new ReturnObject(ReturnNo.OK,savedCartItem);
+    }
+
+    @DeleteMapping("/{cartItemId}/cart/delete")
+    public ReturnObject deleteProductInCart(@PathVariable Long cartItemId) {
+        this.cartService.deleteProductInCart(cartItemId);
+        return new ReturnObject(ReturnNo.OK);
     }
 }
 
