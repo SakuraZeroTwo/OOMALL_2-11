@@ -25,7 +25,7 @@ import static cn.edu.xmu.javaee.core.model.Constants.PLATFORM;
  * @create 2022-12-15 17:53
  */
 @Service
-@RocketMQMessageListener(consumerGroup = "goods_rm_template", topic = "Del-Template", selectorExpression = "1", consumeMode = ConsumeMode.CONCURRENTLY, consumeThreadMax = 10, consumeThreadNumber = 5)
+//@RocketMQMessageListener(consumerGroup = "goods_rm_template", topic = "Del-Template", selectorExpression = "1", consumeMode = ConsumeMode.CONCURRENTLY, consumeThreadMax = 10, consumeThreadNumber = 5)
 @RequiredArgsConstructor
 public class DeleteTemplateConsumer implements RocketMQListener<Message>, RocketMQPushConsumerLifecycleListener {
     private static final Logger logger = LoggerFactory.getLogger(DeleteTemplateConsumer.class);

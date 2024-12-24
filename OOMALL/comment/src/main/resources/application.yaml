@@ -52,7 +52,7 @@ spring:
         format_sql: false
 
 server:
-  port: 8084
+  port: 8086
   tomcat:
     threads:
       max: 200

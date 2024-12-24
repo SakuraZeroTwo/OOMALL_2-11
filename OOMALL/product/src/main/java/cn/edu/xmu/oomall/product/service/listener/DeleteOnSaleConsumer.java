@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
  * 用于删除商品销售
  */
 @Service
-@RocketMQMessageListener(consumerGroup = "product_del_onsale", topic = "reply-del-onsale-topic", selectorExpression = "1", consumeMode = ConsumeMode.CONCURRENTLY, consumeThreadMax = 10, consumeThreadNumber = 5)
+//@RocketMQMessageListener(consumerGroup = "product_del_onsale", topic = "reply-del-onsale-topic", selectorExpression = "1", consumeMode = ConsumeMode.CONCURRENTLY, consumeThreadMax = 10, consumeThreadNumber = 5)
 @RequiredArgsConstructor
 public class DeleteOnSaleConsumer implements RocketMQListener<Message>, RocketMQPushConsumerLifecycleListener {
     private static final Logger logger = LoggerFactory.getLogger(DeleteOnSaleConsumer.class);

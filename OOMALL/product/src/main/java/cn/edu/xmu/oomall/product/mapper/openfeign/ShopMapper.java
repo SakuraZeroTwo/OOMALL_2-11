@@ -7,8 +7,7 @@ import cn.edu.xmu.oomall.product.mapper.openfeign.po.Template;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-@FeignClient("shop-service")
+@FeignClient(name = "shop-service",url = "http://116.205.114.101:8080")
 public interface ShopMapper {
 
     @GetMapping("/shops/{id}")
