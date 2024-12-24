@@ -35,7 +35,13 @@ public class CommentService {
         }
         else{
             Comment newComment = originComment.appendComment(comment);
+            if(newComment == null) {
+                throw new BusinessException(ReturnNo.AUTH_INVALID_JWT);
+            }
             commentDao.insert(newComment);
+            if(newComment == null) {
+                throw new BusinessException(ReturnNo.AUTH_NO_RIGHT);
+            }
             return newComment;
         }
     }

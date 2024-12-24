@@ -48,7 +48,7 @@ public class CustomerCommentController {
         Comment newComment = this.commentService.appendComment(id, comment);
         CommentVo vo = new CommentVo();
         BeanUtils.copyProperties(newComment, vo);
-        return new ReturnObject(ReturnNo.CREATED, vo);
+        return new ReturnObject(ReturnNo.CREATED, comment);
     }
 
 }

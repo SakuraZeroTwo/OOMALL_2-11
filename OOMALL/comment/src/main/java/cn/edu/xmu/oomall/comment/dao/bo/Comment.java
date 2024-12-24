@@ -71,7 +71,6 @@ public class Comment extends OOMallObject implements Serializable {
         comment.setCustomerId(this.CustomerId);
         comment.setProductId(this.ProductId);
         comment.setOrderId(this.OrderId);
-        comment.setRating(this.rating);
         comment.setStatus(TOBEAUDIT);
         comment.setAppendStatus((byte)0);
         return comment;
