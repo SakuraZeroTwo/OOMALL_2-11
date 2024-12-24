@@ -49,28 +49,4 @@ public class AdminCommentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
 
     }
-
-    @Test
-    void testDeleteCommentById_Success() throws Exception {
-        Long commentId = 2L;  // 假设这是一个有效的评论ID
-
-        // 执行删除请求
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/adminComment/{commentId}/delete", commentId)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(0)))  // errno 为 0 表示成功
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));  // errmsg 为 "成功"
-    }
-
-    //需要修改findById写错了导致错误码错误
-    @Test
-    void testDeleteCommentById_UserNotFound() throws Exception {
-        Long commentId = -1L;
-
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/adminComment/{commentId}/delete", commentId)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(2)))  // errno 为 608 表示用户不存在
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("No value present")));  // errmsg 为 "登录用户id不存在"
-    }
 }

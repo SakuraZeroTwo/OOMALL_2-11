@@ -50,34 +50,4 @@ public class CartItemDao {
         BeanUtils.copyProperties(po, item);
         return item;
     }
-
-    public CartItem findById(Long id) {
-        // 使用 JPA 方法获取 CartItemPo
-        Optional<CartItemPo> optionalCartItemPo = cartItemPoMapper.findById(id);
-        if (optionalCartItemPo.isPresent()) {
-            // 转换 CartItemPo 为 CartItem
-            return convertCartItemPoToBo(optionalCartItemPo.get());
-        } else {
-            // 如果未找到，抛出异常
-            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, String.format(ReturnNo.RESOURCE_ID_NOTEXIST.getMessage(), "购物车项", id));
-        }
-    }
-
-    public void save(CartItemPo cartItemPo) {
-        cartItemPoMapper.save(cartItemPo);
-    }
-
-    public CartItemPo findPoById(Long id) {
-        Optional<CartItemPo> optionalCartItemPo = cartItemPoMapper.findById(id);
-        if (optionalCartItemPo.isEmpty()) {
-            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, String.format(ReturnNo.RESOURCE_ID_NOTEXIST.getMessage(), "购物车项", id));
-        }
-        else {
-            return optionalCartItemPo.get();
-        }
-    }
-
-    public void deleteProductInCart(Long cartItemId){
-        this.cartItemPoMapper.deleteById(cartItemId);
-    }
 }
