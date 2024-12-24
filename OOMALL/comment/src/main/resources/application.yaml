@@ -52,7 +52,7 @@ spring:
         format_sql: false
 
 server:
-  port: 8085
+  port: 8084
   tomcat:
     threads:
       max: 200
@@ -65,3 +65,9 @@ oomall:
       default: 10
   region:
     timeout: 3600
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: full

@@ -1,4 +1,5 @@
 package cn.edu.xmu.oomall.comment.controller;
+import cn.edu.xmu.javaee.core.model.InternalReturnObject;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
 import cn.edu.xmu.oomall.comment.CommentApplication;
@@ -6,12 +7,14 @@ import cn.edu.xmu.oomall.comment.controller.dto.*;
 
 import cn.edu.xmu.oomall.comment.controller.vo.CommentVo;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
+import cn.edu.xmu.oomall.comment.mapper.openfeign.ProductMapper;
 import cn.edu.xmu.oomall.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +26,9 @@ public class CustomerCommentController {
     @Autowired
     private CommentService commentService;
 
+    private final ProductMapper productMapper;
     /**
-     * 根据id获取评论
+     * 根据评论id获取评论
      * @param id
      * @return
      */
@@ -39,10 +43,18 @@ public class CustomerCommentController {
      * @return
      *
      */
-    @GetMapping("/retrieveCommentList")
-    public  ReturnObject retrieveCommentList()
+    @GetMapping("/retrieveCommentList/{productId}")
+    public  ReturnObject retrieveCommentList(@PathVariable Long productId,
+                                             @RequestParam int page,
+                                             @RequestParam int pageSize)
     {
-        List<CommentVo> comments =  commentService.retrieveCommentList();
+        Page<CommentVo> comments =  commentService.retrieveCommentList(productId, page, pageSize);
         return new ReturnObject(comments);
     }
+
+    //一个示例的跨模块调用方法，调用我们docker集群中product-service的findProductById方法
+//    @GetMapping("/hello")
+//    public InternalReturnObject hello(Long id) {
+//        return commentService.getProductId(id);
+//    }
 }
