@@ -33,7 +33,7 @@ public class CustomerControllerTest {
     @Test
     void getCouponList() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get(CUSTOMER_HAS_COUPONS,1001)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                    .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
@@ -139,7 +139,7 @@ public class CustomerControllerTest {
     void updateAddressInfo() throws Exception {
         String body = "{\"regionId\":2417, \"address\":\"人民南路\", \"consignee\":\"祁同伟\", \"mobile\":\"15970114514\"}";
         this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/addresses/{addressId}",123)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(body))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
@@ -155,4 +155,135 @@ public class CustomerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("地址不存在")));
     }
+
+    @Test
+    void AddAddressSuccess() throws Exception {
+        Long customerId = 1L;
+        String body = "{\"regionId\":2417, \"address\":\"人民南路\", \"consignee\":\"祁同伟\", \"mobile\":\"15970114514\"}";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/customers/address/{customerId}", customerId)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(body))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.CREATED.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("创建成功")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.regionId", is(2417)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.address", is("人民南路")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.consignee", is("祁同伟")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.mobile", is("15970114514")));
+    }
+    @Test
+    void AddAddressFailure_customerNotFound() throws Exception {
+        Long customerId = -1L;
+        String body = "{\"regionId\":2417, \"address\":\"人民南路\", \"consignee\":\"祁同伟\", \"mobile\":\"15970114514\"}";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/customers/address/{customerId}", customerId)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(body))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("登录用户id不存在")));
+    }
+
+    @Test
+    void testUpdateProductInCartSuccess() throws Exception {
+        Long cartItemId = 124L;
+        Long quantity = 5L;
+
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{cartItemId}/cart/update", cartItemId)
+                        .param("quantity", quantity.toString())
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.quantity", is(quantity.intValue())));
+    }
+
+    @Test
+    void testGetAddressesByCustomerId() throws Exception {
+        // 假设测试的用户 ID 为 1
+        Long customerId = 1L;
+
+        // 模拟一个返回的地址列表，检查其中的一些字段
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}/addresses", customerId)
+                        .param("page", "1")  // 假设我们查询第一页
+                        .param("pageSize", "10")  // 每页显示 10 个地址
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk()) // 确认 HTTP 状态码为 200
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo()))) // 错误码是成功
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功"))) // 错误信息是 "成功"
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list.length()", is(5))) // 返回的地址列表长度为 5
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.page", is(1))) // 当前页是第 1 页
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.pageSize", is(10))) // 每页显示 10 个地址
+
+                // 检查返回的第一个地址的字段
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[0].id", is(11171))) // 地址 ID
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[0].customerId", is(1))) // customerId
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[0].address", is("Xiamen"))) // 地址
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[0].consignee", is((Object) null))) // 收货人为 null
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[0].mobile", is((Object) null))) // 手机号为 null
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[0].beDefault", is((Object) null))) // beDefault 为 null
+
+                // 检查返回的第二个地址的字段
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[1].id", is(11170))) // 地址 ID
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[1].consignee", is("赵永波"))) // 收货人
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[1].mobile", is("13159235540"))) // 手机号
+
+                // 检查返回的第三个地址的字段
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[2].id", is(11169))) // 地址 ID
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[2].consignee", is("赵永波"))) // 收货人
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[2].mobile", is("13159235540"))) // 手机号
+
+                // 检查返回的第四个地址的字段
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[3].id", is(1))) // 地址 ID
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[3].consignee", is("kod"))) // 收货人
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[3].mobile", is("88888"))) // 手机号
+
+                // 检查返回的第五个地址的字段
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[4].id", is(11168))) // 地址 ID
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[4].consignee", is("赵永波"))) // 收货人
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.list[4].mobile", is("13159235540"))); // 手机号
+    }
+
+    @Test
+    void testGetAddressesByCustomerId_UserNotFound() throws Exception {
+        // 假设顾客ID为-1L，这个顾客ID不存在
+        Long customerId = -1L;
+
+        // 执行请求
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}/addresses", customerId)
+                        .param("page", "1")
+                        .param("pageSize", "10")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())  // 期望返回 404 错误
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(4)))  // 错误码为 4
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("顾客Id不存在")));  // 错误消息为 "顾客Id不存在"
+    }
+
+    @Test
+    void testDeleteProductInCart_Success() throws Exception {
+        // 假设 cartItemId 为一个有效的购物车项ID，例如 124L
+        Long cartItemId = 124L;
+
+        // 执行删除请求
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/customers/{cartItemId}/cart/delete", cartItemId)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())  // 期望返回 200 OK
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(0)))  // errno 为 0 表示成功
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));  // errmsg 为 "成功"
+    }
+
+    @Test
+    void testDeleteProductInCart_ItemNotFound() throws Exception {
+        // 假设 cartItemId 为一个无效的购物车项ID，例如 -1L（假设这个ID不存在）
+        Long cartItemId = -1L;
+
+        // 执行删除请求
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/customers/{cartItemId}/cart/delete", cartItemId)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())  // 期望返回 404 Not Found
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(4)))  // errno 为 4 表示资源不存在
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("购物车项对象(id=-1)不存在")));  // 错误消息为 "购物车项对象(id=-1)不存在"
+    }
+
 }

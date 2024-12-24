@@ -2,7 +2,7 @@ package cn.edu.xmu.oomall.comment.dao;
 
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
-import cn.edu.xmu.javaee.core.model.dto.UserDto;
+import cn.edu.xmu.oomall.comment.controller.vo.CommentVo;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
 import cn.edu.xmu.oomall.comment.mapper.CommentPoMapper;
 import cn.edu.xmu.oomall.comment.mapper.po.CommentPo;
@@ -13,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -27,8 +29,8 @@ public class CommentDao {
 
     public Comment findById(Long id) {
         Optional<CommentPo> commentPo = commentPoMapper.findById(id);
-        if(!commentPo.isPresent()){
-            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST);
+        if(commentPo == null){
+            throw new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST);
         }
         else {
             Comment bo = new Comment();
@@ -59,6 +61,19 @@ public class CommentDao {
         Comment bo = new Comment();
         BeanUtils.copyProperties(customerPo, bo);
         return bo;
+    }
+
+    public List <CommentVo> findCommentList()
+    {
+        List<CommentPo> commentPoList = commentPoMapper.findAll();
+        if (commentPoList == null) {
+            commentPoList = new ArrayList<>();  // 返回空列表而非null
+        }
+        return commentPoList.stream().map(po -> {
+            CommentVo vo = new CommentVo();
+            BeanUtils.copyProperties(po, vo);
+            return vo;
+        }).collect(Collectors.toList());
     }
 
     public Comment insert (Comment bo) throws RuntimeException

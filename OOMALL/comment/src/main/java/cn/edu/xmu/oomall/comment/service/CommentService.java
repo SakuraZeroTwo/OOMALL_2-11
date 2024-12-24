@@ -1,5 +1,6 @@
 package cn.edu.xmu.oomall.comment.service;
 
+import cn.edu.xmu.oomall.comment.controller.vo.CommentVo;
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.dto.UserDto;
@@ -10,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
@@ -25,6 +28,13 @@ public class CommentService {
 
     public Comment getCommentById(Long commentId) {
         return this.commentDao.findById(commentId);
+    }
+
+    //查询所有评论
+    public List<CommentVo> retrieveCommentList()
+    {
+        List <CommentVo> commentListVo = commentDao.findCommentList();
+        return commentListVo;
     }
 
 
