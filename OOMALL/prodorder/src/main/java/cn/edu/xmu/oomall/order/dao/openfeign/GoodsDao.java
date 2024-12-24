@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "goods-service")
+@FeignClient(name = "product-service",url = "http://1.94.231.245:8081")
 public interface GoodsDao {
 
     @GetMapping("/shops/{shopId}/onsales/{id}")

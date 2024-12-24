@@ -7,7 +7,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos
+        server-addr: nacos:8848
   data:
     redis:
       repositories:
@@ -57,7 +57,7 @@ spring:
       hibernate:
         format_sql: true
 
-# 配置rocketmq
+ #配置rocketmq
 rocketmq:
   # 指定namesrv地址
   name-server: rocketmq-namesrv:9876
@@ -72,7 +72,7 @@ rocketmq:
     retry-times-when-send-async-failed: 2
 
 server:
-  port: 8082
+  port: 8086
   tomcat:
     threads:
       #最大工作线程数

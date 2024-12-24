@@ -3,6 +3,7 @@ package cn.edu.xmu.oomall.comment.service;
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.InternalReturnObject;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.oomall.comment.controller.dto.CommentDto;
 import cn.edu.xmu.oomall.comment.controller.vo.CommentVo;
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
@@ -22,7 +23,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
 @RequiredArgsConstructor
@@ -33,6 +33,15 @@ public class CommentService {
     private final ProductMapper productMapper;
     @Autowired
     private Product product;
+
+    /**
+     * 用户创建评论
+     */
+//    public CommentVo createComment(Long orderItemId, CommentDto commentDto) throws BusinessException {
+//        Comment comment = new Comment();
+//        BeanUtils.copyProperties(commentDto, comment);
+//        Long orderId = this.orderItemDao.get();
+//    }
 
     public void deleteCommentById(Long commentId) {
         Comment comment = commentDao.findById(commentId);
