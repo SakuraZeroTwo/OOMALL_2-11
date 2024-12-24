@@ -96,16 +96,4 @@ public class CartItemDao {
         return bo;
     }
 
-    public CartItem insert (UserDto user, CartItem bo) throws RuntimeException
-    {
-        bo.setId(null);
-        bo.setCreator(user); //记录操作者信息
-        bo.setGmtCreate(LocalDateTime.now()); //设置操作时间
-        CartItemPo po = CloneFactory.copy(new CartItemPo(), bo); //进行bo和po的转换
-
-        po = cartItemPoMapper.save(po);
-        bo.setId(po.getId());
-        return bo;
-    }
-
 }

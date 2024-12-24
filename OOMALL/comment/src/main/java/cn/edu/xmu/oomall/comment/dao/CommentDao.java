@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -30,8 +33,8 @@ public class CommentDao {
 
     public Comment findById(Long id) {
         Optional<CommentPo> commentPo = commentPoMapper.findById(id);
-        if(commentPo == null){
-            throw new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST);
+        if(!commentPo.isPresent()){
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST,"评论不存在");
         }
         else {
             Comment bo = new Comment();
@@ -64,17 +67,25 @@ public class CommentDao {
         return bo;
     }
 
-    public List <CommentVo> findCommentList()
+    //根据productId查询评论
+    public Page <CommentVo> findCommentList(Long productId, int page, int pageSize)
     {
-        List<CommentPo> commentPoList = commentPoMapper.findAll();
-        if (commentPoList == null) {
-            commentPoList = new ArrayList<>();  // 返回空列表而非null
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<CommentPo> commentPoPage = commentPoMapper.findByProductId(productId, pageable);
+        if (commentPoPage == null || commentPoPage.isEmpty()) {
+            throw new BusinessException(ReturnNo.OK,"商品暂无评论");
         }
-        return commentPoList.stream().map(po -> {
+        Page<CommentVo> commentVoPage = commentPoPage.map(po -> {
             CommentVo vo = new CommentVo();
             BeanUtils.copyProperties(po, vo);
             return vo;
-        }).collect(Collectors.toList());
+        });
+        return commentVoPage;
+//        return commentPoPage.stream().map(po -> {
+//            CommentVo vo = new CommentVo();
+//            BeanUtils.copyProperties(po, vo);
+//            return vo;
+//        }).collect(Collectors.toList());
     }
 
 }
