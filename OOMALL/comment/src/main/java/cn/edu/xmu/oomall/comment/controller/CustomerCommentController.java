@@ -34,8 +34,8 @@ public class CustomerCommentController {
      */
     @GetMapping("/{id}")
     public ReturnObject getCommentById(@PathVariable Long id) {
-        Comment comment = this.commentService.getCommentById(id);
-        return new ReturnObject(comment);
+        CommentVo commentVo = this.commentService.getCommentById(id);
+        return new ReturnObject(commentVo);
     }
 
     /**

@@ -17,5 +17,4 @@ public class CommentVo {
     private  Long orderId;
     private LocalDateTime gmtCreate;
     private  int rating;
-    private  Byte appendStatus;
 }

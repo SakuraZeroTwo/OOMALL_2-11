@@ -11,6 +11,7 @@ import cn.edu.xmu.oomall.comment.mapper.openfeign.ProductMapper;
 import cn.edu.xmu.oomall.comment.mapper.openfeign.po.ProductPo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -36,8 +37,12 @@ public class CommentService {
         this.commentDao.save(comment);
     }
 
-    public Comment getCommentById(Long commentId) {
-        return this.commentDao.findById(commentId);
+    public CommentVo getCommentById(Long commentId) {
+        Comment comment = this.commentDao.findById(commentId);
+        CommentVo commentVo = new CommentVo();
+        BeanUtils.copyProperties(comment,commentVo);
+
+        return commentVo;
     }
 
     //查询所有评论
