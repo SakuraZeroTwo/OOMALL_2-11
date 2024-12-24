@@ -64,13 +64,8 @@ public class CommentService {
 
     public Comment appendComment(Long id, Comment comment) {
         Comment originComment = commentDao.findById(id);
-        if(originComment==null) {
-            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST);
-        }
-        else{
-            Comment newComment = originComment.appendComment(comment);
-            commentDao.save(newComment);
-            return newComment;
-        }
+        Comment newComment = originComment.appendComment(comment);
+        commentDao.save(newComment);
+        return newComment;
     }
 }

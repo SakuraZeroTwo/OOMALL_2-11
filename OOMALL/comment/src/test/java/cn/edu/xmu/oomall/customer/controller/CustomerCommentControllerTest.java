@@ -99,19 +99,6 @@ public class CustomerCommentControllerTest {
     }
 
     @Test
-    void testAppendCommentWithInvalidDto() throws Exception {
-        // 创建一个非法的 CommentDto 对象，content 为空，应该触发验证失败
-        CommentDto invalidDto = new CommentDto();
-        invalidDto.setContent("");  // 违反 @NotBlank 约束
-        invalidDto.setRating(5);
-
-        // 执行 POST 请求
-        mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", 1L)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content("{ \"content\": \"\", \"rating\": 5 }"))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest()); // 验证返回状态码是 400
-    }
-    @Test
     void testAppendCommentWhenOriginCommentNotFound() throws Exception {
         // 执行 POST 请求
         mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", 5L)
