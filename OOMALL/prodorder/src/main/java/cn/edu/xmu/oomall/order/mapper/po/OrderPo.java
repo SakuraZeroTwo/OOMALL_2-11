@@ -71,4 +71,7 @@ public class OrderPo {
 
     private Long packageId;
 
+    public OrderPo() {
+
+    }
 }
