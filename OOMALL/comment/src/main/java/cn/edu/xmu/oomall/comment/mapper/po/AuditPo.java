@@ -15,15 +15,15 @@ import java.time.LocalDateTime;
 public class AuditPo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
-    public Long commentId;
-    public Long adminId;
-    public Byte auditResult;
-    public Long creatorId;
-    public String creatorName;
-    public Long modifierId;
-    public String modifierName;
-    public LocalDateTime gmtCreate;
-    public LocalDateTime gmtModifier;
+    private Long id;
+    private Long commentId;
+    private Long adminId;
+    private Byte auditResult;
+    private Long creatorId;
+    private String creatorName;
+    private Long modifierId;
+    private String modifierName;
+    private LocalDateTime gmtCreate;
+    private LocalDateTime gmtModified;
 
 }

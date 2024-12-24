@@ -46,6 +46,7 @@
         <module>ztoexpress</module>
         <module>customer</module>
         <module>comment</module>
+        <module>order</module>
     </modules>
 
     <dependencyManagement>

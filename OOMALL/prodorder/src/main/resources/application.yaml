@@ -72,7 +72,7 @@ rocketmq:
     retry-times-when-send-async-failed: 2
 
 server:
-  port: 8082
+  port: 8087
   tomcat:
     threads:
       #最大工作线程数

@@ -15,19 +15,19 @@ import java.time.LocalDateTime;
 public class CommentPo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
-    public String content;
-    public Long customerId;
-    public Long productId;
-    public Long orderId;
-    public int rating;
-    public Byte status;
-    public Byte appendStatus;
-    public Long creatorId;
-    public String creatorName;
-    public Long modifierId;
-    public String modifierName;
-    public LocalDateTime gmtCreate;
-    public LocalDateTime gmtModifier;
+    private Long id;
+    private String content;
+    private Long customerId;
+    private Long productId;
+    private Long orderId;
+    private int rating;
+    private Byte status;
+    private Byte appendStatus;
+    private Long creatorId;
+    private String creatorName;
+    private Long modifierId;
+    private String modifierName;
+    private LocalDateTime gmtCreate;
+    private LocalDateTime gmtModified;
 
 }
