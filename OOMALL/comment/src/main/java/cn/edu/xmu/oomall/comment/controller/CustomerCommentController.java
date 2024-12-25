@@ -55,12 +55,12 @@ public class CustomerCommentController {
     /**
      * 用户创建评论
      */
-//    @PostMapping("/createComment/{orderItemId}")
-//    public ReturnObject createComment(@PathVariable Long orderItemId,
-//                                      @RequestBody CommentDto CommentDto) {
-//        CommentVo commentVo = commentService.createComment(orderItemId,CommentDto);
-//        return new ReturnObject(commentVo);
-//    }
+    @PostMapping("/createComment/{orderItemId}")
+    public ReturnObject createComment(@PathVariable Long orderItemId,
+                                      @RequestBody CommentDto CommentDto) {
+        CommentVo commentVo = commentService.createComment(orderItemId,CommentDto);
+        return new ReturnObject(commentVo);
+    }
 
     //一个示例的跨模块调用方法，调用我们docker集群中product-service的findProductById方法
 //    @GetMapping("/hello")

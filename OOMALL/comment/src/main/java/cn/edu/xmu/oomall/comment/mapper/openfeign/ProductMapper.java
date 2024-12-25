@@ -14,4 +14,8 @@ import java.util.List;
 public interface ProductMapper {
     @GetMapping("/products/{id}")
     InternalReturnObject<ProductPo> findProductById(@PathVariable Long id);
+
+    @GetMapping("/onsales/{id}")
+    InternalReturnObject<ProductPo> findProductVoByOnsaleId(@PathVariable Long id);
+
 }

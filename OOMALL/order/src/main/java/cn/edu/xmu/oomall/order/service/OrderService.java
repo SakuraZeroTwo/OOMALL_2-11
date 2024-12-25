@@ -2,11 +2,16 @@ package cn.edu.xmu.oomall.order.service;
 
 
 import cn.edu.xmu.oomall.order.controller.dto.OrderDto;
+import cn.edu.xmu.oomall.order.controller.dto.OrderItemDto;
 import cn.edu.xmu.oomall.order.controller.vo.OrderVo;
 import cn.edu.xmu.oomall.order.dao.OrderDao;
+import cn.edu.xmu.oomall.order.dao.OrderItemDao;
 import cn.edu.xmu.oomall.order.dao.bo.Order;
+import cn.edu.xmu.oomall.order.dao.bo.OrderItem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,7 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class OrderService {
     private final OrderDao orderDao;
-
+    private final OrderItemDao orderItemDao;
+    private final static Logger logger = LoggerFactory.getLogger(OrderService.class);
     /**
      * 根据ID获取订单
      * @param id
@@ -41,5 +47,17 @@ public class OrderService {
         OrderVo orderVo = new OrderVo();
         BeanUtils.copyProperties(orderbo, orderVo);
         return orderVo;
+    }
+
+    /**
+     * 获得OrderItem的OnsaleId
+     */
+    public OrderItemDto getOnsaleByOrderItemId(Long orderItemId){
+        OrderItem orderItem = orderItemDao.findById(orderItemId);
+        OrderItemDto orderItemDto = new OrderItemDto();
+        BeanUtils.copyProperties(orderItem, orderItemDto);
+        orderItemDto.setOrderItemId(orderItem.getId());
+        logger.info("Get onsaleId = ", orderItemDto.getOnsaleId());
+        return orderItemDto;
     }
 }
