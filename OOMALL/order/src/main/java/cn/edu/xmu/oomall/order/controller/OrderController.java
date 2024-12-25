@@ -6,6 +6,7 @@ import cn.edu.xmu.javaee.core.model.vo.PageVo;
 import cn.edu.xmu.oomall.order.OrdersApplication;
 import cn.edu.xmu.oomall.order.controller.dto.*;
 
+import cn.edu.xmu.oomall.order.controller.vo.OrderListVo;
 import cn.edu.xmu.oomall.order.controller.vo.OrderVo;
 import cn.edu.xmu.oomall.order.dao.OrderDao;
 import cn.edu.xmu.oomall.order.dao.bo.Order;
@@ -46,6 +47,36 @@ public class OrderController {
     public ReturnObject changeCustomerOrder(@PathVariable Long orderId, @RequestBody OrderDto orderDto) {
         OrderVo orderVo = orderService.changeCustomerOrder(orderId,orderDto);
         return new ReturnObject(orderVo);
+    }
+    /**
+     * 通过shopId和orderId获取商户的某个订单
+     * @param shopId 商户ID
+     * @param orderId 订单ID
+     * @return ReturnObject
+     */
+    @GetMapping("/shops/{shopId}/orders/{orderId}")
+    public ReturnObject getShopOrderById(@PathVariable Long shopId, @PathVariable Long orderId) {
+        OrderVo orderVo = orderService.getShopOrderById(shopId, orderId);
+        return new ReturnObject(orderVo);
+    }
+
+    /**
+     * 根据shopId获取某个商户下的所有订单
+     * @param shopId 商户ID
+     * @return ReturnObject
+     */
+    @GetMapping("/shops/{shopId}/orders")
+    public ReturnObject getShopOrders(@PathVariable Long shopId) {
+        List<OrderListVo> orderListVo = orderService.getShopOrders(shopId);
+        return new ReturnObject(orderListVo);
+    }
+    /**
+     * 管理员删除订单
+     * @return
+     */
+    @DeleteMapping("/deleteShopOrder")
+    public ReturnObject deleteShopOrder(@RequestBody OrderDto request) {
+        return orderService.deleteShopOrder(request.getCustomerId(), request.getShopId(), request.getOrderId());
     }
 
     /**
