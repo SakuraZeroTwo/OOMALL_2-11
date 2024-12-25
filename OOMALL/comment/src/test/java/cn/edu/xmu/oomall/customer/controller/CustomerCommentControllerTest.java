@@ -2,6 +2,7 @@ package cn.edu.xmu.oomall.customer.controller;
 
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.comment.CommentApplication;
+import cn.edu.xmu.oomall.comment.controller.dto.CommentDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -82,4 +83,29 @@ public class CustomerCommentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(4)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("评论不存在")));
     }
+
+    @Test
+    void testAppendComment() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", 1L)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content("{ \"content\": \"这是追加的评论\", \"rating\": 5 }"))
+                .andExpect(MockMvcResultMatchers.status().isCreated())  // 验证返回状态码
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.content", is("这是追加的评论")))  // 验证返回内容
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.rating", is(5)))  // 验证返回评分
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.status", is(0)))  // 验证返回状态
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.customerId", is(1)))  // 验证 customerId
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(1553)))  // 验证 productId
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.orderId", is(1)));  // 验证 orderId
+    }
+
+    @Test
+    void testAppendCommentWhenOriginCommentNotFound() throws Exception {
+        // 执行 POST 请求
+        mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", 5L)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content("{ \"content\": \"这是追加的评论\", \"rating\": 5 }"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());  // 验证返回的错误消息
+
+    }
+
 }

@@ -35,7 +35,7 @@ public class AdminControllerTest {
     void testGetUserById() throws Exception {
         Long Id = 123L;
         this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",Id)
-            .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
@@ -45,7 +45,7 @@ public class AdminControllerTest {
     void testGetUserByNULLID() throws Exception{
         Long Id = 0L;
         this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",Id)
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isUnauthorized())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.AUTH_ID_NOTEXIST.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("登录用户id不存在")));

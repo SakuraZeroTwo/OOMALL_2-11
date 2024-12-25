@@ -112,6 +112,7 @@ public class ControllerAspect {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 break;
 
+            case CUSTOMER_CARTNOTALLOW:
             case RESOURCE_ID_OUTSCOPE:
             case FILE_NO_WRITE_PERMISSION:
             case AUTH_NO_RIGHT:

@@ -1,5 +1,10 @@
 package cn.edu.xmu.oomall.customer.dao;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.mapper.RedisUtil;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.javaee.core.model.dto.UserDto;
+import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.javaee.core.config.OpenFeignConfig;
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
@@ -10,9 +15,10 @@ import cn.edu.xmu.oomall.customer.mapper.po.CartItemPo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,8 +69,13 @@ public class CartItemDao {
         }
     }
 
-    public void save(CartItemPo cartItemPo) {
-        cartItemPoMapper.save(cartItemPo);
+    public CartItem save(CartItem cartItem) {
+        CartItemPo po = new CartItemPo();
+        BeanUtils.copyProperties(cartItem, po);
+        cartItemPoMapper.save(po);
+        CartItem bo = new CartItem();
+        BeanUtils.copyProperties(po, bo);
+        return bo;
     }
 
     public CartItemPo findPoById(Long id) {

@@ -16,8 +16,8 @@
         <module name="core" />
         <module name="wechatpay" />
         <module name="prodorder" />
-        <module name="payment" />
         <module name="comment" />
+        <module name="payment" />
         <module name="region" />
         <module name="gateway" />
         <module name="jtexpress" />

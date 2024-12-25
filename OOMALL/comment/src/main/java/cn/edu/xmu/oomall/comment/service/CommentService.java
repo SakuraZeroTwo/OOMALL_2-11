@@ -5,6 +5,9 @@ import cn.edu.xmu.javaee.core.model.InternalReturnObject;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.oomall.comment.controller.dto.CommentDto;
 import cn.edu.xmu.oomall.comment.controller.vo.CommentVo;
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.oomall.comment.dao.CommentDao;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
 import cn.edu.xmu.oomall.comment.dao.bo.Product;
@@ -68,5 +71,13 @@ public class CommentService {
     public InternalReturnObject getProductId(Long productId) {
         product.setId(productId);
         return product.getProductId();
+    }
+
+
+    public Comment appendComment(Long id, Comment comment) {
+        Comment originComment = commentDao.findById(id);
+        Comment newComment = originComment.appendComment(comment);
+        commentDao.save(newComment);
+        return newComment;
     }
 }

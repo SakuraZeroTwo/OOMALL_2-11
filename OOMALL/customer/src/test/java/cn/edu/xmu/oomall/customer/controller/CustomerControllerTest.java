@@ -1,8 +1,15 @@
 package cn.edu.xmu.oomall.customer.controller;
 
+import cn.edu.xmu.javaee.core.model.InternalReturnObject;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.util.JwtHelper;
 import cn.edu.xmu.oomall.customer.CustomerApplication;
+import cn.edu.xmu.oomall.customer.controller.dto.CartItemDto;
+import cn.edu.xmu.oomall.customer.controller.vo.CartItemVo;
+import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
+import cn.edu.xmu.oomall.customer.mapper.openfeign.OnsaleMapper;
+import cn.edu.xmu.oomall.customer.mapper.openfeign.po.OnsalePo;
+import cn.edu.xmu.oomall.customer.service.CartService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,6 +23,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.eq;
+
+
+import java.time.LocalDateTime;
 
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
@@ -27,6 +39,9 @@ import static org.hamcrest.CoreMatchers.is;
 public class CustomerControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private OnsaleMapper onsaleMapper;
 
     private final String CUSTOMER_HAS_COUPONS = "/customers/{id}/coupon";
 
@@ -154,6 +169,77 @@ public class CustomerControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("地址不存在")));
+    }
+
+    @Test
+    void testAddToCart() throws Exception {
+        OnsalePo onsalePo = new OnsalePo();
+        onsalePo.setId(1L);
+        onsalePo.setPrice(53295L);
+        onsalePo.setType((byte) 0);
+        onsalePo.setProductId(1550L);
+        InternalReturnObject<OnsalePo> onsaleReturnObject = new InternalReturnObject<>();
+        onsaleReturnObject.setData(onsalePo);
+
+        when(onsaleMapper.findOnsaleById(eq(1L))).thenReturn(onsaleReturnObject);
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/customers/{id}/cart", 16666L)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content("{ \"onsaleId\": 1, \"quantity\": 5 }"))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(1550)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.customerId", is(16666)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.quantity", is(5)))  // 验证 quantity
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.price", is(53295)));  // 验证 price
+    }
+
+    @Test
+    void testAddToCartCartItemExist() throws Exception {
+        // 创建测试数据
+        OnsalePo onsalePo = new OnsalePo();
+        onsalePo.setId(749L);
+        onsalePo.setPrice(29923L);
+        onsalePo.setType((byte) 0);
+        onsalePo.setProductId(2298L);
+
+        // 创建返回对象
+        InternalReturnObject<OnsalePo> onsaleReturnObject = new InternalReturnObject<>();
+        onsaleReturnObject.setData(onsalePo);
+
+        // 确保模拟返回值正确
+        when(onsaleMapper.findOnsaleById(eq(749L))).thenReturn(onsaleReturnObject);
+
+        // 执行请求并验证
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/customers/{id}/cart", 16666L)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content("{ \"onsaleId\": 749, \"quantity\": 5 }"))  // 确保 onsaleId 传递正确
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(2298)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.customerId", is(16666)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.quantity", is(11)))  // 验证 quantity
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.price", is(29923)));  // 验证 price
+    }
+
+
+    @Test
+    void testAddToCartThrowBusinessException() throws Exception {
+        // 设置OnsalePo对象
+        OnsalePo onsalePo = new OnsalePo();
+        onsalePo.setId(1L);
+        onsalePo.setPrice(53295L);
+        onsalePo.setType((byte) 3);  // 设置为预售活动类型，触发异常
+        onsalePo.setProductId(1550L);
+
+        InternalReturnObject<OnsalePo> onsaleReturnObject = new InternalReturnObject<>();
+        onsaleReturnObject.setData(onsalePo);
+
+        // 模拟onsaleMapper.findOnsaleById返回的内容
+        when(onsaleMapper.findOnsaleById(eq(1L))).thenReturn(onsaleReturnObject);
+
+        // 发送请求，模拟添加商品到购物车
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/customers/{id}/cart", 16666L)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content("{ \"onsaleId\": 1, \"quantity\": 5 }"))
+                .andExpect(MockMvcResultMatchers.status().isForbidden());  // 验证返回状态码是 403
     }
 
     @Test

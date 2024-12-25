@@ -76,7 +76,6 @@ public class Customer implements Serializable {
             });
         }
     };
-
     private CustomerAddressDao customerAddressDao;
     public Customer(Long id, String userName, String name, Byte invalid, Byte be_deleted, CustomerAddressDao customerAddressDao) {
         this.id = id;
@@ -108,6 +107,15 @@ public class Customer implements Serializable {
         else {
             throw new IllegalArgumentException("用户状态错误");
         }
+    }
+
+    public CartItem addToCart(CartItem cartItem,Long price,Long productId)
+    {
+        cartItem.setCustomerId(this.getId());
+        cartItem.setPrice(price);
+        cartItem.setProductId(productId);
+        cartItem.setGmtCreate(LocalDateTime.now());
+        return cartItem;
     }
 
     //新增地址addAddress，创建者

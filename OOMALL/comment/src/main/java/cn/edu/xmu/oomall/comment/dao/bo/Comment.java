@@ -1,5 +1,9 @@
 package cn.edu.xmu.oomall.comment.dao.bo;
+import cn.edu.xmu.javaee.core.aop.CopyFrom;
 import cn.edu.xmu.javaee.core.model.bo.OOMallObject;
+import cn.edu.xmu.oomall.comment.controller.dto.CommentDto;
+import cn.edu.xmu.oomall.comment.mapper.po.CommentPo;
+import lombok.AllArgsConstructor;
 import cn.edu.xmu.oomall.comment.controller.dto.AuditDto;
 import cn.edu.xmu.oomall.comment.dao.AuditDao;
 import lombok.Data;
@@ -9,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -18,12 +23,14 @@ import org.springframework.stereotype.Component;
 import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
 @Slf4j
 @Data
-
+@AllArgsConstructor
+@Component
+@CopyFrom({CommentPo.class, CommentDto.class})
 public class Comment extends OOMallObject implements Serializable {
     private  String content;
-    private  Long CustomerId;
-    private  Long ProductId;
-    private  Long OrderId;
+    private  Long customerId;
+    private  Long productId;
+    private  Long orderId;
     private  int rating;
     private  Byte status;
     private  Byte appendStatus;
@@ -45,6 +52,19 @@ public class Comment extends OOMallObject implements Serializable {
         newAudit.setGmtCreate(LocalDateTime.now());
         this.audit=newAudit;
         return newAudit;
+    }
+
+    public Comment appendComment(Comment comment)
+    {
+        this.appendStatus=(byte)1;
+        comment.setCustomerId(this.customerId);
+        comment.setProductId(this.productId);
+        comment.setOrderId(this.orderId);
+        comment.setStatus(TOBEAUDIT);
+        comment.setAppendStatus((byte)0);
+        comment.setGmtCreate(LocalDateTime.now());
+        comment.setAudit(null);
+        return comment;
     }
 
     @Override

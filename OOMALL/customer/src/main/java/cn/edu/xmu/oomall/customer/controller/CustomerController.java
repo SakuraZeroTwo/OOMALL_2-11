@@ -2,32 +2,36 @@ package cn.edu.xmu.oomall.customer.controller;
 
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.javaee.core.aop.LoginUser;
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
+import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
+import cn.edu.xmu.javaee.core.validation.NewGroup;
 import cn.edu.xmu.oomall.customer.controller.dto.*;
 
+import cn.edu.xmu.oomall.customer.controller.vo.CartItemVo;
 import cn.edu.xmu.oomall.customer.controller.vo.CouponVo;
 import cn.edu.xmu.oomall.customer.controller.vo.CustomerVo;
 import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
 import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.oomall.customer.dao.bo.Coupon;
+import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.CustomerAddress;
+import cn.edu.xmu.oomall.customer.mapper.openfeign.OnsaleMapper;
 import cn.edu.xmu.oomall.customer.service.CartService;
 import cn.edu.xmu.oomall.customer.service.CouponService;
 import cn.edu.xmu.oomall.customer.service.CustomerAddressService;
 import cn.edu.xmu.oomall.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.message.ReusableMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -41,13 +45,6 @@ public class CustomerController {
     @Autowired
     private CustomerAddressService customerAddressService;
 
-
-    @GetMapping("/{customerId}")
-    public ReturnObject getCustomerById(@PathVariable("customerId") Long customerId) {
-        Customer customer = customerService.getCustomerById(customerId);
-
-        return new ReturnObject(customer);
-    }
     /**
      * 通过用户名获取顾客信息
      */
@@ -111,6 +108,17 @@ public class CustomerController {
     public ReturnObject updateAddressInfo(@PathVariable Long id, @RequestBody CustomerAddressDto customerAddressDto) {
         CustomerAddress updatedAddress = customerAddressService.updateAddressInfo(id,customerAddressDto);
         return new ReturnObject();
+    }
+
+    @PostMapping("/{id}/cart")
+    public ReturnObject addToCart(@PathVariable Long id, @Validated @RequestBody CartItemDto dto)
+    {
+        CartItem cartItem = new CartItem();
+        BeanUtils.copyProperties(dto, cartItem);
+        CartItem newCartItem = this.cartService.addToCart(id,cartItem);
+        CartItemVo vo = new CartItemVo();
+        BeanUtils.copyProperties(newCartItem, vo);
+        return new ReturnObject(ReturnNo.CREATED,vo);
     }
 
     /**

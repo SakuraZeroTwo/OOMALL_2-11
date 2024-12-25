@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/OOMALL_2-11.iml" filepath="$PROJECT_DIR$/.idea/OOMALL_2-11.iml" />
       <module fileurl="file://$PROJECT_DIR$/OOMALL/customer/customer.iml" filepath="$PROJECT_DIR$/OOMALL/customer/customer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OOMALL/comment/comment.iml" filepath="$PROJECT_DIR$/OOMALL/comment/comment.iml" />
     </modules>
   </component>
 </project>

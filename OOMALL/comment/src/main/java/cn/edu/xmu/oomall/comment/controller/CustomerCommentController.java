@@ -1,4 +1,5 @@
 package cn.edu.xmu.oomall.comment.controller;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.InternalReturnObject;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
@@ -12,11 +13,15 @@ import cn.edu.xmu.oomall.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 
 import java.util.List;
 @RestController
@@ -67,4 +72,15 @@ public class CustomerCommentController {
 //    public InternalReturnObject hello(Long id) {
 //        return commentService.getProductId(id);
 //    }
+
+    @PostMapping("/{id}/comment")
+    public ReturnObject appendComment(@PathVariable Long id, @Validated @RequestBody CommentDto dto) {
+        Comment comment = new Comment();
+        BeanUtils.copyProperties(dto, comment);
+        Comment newComment = this.commentService.appendComment(id, comment);
+        CommentVo vo = new CommentVo();
+        BeanUtils.copyProperties(newComment, vo);
+        return new ReturnObject(ReturnNo.CREATED, comment);
+    }
+
 }
