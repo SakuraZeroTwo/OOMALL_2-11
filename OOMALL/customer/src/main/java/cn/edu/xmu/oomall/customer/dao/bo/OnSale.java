@@ -59,7 +59,7 @@ public class OnSale {
     public CartItem addToCart(Long customerId,CartItem newCartItem)
     {
         if (OnSale.ADVSALE.equals(this.type) || OnSale.GROUPON.equals(this.type)) {
-            throw new BusinessException(ReturnNo.CUSTOMER_CARTNOTALLOW);
+            throw new BusinessException(ReturnNo.CUSTOMER_CARTNOTALLOW, String.format(ReturnNo.CUSTOMER_CARTNOTALLOW.getMessage(), this.productId));
         }
         else {
             // 检查购物车中是否已有该商品
@@ -74,6 +74,7 @@ public class OnSale {
                 newCartItem.setPrice(this.price);
                 newCartItem.setProductId(this.productId);
                 newCartItem.setGmtCreate(LocalDateTime.now());
+                cartItemDao.save(newCartItem);
                 return newCartItem;
             }
             else {

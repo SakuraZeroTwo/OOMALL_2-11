@@ -16,4 +16,5 @@ public class OrderDto {
     private String address;
     private String mobile;
     private String message;
+    private Long weight;
 }

@@ -60,4 +60,34 @@ public class OrderControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("订单不存在或不属于该商户")));
     }
+    @Test
+    void testSendOrder() throws Exception {
+        // 执行 PUT 请求
+        mockMvc.perform(MockMvcRequestBuilders.put("/orders/shops/{shopId}/orders/{id}/send", 1L, 200L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{ \"weight\": 10 }"))  // 仅设置 weight
+                .andExpect(MockMvcResultMatchers.status().isOk()) // 验证返回的状态码是200（OK）
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
+    }
+    @Test
+    void testSendOrderShopNotAllow() throws Exception {
+        // 执行 PUT 请求
+        mockMvc.perform(MockMvcRequestBuilders.put("/orders/shops/{shopId}/orders/{id}/send", 2L, 200L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{ \"weight\": 10 }"))  // 仅设置 weight
+                .andExpect(MockMvcResultMatchers.status().isForbidden())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno").value(ReturnNo.RESOURCE_ID_OUTSCOPE.getErrNo()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg").value("订单对象(id=200)超出商铺（id = 2）的操作范围"));  // 验证错误消息
+    }
+    @Test
+    void testSendOrderStatusNotAllow() throws Exception {
+        // 执行 PUT 请求
+        mockMvc.perform(MockMvcRequestBuilders.put("/orders/shops/{shopId}/orders/{id}/send", 1L, 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{ \"weight\": 10 }"))  // 仅设置 weight
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno").value(ReturnNo.STATENOTALLOW.getErrNo()))  // 验证返回的错误代码
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg").value("订单对象（id=1）非确认状态禁止此操作"));  // 验证错误消息
+    }
 }
