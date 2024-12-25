@@ -90,6 +90,8 @@ public class CustomerCommentControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{ \"content\": \"这是追加的评论\", \"rating\": 5 }"))
                 .andExpect(MockMvcResultMatchers.status().isCreated())  // 验证返回状态码
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.CREATED.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("创建成功")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.content", is("这是追加的评论")))  // 验证返回内容
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.rating", is(5)))  // 验证返回评分
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.status", is(0)))  // 验证返回状态
@@ -104,7 +106,9 @@ public class CustomerCommentControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/comment/{id}/comment", 5L)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{ \"content\": \"这是追加的评论\", \"rating\": 5 }"))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());  // 验证返回的错误消息
+                .andExpect(MockMvcResultMatchers.status().isNotFound())  // 验证返回的错误消息
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno").value(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo()))  // 验证返回的错误代码
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg").value("评论不存在"));  // 验证错误消息
 
     }
 
