@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OnsalePo {
+    private Long id;
     private Long price;
     private Byte type;
-    private Long ProductId;
+    private Long productId;
 }

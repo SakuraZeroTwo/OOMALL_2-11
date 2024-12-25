@@ -4,7 +4,6 @@ import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.mapper.RedisUtil;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.dto.UserDto;
-import cn.edu.xmu.javaee.core.util.CloneFactory;
 import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.javaee.core.config.OpenFeignConfig;
 import cn.edu.xmu.javaee.core.exception.BusinessException;
@@ -70,10 +69,6 @@ public class CartItemDao {
         }
     }
 
-    public void save(CartItemPo cartItemPo) {
-
-        cartItemPoMapper.save(cartItemPo);
-    }
     public CartItem save(CartItem cartItem) {
         CartItemPo po = new CartItemPo();
         BeanUtils.copyProperties(cartItem, po);
@@ -95,14 +90,6 @@ public class CartItemDao {
 
     public void deleteProductInCart(Long cartItemId){
         this.cartItemPoMapper.deleteById(cartItemId);
-    }
-
-    public CartItem findByProductId(Long customerId,Long productId)
-    {
-        CartItemPo po = cartItemPoMapper.findByCustomerIdAndProductId(customerId,productId); //在数据库中查找
-        CartItem bo = new CartItem();
-        BeanUtils.copyProperties(po, bo);
-        return bo;
     }
 
 }

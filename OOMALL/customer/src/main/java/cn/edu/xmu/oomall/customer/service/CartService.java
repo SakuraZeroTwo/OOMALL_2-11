@@ -49,33 +49,12 @@ public class CartService {
         return cartItemDao.getCartList(customerId);
     }
 
-    public CartItem addToCart(UserDto user, CartItem cartItem)
-    {
+    public CartItem addToCart(Long customerId, CartItem cartItem) {
         InternalReturnObject<OnsalePo> onsaleCheck = onsaleMapper.findOnsaleById(cartItem.getOnsaleId());
-        OnsalePo onsalePo = onsaleCheck.getData();
         OnSale onsale = new OnSale();
-        BeanUtils.copyProperties(onsalePo, onsale);
-        if(OnSale.ADVSALE.equals(onsale.getType())||OnSale.GROUPON.equals(onsale.getType()))
-        {
-            throw new BusinessException(ReturnNo.CUSTOMER_CARTNOTALLOW, String.format(ReturnNo.CUSTOMER_CARTNOTALLOW.getMessage(), cartItem.getProductId()));
-        }
-        else
-        {
-            CartItem existCartItem = this.cartItemDao.findByProductId(user.getId(),cartItem.getProductId());
-            if(Objects.isNull(existCartItem)) //如果existCartItem是空，则需要重新创建一个
-            {
-                Optional<Customer> customer = customerDao.findById(user.getId());
-                customer.ifPresent(cust -> {
-                    CartItem newCartItem = cust.addToCart(cartItem, onsale.getPrice(),onsale.getProductId());
-                    cartItemDao.save(newCartItem);
-                });
-            }
-            else
-            {
-                existCartItem.setQuantity(existCartItem.getQuantity()+cartItem.getQuantity()); //如果购物车已有商品则数量增加
-                return this.cartItemDao.save(existCartItem);
-            }
-        }
-        return null;
+        BeanUtils.copyProperties(onsaleCheck.getData(), onsale);
+        onsale.setCartItemDao(cartItemDao);
+        return onsale.addToCart(customerId,cartItem);
     }
+
 }

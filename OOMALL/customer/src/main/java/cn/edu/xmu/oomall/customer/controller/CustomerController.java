@@ -1,10 +1,11 @@
 package cn.edu.xmu.oomall.customer.controller;
 
 import cn.edu.xmu.javaee.core.aop.LoginUser;
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
-import cn.edu.xmu.javaee.core.util.CloneFactory;
 import cn.edu.xmu.javaee.core.validation.NewGroup;
 import cn.edu.xmu.oomall.customer.controller.dto.*;
 
@@ -104,15 +105,15 @@ public class CustomerController {
         return new ReturnObject();
     }
 
-    @PostMapping
-    public ReturnObject addToCart(@LoginUser UserDto user, @Validated(NewGroup.class) @RequestBody CartItemDto dto)
+    @PostMapping("/{id}/cart")
+    public ReturnObject addToCart(@PathVariable Long id, @Validated @RequestBody CartItemDto dto)
     {
         CartItem cartItem = new CartItem();
         BeanUtils.copyProperties(dto, cartItem);
-        CartItem newCartItem = this.cartService.addToCart(user,cartItem);
+        CartItem newCartItem = this.cartService.addToCart(id,cartItem);
         CartItemVo vo = new CartItemVo();
         BeanUtils.copyProperties(newCartItem, vo);
-        return new ReturnObject(vo);
+        return new ReturnObject(ReturnNo.CREATED,vo);
     }
 
     /**
