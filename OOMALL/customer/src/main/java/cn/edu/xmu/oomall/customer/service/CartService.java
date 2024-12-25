@@ -61,9 +61,10 @@ public class CartService {
         CartItemPo cartItemPo = this.cartItemDao.findPoById(cartItemId);
         cartItemPo.setQuantity(quantity);
         cartItemPo.setGmtModified(LocalDateTime.now());
+        cartItemPo.setGmtCreate(LocalDateTime.now());
         this.cartItemDao.save(cartItemPo);
         CartItem cartItem = new CartItem();
-        BeanUtils.copyProperties(cartItemPo,cartItem);
+        BeanUtils.copyProperties(cartItemPo, cartItem);
         return cartItem;
     }
 

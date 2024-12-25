@@ -72,10 +72,15 @@ public class CartItemDao {
     public CartItem save(CartItem cartItem) {
         CartItemPo po = new CartItemPo();
         BeanUtils.copyProperties(cartItem, po);
+        po.setGmtCreate(LocalDateTime.now());
         cartItemPoMapper.save(po);
         CartItem bo = new CartItem();
         BeanUtils.copyProperties(po, bo);
         return bo;
+    }
+
+    public void save(CartItemPo cartItemPo){
+        cartItemPoMapper.save(cartItemPo);
     }
 
     public CartItemPo findPoById(Long id) {
