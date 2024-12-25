@@ -22,16 +22,16 @@ import java.util.Optional;
 public class AuditDao {
     private final AuditPoMapper auditPoMapper;
 
-    public Audit findById(Long id) {
-        Optional<AuditPo> auditPo = auditPoMapper.findById(id);
-        if (!auditPo.isPresent()) {
-            throw new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST);
-        } else {
-            Audit bo = new Audit();
-            BeanUtils.copyProperties(auditPo.get(), bo);
-            return bo;
-        }
-    }
+//    public Audit findById(Long id) {
+//        Optional<AuditPo> auditPo = auditPoMapper.findById(id);
+//        if (!auditPo.isPresent()) {
+//            throw new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST);
+//        } else {
+//            Audit bo = new Audit();
+//            BeanUtils.copyProperties(auditPo.get(), bo);
+//            return bo;
+//        }
+//    }
 
     public Audit save(Audit audit) {
         AuditPo auditPo = new AuditPo();

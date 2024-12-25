@@ -17,10 +17,10 @@ public class Product {
     private Long id;
 
 
-    @Autowired
-    private ProductMapper productMapper;
-
-    public InternalReturnObject getProductId() {
-        return productMapper.findProductById(this.id);
-    }
+//    @Autowired
+//    private ProductMapper productMapper;
+//
+//    public InternalReturnObject getProductId() {
+//        return productMapper.findProductById(this.id);
+//    }
 }

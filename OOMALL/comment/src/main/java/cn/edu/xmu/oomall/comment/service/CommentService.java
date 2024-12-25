@@ -80,10 +80,6 @@ public class CommentService {
         return commentListVo;
     }
 
-    public InternalReturnObject getProductId(Long productId) {
-        product.setId(productId);
-        return product.getProductId();
-    }
 
 
     public Comment appendComment(Long id, Comment comment) {

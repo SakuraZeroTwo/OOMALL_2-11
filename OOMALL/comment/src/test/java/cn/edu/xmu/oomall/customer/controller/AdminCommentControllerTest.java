@@ -67,4 +67,31 @@ public class AdminCommentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("评论不存在或已删除")));
     }
+    /**
+     * 测试根据id获取评论
+     */
+    @Test
+    void testgetCommentByIdSuccess() throws Exception {
+        Long id = 1L;
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/adminComment/{id}",id)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk()) // 期望返回 HTTP 200
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(0))) // 期望 errno 为 0 (表示成功)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功"))) // 期望 errmsg 为 "成功"/ 期望 creatorName 为 "1"
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.gmtCreate", is("2024-12-21T16:59:01"))) // 期望 gmtCreate 为指定时间
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.content", is("泰裤辣"))) // 期望 content 为 "泰裤辣"
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.rating", is(0))) // 期望 rating 为 0// 期望 appendStatus 为 1
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.orderId", is(1))) // 期望 orderId 为 1
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(1553))) // 期望 productId 为 1553
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.customerId", is(1))); // 期望 customerId 为 1
+    }
+    @Test
+    void testgetCommentById_IDNotExist() throws Exception {
+        Long id = 999L;
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/adminComment/{id}",id)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isNotFound()) //
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(4)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("评论不存在")));
+    }
 }

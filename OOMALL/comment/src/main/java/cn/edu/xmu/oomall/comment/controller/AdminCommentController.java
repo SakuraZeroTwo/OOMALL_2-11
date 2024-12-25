@@ -29,5 +29,15 @@ public class AdminCommentController {
         auditService.auditComment(commentId,auditdto);
         return  new ReturnObject();
     }
+    /**
+     * 根据评论id获取评论
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public ReturnObject getCommentById(@PathVariable Long id) {
+        CommentVo commentVo = this.commentService.getCommentById(id);
+        return new ReturnObject(commentVo);
+    }
 
 }
