@@ -27,21 +27,21 @@ public class CartItemPo {
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
 
-
-    @Override
-    public String toString() {
-        return "CartItemPo{" +
-                "id=" + id +
-                ", customerId=" + customerId +
-                ", productId=" + productId +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", creatorId=" + creatorId +
-                ", creatorName='" + creatorName + '\'' +
-                ", modifierId=" + modifierId +
-                ", modifierName='" + modifierName + '\'' +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModified=" + gmtModified +
-                '}';
-    }
+//
+//    @Override
+//    public String toString() {
+//        return "CartItemPo{" +
+//                "id=" + id +
+//                ", customerId=" + customerId +
+//                ", productId=" + productId +
+//                ", quantity=" + quantity +
+//                ", price=" + price +
+//                ", creatorId=" + creatorId +
+//                ", creatorName='" + creatorName + '\'' +
+//                ", modifierId=" + modifierId +
+//                ", modifierName='" + modifierName + '\'' +
+//                ", gmtCreate=" + gmtCreate +
+//                ", gmtModified=" + gmtModified +
+//                '}';
+//    }
 }

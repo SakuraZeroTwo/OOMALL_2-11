@@ -39,7 +39,7 @@ public class CustomerCommentController {
     }
 
     /**
-     * 获取所有评论
+     * 获取某商品所有评论
      * @return
      *
      */

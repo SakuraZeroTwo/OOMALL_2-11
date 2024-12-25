@@ -28,20 +28,20 @@ public class CustomerAddressPo {
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
 
-    @Override
-    public String toString() {
-        return "CustomerAddressPo{" +
-                "id=" + id +
-                ", customerId=" + customerId +
-                ", regionId=" + regionId +
-                ", address='" + address + '\'' +
-                ", consignee='" + consignee + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", beDefault=" + beDefault +
-                ", creatorName='" + creatorName + '\'' +
-                ", modifierName=" + modifierName +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModified=" + gmtModified +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "CustomerAddressPo{" +
+//                "id=" + id +
+//                ", customerId=" + customerId +
+//                ", regionId=" + regionId +
+//                ", address='" + address + '\'' +
+//                ", consignee='" + consignee + '\'' +
+//                ", mobile='" + mobile + '\'' +
+//                ", beDefault=" + beDefault +
+//                ", creatorName='" + creatorName + '\'' +
+//                ", modifierName=" + modifierName +
+//                ", gmtCreate=" + gmtCreate +
+//                ", gmtModified=" + gmtModified +
+//                '}';
+//    }
 }

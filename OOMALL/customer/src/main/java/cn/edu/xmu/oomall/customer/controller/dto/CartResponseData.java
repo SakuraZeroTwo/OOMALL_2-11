@@ -1,9 +1,15 @@
 package cn.edu.xmu.oomall.customer.controller.dto;
 
 import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
+@Setter
+@Getter
+@ToString
 public class CartResponseData {
     private List<CartItem> items;
     private Long totalPrice;
@@ -13,27 +19,11 @@ public class CartResponseData {
         this.totalPrice = totalPrice;
     }
 
-    public Long getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Long totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public List<CartItem> getItems() {
-        return items;
-    }
-
-    public void setItems(List<CartItem> items) {
-        this.items = items;
-    }
-
-    @Override
-    public String toString() {
-        return "CartResponseData{" +
-                "items=" + items +
-                ", totalPrice=" + totalPrice +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "CartResponseData{" +
+//                "items=" + items +
+//                ", totalPrice=" + totalPrice +
+//                '}';
+//    }
 }

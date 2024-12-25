@@ -17,5 +17,5 @@ public interface CommentPoMapper extends JpaRepository<CommentPo, Long> {
 ////                                    @Param("offset") int offset,
 ////                                    @Param("pageSize") int pageSize);
 //    List<CommentPo> findByProductId(@Param("productId") Long productId, Pageable pageable);
-    Page<CommentPo> findByProductId(Long productId, Pageable pageable); // 确保返回 Page 类型
+    Page<CommentPo> findByProductIdAndStatus(Long productId, int status,Pageable pageable); // 确保返回 Page 类型
 }
