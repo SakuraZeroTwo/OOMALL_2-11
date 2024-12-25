@@ -51,4 +51,33 @@ public class OrderDao {
 
         return orderBo;
     }
+    /**
+     * 根据shopId和orderId获取订单
+     * @param shopId 商户ID
+     * @param orderId 订单ID
+     * @return Order
+     */
+    public Order findShopOrderById(Long shopId, Long orderId) {
+        Optional<OrderPo> orderPo = orderPoMapper.findByShopIdAndId(shopId, orderId);
+        if (!orderPo.isPresent()) {
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, "订单不存在或不属于该商户");
+        }
+        Order order = new Order();
+        BeanUtils.copyProperties(orderPo.get(), order);
+        return order;
+    }
+
+    /**
+     * 根据shopId获取商户的所有订单
+     * @param shopId 商户ID
+     * @return List<Order>
+     */
+    public List<Order> findShopOrders(Long shopId) {
+        List<OrderPo> orderPos = orderPoMapper.findAllByShopId(shopId);
+        return orderPos.stream().map(orderPo -> {
+            Order order = new Order();
+            BeanUtils.copyProperties(orderPo, order);
+            return order;
+        }).collect(Collectors.toList());
+    }
 }

@@ -24,7 +24,7 @@ import java.util.Optional;
 import static cn.edu.xmu.javaee.core.model.Constants.PLATFORM;
 
 @Component
-@RocketMQTransactionListener
+//@RocketMQTransactionListener
 @RequiredArgsConstructor
 public class DelTemplateListener implements RocketMQLocalTransactionListener {
 
