@@ -48,9 +48,7 @@ public class CommentService {
         OrderItem orderItem = orderItemDao.findById(orderItemId);
         ProductPo productPo = productDao.findById(orderItem.getOnsaleId());
         Long productId = productPo.getId();
-        Long orderId = orderItem.getOrderId();
         Comment comment = orderItem.createComment(commentDto,productId);
-        comment.setOrderId(orderId);
         this.commentDao.save(comment);
         CommentVo commentVo = new CommentVo();
         BeanUtils.copyProperties(comment, commentVo);
