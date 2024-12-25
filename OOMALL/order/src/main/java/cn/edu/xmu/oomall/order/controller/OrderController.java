@@ -22,16 +22,29 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 @RequiredArgsConstructor
 public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    /**
+     * 根据id获取订单
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ReturnObject getOrderById(@PathVariable Long id) {
         OrderVo orderVo = orderService.getOrderById(id);
         return new ReturnObject(orderVo);
     }
 
+    /**
+     * 顾客修改订单
+     */
+    @PutMapping("{orderId}")
+    public ReturnObject changeCustomerOrder(@PathVariable Long orderId, @RequestBody OrderDto orderDto) {
+        OrderVo orderVo = orderService.changeCustomerOrder(orderId,orderDto);
+        return new ReturnObject(orderVo);
+    }
 }

@@ -39,4 +39,16 @@ public class OrderDao {
             return bo;
         }
     }
+
+    public Order updateOrder(Order order) {
+        OrderPo orderPo = new OrderPo();
+        BeanUtils.copyProperties(order, orderPo);
+        orderPo.setGmtCreate(order.getGmtCreate());
+        orderPoMapper.save(orderPo);
+
+        Order orderBo = new Order();
+        BeanUtils.copyProperties(orderPo, orderBo);
+
+        return orderBo;
+    }
 }
