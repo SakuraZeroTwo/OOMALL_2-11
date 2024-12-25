@@ -11,17 +11,18 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class CustomerAddressService {
-
 
     private final CustomerDao customerDao;
     private final CustomerAddressDao customerAddressDao;
@@ -66,7 +67,7 @@ public class CustomerAddressService {
     public CustomerAddress addAddress(CustomerAddressDto addressDto,Long customerId) {
         CustomerAddress address = new CustomerAddress();
         BeanUtils.copyProperties(addressDto, address);
-        Customer customer = customerDao.findById(customerId).orElseThrow(() -> new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST));
+        Customer customer = this.customerDao.findById(customerId).orElseThrow(() -> new BusinessException(ReturnNo.CUSTOMERID_NOTEXIST));
         customer.setCustomerAddressDao(this.customerAddressDao);
         address.setCustomerId(customerId);
         return customer.addAddress(address);
