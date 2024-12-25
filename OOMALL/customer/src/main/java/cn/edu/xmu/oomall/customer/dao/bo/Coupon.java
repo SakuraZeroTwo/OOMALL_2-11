@@ -22,10 +22,6 @@ import java.time.LocalDateTime;
 @CopyFrom({CouponPo.class})
 @Data
 public class Coupon implements Serializable {
-    @ToString.Exclude
-    @JsonIgnore
-    private final static Logger logger = LoggerFactory.getLogger(Coupon.class);
-
     private Long id;
     private String couponSn;
     private String couponName;

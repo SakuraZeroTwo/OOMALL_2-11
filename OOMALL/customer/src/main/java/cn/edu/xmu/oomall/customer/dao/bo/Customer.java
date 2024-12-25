@@ -85,25 +85,25 @@ public class Customer implements Serializable {
         }
     };
     private CustomerAddressDao customerAddressDao;
-    public Customer(Long id, String userName, String name, Byte invalid, Byte be_deleted, CustomerAddressDao customerAddressDao) {
-        this.id = id;
-        this.userName = userName;
-        this.name = name;
-        this.invalid = invalid;
-        this.be_deleted = be_deleted;
-        this.customerAddressDao = customerAddressDao;
-    }
-
-    public Customer(Long id, String userName, String password, String name, Byte invalid, Byte be_deleted, String mobile, Long point) {
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
-        this.name = name;
-        this.invalid = invalid;
-        this.be_deleted = be_deleted;
-        this.mobile = mobile;
-        this.point = point;
-    }
+//    public Customer(Long id, String userName, String name, Byte invalid, Byte be_deleted, CustomerAddressDao customerAddressDao) {
+//        this.id = id;
+//        this.userName = userName;
+//        this.name = name;
+//        this.invalid = invalid;
+//        this.be_deleted = be_deleted;
+//        this.customerAddressDao = customerAddressDao;
+//    }
+//
+//    public Customer(Long id, String userName, String password, String name, Byte invalid, Byte be_deleted, String mobile, Long point) {
+//        this.id = id;
+//        this.userName = userName;
+//        this.password = password;
+//        this.name = name;
+//        this.invalid = invalid;
+//        this.be_deleted = be_deleted;
+//        this.mobile = mobile;
+//        this.point = point;
+//    }
 
     public void convertInvalid() {
         if(this.invalid.equals(INVALID) ){
@@ -117,14 +117,6 @@ public class Customer implements Serializable {
         }
     }
 
-    public CartItem addToCart(CartItem cartItem,Long price,Long productId)
-    {
-        cartItem.setCustomerId(this.getId());
-        cartItem.setPrice(price);
-        cartItem.setProductId(productId);
-        cartItem.setGmtCreate(LocalDateTime.now());
-        return cartItem;
-    }
 
     //新增地址addAddress，创建者
     public CustomerAddress addAddress(CustomerAddress address) {

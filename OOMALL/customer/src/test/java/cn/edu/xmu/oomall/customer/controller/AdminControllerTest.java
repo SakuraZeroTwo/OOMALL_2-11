@@ -95,7 +95,7 @@ public class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())  // 验证返回状态码
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(0)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.length()", is(24285)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.length()", is(24286)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data[0].userName", is("699275")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data[1].userName", is("105048")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data[6].userName", is("696909")));

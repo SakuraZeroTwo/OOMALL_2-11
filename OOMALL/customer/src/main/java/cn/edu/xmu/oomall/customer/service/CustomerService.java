@@ -26,16 +26,6 @@ public class CustomerService {
     private final CustomerDao customerDao;
     private final CustomerAddressDao customerAddressDao;
     private final static Logger logger = LoggerFactory.getLogger(CustomerService.class);
-    /**
-     * 根据用户名获取顾客
-     */
-    public Customer getCustomerByUserName(String userName) {
-        Customer customer = customerDao.findByUserName(userName).orElse(null);
-        if (customer == null) {
-            throw new BusinessException(ReturnNo.CUSTOMERNAME_NOTEXIST);
-        }
-        return customer;
-    }
 
     /**
      * 根据 ID 获取顾客
@@ -69,12 +59,12 @@ public class CustomerService {
     public Customer createCustomer(Customer customer) {
     // 只允许创建时传入用户名和密码
     if (customer.getUserName() == null) {
-        throw new BusinessException(ReturnNo.CUSTOMERNAME_ISNULL);
+        throw new BusinessException(ReturnNo.FIELD_NOTVALID,"用户名不能为空");
     } else if (customer.getPassword() == null) {
-        throw new BusinessException(ReturnNo.CUSTOMERPASSWORD_ISNULL);
+        throw new BusinessException(ReturnNo.FIELD_NOTVALID,"密码不能为空");
 
     } else if(customerDao.findByUserName(customer.getUserName()).isPresent()){
-        throw new BusinessException(ReturnNo.CUSTOMER_NAMEEXIST);
+        throw new BusinessException(ReturnNo.FIELD_NOTVALID,"用户名已存在");
     }
     // 设置创建时间为当前时间
     customer.setGmtCreate(LocalDateTime.now());

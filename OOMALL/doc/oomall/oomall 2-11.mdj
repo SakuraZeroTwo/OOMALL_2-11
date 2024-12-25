@@ -286391,9 +286391,9 @@
 																"$ref": "AAAAAAGTfHQvlBEmKf0="
 															},
 															"font": "Arial;13;0",
-															"left": 532,
+															"left": 525,
 															"top": 248,
-															"width": 156.08251953125,
+															"width": 170.8662109375,
 															"height": 13,
 															"alpha": 1.5707963267948966,
 															"distance": 10,
@@ -286401,7 +286401,7 @@
 																"$ref": "AAAAAAGTfHQvlBEnU2o="
 															},
 															"edgePosition": 1,
-															"text": "3 : cartItems = getCatList"
+															"text": "3 : cartItems = getCatList（）"
 														},
 														{
 															"_type": "EdgeLabelView",
@@ -286625,7 +286625,7 @@
 																"$ref": "AAAAAAGTfHUE0hImXl0="
 															},
 															"edgePosition": 1,
-															"text": "4 : cartItems = retriveCartItems(customer)"
+															"text": "4 : cartList = retriveCartItems(cartItems)"
 														},
 														{
 															"_type": "EdgeLabelView",
@@ -286829,11 +286829,11 @@
 														"$ref": "AAAAAAGTWJRWJ1kG40w="
 													},
 													"font": "Arial;20;0",
-													"left": 88,
-													"top": 480,
-													"width": 928.720703125,
+													"left": 16,
+													"top": 488,
+													"width": 1345.68359375,
 													"height": 32,
-													"text": "cartItem对象是customer类的属性，根据信息专家的原则将获取购物车列表的职责分配给customer对象"
+													"text": "cartItem类和customer关联，customer类具有完成getCartList方法所需要的所有信息，根据信息专家的原则将获取购物车列表的职责分配给customer对象"
 												}
 											]
 										}
@@ -286876,7 +286876,7 @@
 											"_parent": {
 												"$ref": "AAAAAAGTWJRWJ1kFPaI="
 											},
-											"name": "getCatList",
+											"name": "getCatList（）",
 											"source": {
 												"$ref": "AAAAAAGTWJRWJ1k9/rE="
 											},
@@ -286898,8 +286898,8 @@
 											"target": {
 												"$ref": "AAAAAAGTfHSYJBGghUg="
 											},
-											"arguments": "customer",
-											"assignmentTarget": "cartItems"
+											"arguments": "cartItems",
+											"assignmentTarget": "cartList"
 										},
 										{
 											"_type": "UMLMessage",
@@ -293320,9 +293320,9 @@
 																"$ref": "AAAAAAGT2zKRAGjbsPQ="
 															},
 															"font": "Arial;13;0",
-															"left": 37.07177734375,
+															"left": 40.41064453125,
 															"top": 133,
-															"width": 7.22998046875,
+															"width": 7.62353515625,
 															"height": 13,
 															"text": "1"
 														},
@@ -293335,7 +293335,7 @@
 															"font": "Arial;13;1",
 															"left": 13,
 															"top": 133,
-															"width": 18.07177734375,
+															"width": 21.41064453125,
 															"height": 13,
 															"text": "opt"
 														},
@@ -293368,7 +293368,7 @@
 																			"font": "Arial;13;0",
 																			"left": 28,
 																			"top": 166,
-																			"width": 101.12451171875,
+																			"width": 110.4111328125,
 																			"height": 13,
 																			"text": "[isNull(customer)]"
 																		}
@@ -293569,9 +293569,9 @@
 																"$ref": "AAAAAAGT2zeqHmmR4rE="
 															},
 															"font": "Arial;13;0",
-															"left": 469,
+															"left": 458,
 															"top": 256,
-															"width": 306.01416015625,
+															"width": 329.4814453125,
 															"height": 13,
 															"alpha": 1.5707963267948966,
 															"distance": 10,
@@ -293677,9 +293677,9 @@
 																"$ref": "AAAAAAGT20H1zoGZ9tY="
 															},
 															"font": "Arial;13;0",
-															"left": 53.07177734375,
+															"left": 56.41064453125,
 															"top": 293,
-															"width": 7.22998046875,
+															"width": 7.62353515625,
 															"height": 13,
 															"text": "2"
 														},
@@ -293692,7 +293692,7 @@
 															"font": "Arial;13;1",
 															"left": 29,
 															"top": 293,
-															"width": 18.07177734375,
+															"width": 21.41064453125,
 															"height": 13,
 															"text": "opt"
 														},
@@ -293725,7 +293725,7 @@
 																			"font": "Arial;13;0",
 																			"left": 44,
 																			"top": 326,
-																			"width": 253.880859375,
+																			"width": 275.0185546875,
 																			"height": 13,
 																			"text": "[CouponList == null || CouponList.isEmpty()]"
 																		}
@@ -293782,9 +293782,9 @@
 																"$ref": "AAAAAAGT20J5QoGxdm8="
 															},
 															"font": "Arial;13;0",
-															"left": 110,
+															"left": 100,
 															"top": 366,
-															"width": 203.22021484375,
+															"width": 222.8662109375,
 															"height": 13,
 															"alpha": 1.5707963267948966,
 															"distance": 10,

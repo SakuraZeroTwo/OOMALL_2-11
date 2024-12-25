@@ -33,24 +33,6 @@ public class CartItemDao {
         return cartItemPoMapper.findByCustomerId(customerId);
     }
 
-    /**
-     * 获取购物车列表
-     */
-    public CartResponseData getCartList(Long customerId){
-        List<CartItemPo> cartItemPo = this.findByCustomerId(customerId);
-        if (cartItemPo.isEmpty()) {
-            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST,"用户不存在");
-        }
-
-        List<CartItem> cartItems = cartItemPo.stream()
-                .map(this::convertCartItemPoToBo)
-                .collect(Collectors.toList());
-
-        Long totalPrice = cartItems.stream()
-                .mapToLong(CartItem::getSubtotal)
-                .sum();
-        return new CartResponseData(cartItems,totalPrice);
-    }
     private CartItem convertCartItemPoToBo(CartItemPo po) {
         CartItem item = new CartItem();
         BeanUtils.copyProperties(po, item);
