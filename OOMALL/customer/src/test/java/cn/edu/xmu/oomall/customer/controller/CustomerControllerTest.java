@@ -46,6 +46,52 @@ public class CustomerControllerTest {
     private final String CUSTOMER_HAS_COUPONS = "/customers/{id}/coupon";
 
     @Test
+    void testCreateCustomerSuccess() throws Exception {
+        String requestBody = "{\"userName\":\"testUser111\", \"password\":\"testPassword\"}";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/customers")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
+    }
+
+    @Test
+    void testCreateCustomerMissingUserName() throws Exception {
+        String requestBody = "{\"password\":\"testPassword\"}";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/customers")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.FIELD_NOTVALID.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("用户名不能为空")));
+    }
+
+    @Test
+    void testCreateCustomerMissingPassword() throws Exception {
+        String requestBody = "{\"userName\":\"testUser\"}";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/customers")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.FIELD_NOTVALID.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("密码不能为空")));
+    }
+    @Test
+    void testCreateCustomerNAMEEXIST() throws Exception {
+        String requestBody = "{\"userName\":\"699275\", \"password\":\"testPassword\"}";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/customers")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.FIELD_NOTVALID.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("用户名已存在")));
+    }
+    @Test
     void getCouponList() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get(CUSTOMER_HAS_COUPONS,1001)
                     .contentType(MediaType.APPLICATION_JSON_VALUE))

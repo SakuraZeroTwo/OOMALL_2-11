@@ -16,21 +16,6 @@ public class CustomerDto {
     private String mobile;
     private LocalDateTime gmtCreate;   // 创建时间
 
-    public LocalDateTime getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(LocalDateTime gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public @NotNull(message = "用户名不能为空") String getUserName() {
         return userName;

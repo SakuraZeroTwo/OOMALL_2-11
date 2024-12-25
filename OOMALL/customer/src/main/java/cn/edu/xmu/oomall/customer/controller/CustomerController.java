@@ -46,18 +46,6 @@ public class CustomerController {
     private CustomerAddressService customerAddressService;
 
     /**
-     * 通过用户名获取顾客信息
-     */
-    @GetMapping("/username/{username}")
-    public ReturnObject getCustomerByUserName(@PathVariable("username") String userName) {
-
-        Customer customer = customerService.getCustomerByUserName(userName);
-        CustomerVo customerVo = new CustomerVo();
-        BeanUtils.copyProperties(customer, customerVo);
-        return new ReturnObject(customerVo);
-    }
-
-    /**
      * 创建顾客
      */
     @PostMapping
