@@ -21,7 +21,7 @@ public class OrderItem {
     public Comment createComment(CommentDto commentDto,Long productId) {
         Comment comment = new Comment();
         BeanUtils.copyProperties(commentDto, comment);
-        comment.setOrderId(this.orderId);
+        comment.setOrderId(orderId);
         comment.setProductId(productId);
         comment.setStatus(Comment.TOBEAUDIT);
         comment.setGmtCreate(LocalDateTime.now());
