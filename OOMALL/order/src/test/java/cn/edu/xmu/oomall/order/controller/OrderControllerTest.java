@@ -90,4 +90,24 @@ public class OrderControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno").value(ReturnNo.STATENOTALLOW.getErrNo()))  // 验证返回的错误代码
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg").value("订单对象（id=1）非确认状态禁止此操作"));  // 验证错误消息
     }
+    
+    @Test
+    void changeCustomerOrder() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.put("/orders/13")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{ \"customerId\": 7, \"consignee\": \"赵良缘\", \"regionId\": 264962, \"address\": \"南火车站\", \"mobile\": \"13959221894\", \"message\": \"等待所有商品备齐后再发\" }"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
+    }
+
+    @Test
+    void changeCustomerOrderUnMatchedCustomer() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.put("/orders/13")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{ \"customerId\": 12, \"consignee\": \"赵良缘\", \"regionId\": 264962, \"address\": \"南火车站\", \"mobile\": \"13959221894\", \"message\": \"等待所有商品备齐后再发\" }"))
+                .andExpect(MockMvcResultMatchers.status().isForbidden())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.AUTH_NO_RIGHT.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("非本用户订单")));
+    }
 }
