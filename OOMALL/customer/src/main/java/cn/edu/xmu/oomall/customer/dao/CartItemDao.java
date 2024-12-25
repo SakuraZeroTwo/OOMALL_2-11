@@ -71,7 +71,16 @@ public class CartItemDao {
     }
 
     public void save(CartItemPo cartItemPo) {
+
         cartItemPoMapper.save(cartItemPo);
+    }
+    public CartItem save(CartItem cartItem) {
+        CartItemPo po = new CartItemPo();
+        BeanUtils.copyProperties(cartItem, po);
+        cartItemPoMapper.save(po);
+        CartItem bo = new CartItem();
+        BeanUtils.copyProperties(po, bo);
+        return bo;
     }
 
     public CartItemPo findPoById(Long id) {

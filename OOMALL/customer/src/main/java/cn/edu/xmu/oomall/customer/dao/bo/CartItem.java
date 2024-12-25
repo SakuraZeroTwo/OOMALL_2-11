@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @CopyFrom({CartItemPo.class, CartItemDto.class})
 public class CartItem extends OOMallObject implements Serializable {
-    private Long id;
     private Long customerId;
+    private Long onsaleId;
     private Long productId;
     private Long quantity;
     private Long price;

@@ -109,10 +109,12 @@ public class Customer implements Serializable {
         }
     }
 
-    public CartItem addToCart(CartItem cartItem,Long price)
+    public CartItem addToCart(CartItem cartItem,Long price,Long productId)
     {
         cartItem.setCustomerId(this.getId());
         cartItem.setPrice(price);
+        cartItem.setProductId(productId);
+        cartItem.setGmtCreate(LocalDateTime.now());
         return cartItem;
     }
 

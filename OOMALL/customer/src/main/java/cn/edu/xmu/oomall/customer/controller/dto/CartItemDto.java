@@ -19,8 +19,8 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CartItemDto {
 
-    @NotBlank(message = "商品id不能为空", groups = {NewGroup.class})
-    private Long productId;
+    @NotBlank(message = "销售id不能为空", groups = {NewGroup.class})
+    private Long onsaleId;
     @Min(value = 1, message = "数量必须大于等于 1")
     private Long quantity;
 }
