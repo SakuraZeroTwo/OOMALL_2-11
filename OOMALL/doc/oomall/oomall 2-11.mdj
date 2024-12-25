@@ -286056,17 +286056,17 @@
 																"$ref": "AAAAAAGTfHJ1YQ2rpWU="
 															},
 															"font": "Arial;13;0",
-															"left": 88,
-															"top": 114,
+															"left": 80,
+															"top": 113,
 															"width": 213.0146484375,
 															"height": 13,
-															"alpha": 1.5707963267948966,
-															"distance": 10,
+															"alpha": -4.037648647917532,
+															"distance": 12.806248474865697,
 															"hostEdge": {
 																"$ref": "AAAAAAGTfHJ1YQ2svA4="
 															},
 															"edgePosition": 1,
-															"text": "1 : getCartList(user,page,pageSize)"
+															"text": "1 : getCartList(customerId)"
 														},
 														{
 															"_type": "EdgeLabelView",
@@ -286391,9 +286391,9 @@
 																"$ref": "AAAAAAGTfHQvlBEmKf0="
 															},
 															"font": "Arial;13;0",
-															"left": 525,
+															"left": 493,
 															"top": 248,
-															"width": 170.8662109375,
+															"width": 235.16796875,
 															"height": 13,
 															"alpha": 1.5707963267948966,
 															"distance": 10,
@@ -286401,7 +286401,7 @@
 																"$ref": "AAAAAAGTfHQvlBEnU2o="
 															},
 															"edgePosition": 1,
-															"text": "3 : cartItems = getCatList（）"
+															"text": "3 : cartItems = getCatList（customerId）"
 														},
 														{
 															"_type": "EdgeLabelView",
@@ -286831,7 +286831,7 @@
 													"font": "Arial;20;0",
 													"left": 16,
 													"top": 488,
-													"width": 1345.68359375,
+													"width": 1382.08984375,
 													"height": 32,
 													"text": "cartItem类和customer关联，customer类具有完成getCartList方法所需要的所有信息，根据信息专家的原则将获取购物车列表的职责分配给customer对象"
 												}
@@ -286852,7 +286852,7 @@
 											"target": {
 												"$ref": "AAAAAAGTWJRWJ1k9/rE="
 											},
-											"arguments": "user,page,pageSize"
+											"arguments": "customerId"
 										},
 										{
 											"_type": "UMLMessage",
@@ -286876,7 +286876,7 @@
 											"_parent": {
 												"$ref": "AAAAAAGTWJRWJ1kFPaI="
 											},
-											"name": "getCatList（）",
+											"name": "getCatList（customerId）",
 											"source": {
 												"$ref": "AAAAAAGTWJRWJ1k9/rE="
 											},

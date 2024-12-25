@@ -32,16 +32,7 @@ public class CustomerCommentController {
     private CommentService commentService;
 
     private final ProductMapper productMapper;
-    /**
-     * 根据评论id获取评论
-     * @param id
-     * @return
-     */
-    @GetMapping("/{id}")
-    public ReturnObject getCommentById(@PathVariable Long id) {
-        CommentVo commentVo = this.commentService.getCommentById(id);
-        return new ReturnObject(commentVo);
-    }
+
 
     /**
      * 获取某商品所有评论
