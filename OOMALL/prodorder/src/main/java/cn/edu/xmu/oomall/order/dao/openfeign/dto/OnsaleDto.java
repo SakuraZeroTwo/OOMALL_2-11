@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class OnsaleDto {
-
     private Long id;
     private IdNameTypeDto shop;
     private IdNameDto product;

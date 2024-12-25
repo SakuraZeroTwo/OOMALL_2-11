@@ -1,18 +1,26 @@
 package cn.edu.xmu.oomall.customer.dao.bo;
 
+import cn.edu.xmu.javaee.core.exception.BusinessException;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.oomall.customer.controller.dto.CartResponseData;
 import cn.edu.xmu.oomall.customer.dao.CouponDao;
 import cn.edu.xmu.oomall.customer.dao.CustomerAddressDao;
+import cn.edu.xmu.oomall.customer.mapper.CartItemPoMapper;
+import cn.edu.xmu.oomall.customer.mapper.po.CartItemPo;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import cn.edu.xmu.oomall.customer.dao.bo.Coupon;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import static cn.edu.xmu.javaee.core.model.Constants.MAX_RETURN;
@@ -121,8 +129,31 @@ public class Customer implements Serializable {
     //新增地址addAddress，创建者
     public CustomerAddress addAddress(CustomerAddress address) {
         address.setCreatorName(this.userName);
+        address.setGmtCreate(LocalDateTime.now());
         return customerAddressDao.save(address);
     }
+    // 获取购物车列表的功能
+    public List<CartItem> getCartList(CartItemPoMapper cartItemPoMapper) {
+        List<CartItemPo> cartItemPoList = cartItemPoMapper.findByCustomerId(this.id);
+        if (cartItemPoList.isEmpty()) {
+            throw new BusinessException(ReturnNo.OK, "购物车为空");
+        }
+
+        List<CartItem> cartItems = cartItemPoList.stream()
+                .map(cartItemPo -> {
+                    CartItem cartItem = new CartItem();
+                    BeanUtils.copyProperties(cartItemPo, cartItem); // 复制属性
+                    return cartItem;
+                })
+                .collect(Collectors.toList());
+
+        Long totalPrice = cartItems.stream()
+                .mapToLong(CartItem::getSubtotal)
+                .sum();
+
+        return cartItems;
+    }
+
 
     public CustomerAddressDao getCustomerAddressDao() {
         return customerAddressDao;

@@ -15,5 +15,4 @@ public class CommentDto {
     private String content;
     private int rating;
     private LocalDateTime gmtCreate;
-
 }
