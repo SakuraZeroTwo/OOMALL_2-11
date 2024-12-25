@@ -28,7 +28,7 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService orderService;
-
+    private final static Logger logger = LoggerFactory.getLogger(OrderService.class);
     /**
      * 根据id获取订单
      * @param id
@@ -77,5 +77,15 @@ public class OrderController {
     @DeleteMapping("/deleteShopOrder")
     public ReturnObject deleteShopOrder(@RequestBody OrderDto request) {
         return orderService.deleteShopOrder(request.getCustomerId(), request.getShopId(), request.getOrderId());
+    }
+
+    /**
+     * 根据orderItemId获取订单的onsaleId
+     */
+    @GetMapping("/orderItem/{orderItemId}/onsale")
+    public ReturnObject getOnsaleByOrderItemId(@PathVariable Long orderItemId) {
+        logger.info("Getting onsaleId by OrderItemId");
+        OrderItemDto orderItemDto = orderService.getOnsaleByOrderItemId(orderItemId);;
+        return new ReturnObject(orderItemDto);
     }
 }

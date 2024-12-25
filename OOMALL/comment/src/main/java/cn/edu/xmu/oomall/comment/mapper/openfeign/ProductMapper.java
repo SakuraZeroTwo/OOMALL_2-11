@@ -10,4 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ProductMapper {
     @GetMapping("/products/{id}")
     InternalReturnObject<ProductPo> findProductById(@PathVariable Long id);
+
+    @GetMapping("/onsales/{id}")
+    InternalReturnObject<ProductPo> findProductVoByOnsaleId(@PathVariable Long id);
+
 }

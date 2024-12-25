@@ -11,7 +11,11 @@ import cn.edu.xmu.javaee.core.model.dto.UserDto;
 import cn.edu.xmu.oomall.comment.dao.CommentDao;
 import cn.edu.xmu.oomall.comment.dao.bo.Comment;
 import cn.edu.xmu.oomall.comment.dao.bo.Product;
+import cn.edu.xmu.oomall.comment.dao.openfeign.OrderItemDao;
+import cn.edu.xmu.oomall.comment.dao.openfeign.ProductDao;
+import cn.edu.xmu.oomall.comment.mapper.openfeign.OrderItemMapper;
 import cn.edu.xmu.oomall.comment.mapper.openfeign.ProductMapper;
+import cn.edu.xmu.oomall.comment.mapper.openfeign.po.OrderItem;
 import cn.edu.xmu.oomall.comment.mapper.openfeign.po.ProductPo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
@@ -31,17 +36,27 @@ public class CommentService {
 
     private final CommentDao commentDao;
     private final ProductMapper productMapper;
+    private final OrderItemDao orderItemDao;
+    private final ProductDao productDao;
+    private static Byte COMMENTED = 1;
     @Autowired
     private Product product;
 
     /**
      * 用户创建评论
      */
-//    public CommentVo createComment(Long orderItemId, CommentDto commentDto) throws BusinessException {
-//        Comment comment = new Comment();
-//        BeanUtils.copyProperties(commentDto, comment);
-//        Long orderId = this.orderItemDao.get();
-//    }
+    public CommentVo createComment(Long orderItemId, CommentDto commentDto) throws BusinessException {
+        OrderItem orderItem = orderItemDao.findById(orderItemId);
+        ProductPo productPo = productDao.findById(orderItem.getOnsaleId());
+        Long productId = productPo.getId();
+        Long orderId = orderItem.getOrderId();
+        Comment comment = orderItem.createComment(commentDto,productId);
+        comment.setOrderId(orderId);
+        this.commentDao.save(comment);
+        CommentVo commentVo = new CommentVo();
+        BeanUtils.copyProperties(comment, commentVo);
+        return commentVo;
+    }
 
     public void deleteCommentById(Long commentId) {
         Comment comment = commentDao.findById(commentId);
