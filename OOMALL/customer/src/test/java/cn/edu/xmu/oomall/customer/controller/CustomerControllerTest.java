@@ -81,11 +81,19 @@ public class CustomerControllerTest {
     }
     @Test
     void testgetCartList_UserNotFound() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}/cart", 9999) // 假设 9999 是不存在的用户 ID
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}/cart", 30000)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()) //
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo()))) // 验证错误码
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("用户不存在"))); // 验证错误消息
+    }
+    @Test
+    void testgetCartList_CartisEmpty() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}/cart", 9999)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk()) //
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo()))) // 验证错误码
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("购物车为空"))); // 验证错误消息
     }
     @Test
     void testUpdateCustomerMessage() throws Exception {

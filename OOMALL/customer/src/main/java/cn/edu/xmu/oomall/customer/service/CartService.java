@@ -10,6 +10,7 @@ import cn.edu.xmu.oomall.customer.dao.CartItemDao;
 import cn.edu.xmu.oomall.customer.dao.bo.CartItem;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;
 import cn.edu.xmu.oomall.customer.dao.bo.OnSale;
+import cn.edu.xmu.oomall.customer.mapper.CartItemPoMapper;
 import cn.edu.xmu.oomall.customer.mapper.openfeign.OnsaleMapper;
 import cn.edu.xmu.oomall.customer.mapper.openfeign.po.OnsalePo;
 import cn.edu.xmu.oomall.customer.mapper.po.CartItemPo;
@@ -40,13 +41,26 @@ public class CartService {
     private CartItemDao cartItemDao;
     @Autowired
     private CustomerDao customerDao;
+    private final CartItemPoMapper cartItemPoMapper;
 
     private final OnsaleMapper onsaleMapper;
     /**
-     * 获取购物车列表
+     * 获取购物车列表项
      */
     public CartResponseData getCartList(Long customerId) {
-        return cartItemDao.getCartList(customerId);
+        Customer customer = customerDao.findById(customerId).orElseThrow(() -> new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, "用户不存在"));
+        List<CartItem> cartItems = customer.getCartList(cartItemPoMapper);
+        return retrieveCartList(cartItems);
+    }
+
+    /**
+     * 返货购物车列表
+     */
+    public CartResponseData retrieveCartList(List<CartItem> cartItems) {
+        Long totalPrice = cartItems.stream()
+                .mapToLong(CartItem::getSubtotal)
+                .sum();
+        return new CartResponseData(cartItems, totalPrice);
     }
 
     public CartItem addToCart(Long customerId, CartItem cartItem) {
