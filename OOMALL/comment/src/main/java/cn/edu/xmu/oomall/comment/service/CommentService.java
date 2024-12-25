@@ -35,6 +35,7 @@ public class CommentService {
     private final ProductMapper productMapper;
     private final OrderItemDao orderItemDao;
     private final ProductDao productDao;
+    private static Byte COMMENTED = 1;
     @Autowired
     private Product product;
 

@@ -16,7 +16,7 @@ public class OrderItem {
     private Long id;
     private Long onsaleId;
     private Long orderId;
-
+    private Byte commented;
 
     public Comment createComment(CommentDto commentDto,Long productId) {
         Comment comment = new Comment();
