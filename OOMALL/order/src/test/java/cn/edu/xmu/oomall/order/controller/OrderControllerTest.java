@@ -31,7 +31,7 @@ public class OrderControllerTest {
         Long orderId = 1L;
         String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImRlcGFydElkIjowLCJ0b2tlbklkIjoiMjAyNDEyMjUxOTU1NTgzRVdBIiwidXNlck5hbWUiOiIxMzA4OGFkbWluIiwidXNlckxldmVsIjoxLCJpc3MiOiJPT0FEIiwic3ViIjoidGhpcyBpcyBhIHRva2VuIiwiYXVkIjoiTUlOSUFQUCIsImlhdCI6MTczNTEyNzc1OCwiZXhwIjoxNzM1MTMxMzU4fQ.fUnFWiicK07l7lCgvFA-rVX3e5b0bJ-k3YVYw9bddvs";
         this.mockMvc.perform(MockMvcRequestBuilders.get("/orders/shops/{shopId}/orders/{orderId}",shopId,orderId)
-                        .header("authorization", token)
+                        //.header("authorization", token)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))

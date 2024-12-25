@@ -108,4 +108,15 @@ public class CustomerCommentControllerTest {
 
     }
 
+    @Test
+    void createComment() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/comment/createComment/2")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content("{ \"customerId\": 1, \"customerName\": \"John Doe\", \"content\": \"This product is excellent! Highly recommend it.\", \"rating\": 5 }"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(0)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(1551))) // 检查 data.productId 字段的值
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.orderId", is(9451)));
+    }
+
 }
