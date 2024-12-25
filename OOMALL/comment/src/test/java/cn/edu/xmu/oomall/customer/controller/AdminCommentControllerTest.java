@@ -49,4 +49,22 @@ public class AdminCommentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
 
     }
+    @Test
+    void testdeleteCommentByIdSuccess() throws Exception {
+        Long Id = 2L;
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/adminComment/{commentId}/delete", Id)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
+    }
+    @Test
+    void testdeleteCommentById_CommentNotExist() throws Exception {
+        Long Id = 1L;
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/adminComment/{commentId}/delete", Id)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("评论不存在或已删除")));
+    }
 }

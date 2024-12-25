@@ -1,43 +1,19 @@
 package cn.edu.xmu.oomall.comment.controller.dto;
 
-import cn.edu.xmu.javaee.core.validation.NewGroup; //一个验证分组。验证是新的还是修改的
-import com.fasterxml.jackson.annotation.JsonInclude; //用于java对象和json的转换
-import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor; //创建有所有参数的构造函数
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor; //创建无参构造
-
-import jakarta.validation.constraints.NotBlank; //合法性检验，不为空且不为空格
-import jakarta.validation.constraints.NotNull; //合法性检验，不为空
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@Data
 public class CommentDto {
+    private Long customerId;
+    private String customerName;
+    private String content;
+    private int rating;
+    private LocalDateTime gmtCreate;
 
-    @NotBlank(message = "评论内容不能为空", groups = {NewGroup.class})
-    private  String content;
-
-    @Min(value = 1, message = "数量必须大于等于 1")
-    private  int rating;
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
 }

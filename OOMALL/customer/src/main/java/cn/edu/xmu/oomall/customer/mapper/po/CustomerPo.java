@@ -37,23 +37,23 @@ public class CustomerPo {
     private LocalDateTime gmtModified; // 修改时间
     private String mobile; //联系电话
 
-    @Override
-    public String toString() {
-        return "CustomerPo{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", point=" + point +
-                ", invalid=" + invalid +
-                ", beDeleted=" + be_deleted +
-                ", creatorId=" + creatorId +
-                ", creatorName='" + creatorName + '\'' +
-                ", modifierId=" + modifierId +
-                ", modifierName='" + modifierName + '\'' +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModified=" + gmtModified +
-                ", mobile='" + mobile + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "CustomerPo{" +
+//                "id=" + id +
+//                ", userName='" + userName + '\'' +
+//                ", password='" + password + '\'' +
+//                ", name='" + name + '\'' +
+//                ", point=" + point +
+//                ", invalid=" + invalid +
+//                ", beDeleted=" + be_deleted +
+//                ", creatorId=" + creatorId +
+//                ", creatorName='" + creatorName + '\'' +
+//                ", modifierId=" + modifierId +
+//                ", modifierName='" + modifierName + '\'' +
+//                ", gmtCreate=" + gmtCreate +
+//                ", gmtModified=" + gmtModified +
+//                ", mobile='" + mobile + '\'' +
+//                '}';
+//    }
 }

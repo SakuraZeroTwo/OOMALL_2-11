@@ -2,8 +2,7 @@ package cn.edu.xmu.oomall.customer.controller;
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
-import cn.edu.xmu.oomall.customer.controller.dto.CustomerDto;
-import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
+
 
 import cn.edu.xmu.oomall.customer.controller.vo.CustomerVo;
 import cn.edu.xmu.oomall.customer.dao.bo.Customer;

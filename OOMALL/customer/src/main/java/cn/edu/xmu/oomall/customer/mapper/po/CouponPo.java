@@ -44,24 +44,24 @@ public class CouponPo {
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
 
-    @Override
-    public String toString() {
-        return "CouponPo{" +
-                "id=" + id +
-                ", couponSn='" + couponSn + '\'' +
-                ", couponName='" + couponName + '\'' +
-                ", customerId=" + customerId +
-                ", activityId=" + activityId +
-                ", beginTime=" + beginTime +
-                ", endTime=" + endTime +
-                ", used=" + used +
-                ", creatorId=" + creatorId +
-                ", creatorName='" + creatorName + '\'' +
-                ", modifierId=" + modifierId +
-                ", modifierName='" + modifierName + '\'' +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModified=" + gmtModified +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "CouponPo{" +
+//                "id=" + id +
+//                ", couponSn='" + couponSn + '\'' +
+//                ", couponName='" + couponName + '\'' +
+//                ", customerId=" + customerId +
+//                ", activityId=" + activityId +
+//                ", beginTime=" + beginTime +
+//                ", endTime=" + endTime +
+//                ", used=" + used +
+//                ", creatorId=" + creatorId +
+//                ", creatorName='" + creatorName + '\'' +
+//                ", modifierId=" + modifierId +
+//                ", modifierName='" + modifierName + '\'' +
+//                ", gmtCreate=" + gmtCreate +
+//                ", gmtModified=" + gmtModified +
+//                '}';
+//    }
 
 }

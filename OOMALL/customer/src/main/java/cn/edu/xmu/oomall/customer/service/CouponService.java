@@ -2,7 +2,6 @@ package cn.edu.xmu.oomall.customer.service;
 
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
-import cn.edu.xmu.oomall.customer.controller.dto.ResponseWrapper;
 import cn.edu.xmu.oomall.customer.controller.vo.CouponVo;
 import cn.edu.xmu.oomall.customer.dao.CouponDao;
 import cn.edu.xmu.oomall.customer.dao.CustomerDao;

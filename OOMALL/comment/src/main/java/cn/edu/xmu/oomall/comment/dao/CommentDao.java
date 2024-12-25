@@ -70,7 +70,8 @@ public class CommentDao {
     public Page <CommentVo> findCommentList(Long productId, int page, int pageSize)
     {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<CommentPo> commentPoPage = commentPoMapper.findByProductId(productId, pageable);
+        int status = 1;
+        Page<CommentPo> commentPoPage = commentPoMapper.findByProductIdAndStatus(productId, status,pageable);
         if (commentPoPage == null || commentPoPage.isEmpty()) {
             throw new BusinessException(ReturnNo.OK,"商品暂无评论");
         }

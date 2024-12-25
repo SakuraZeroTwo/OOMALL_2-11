@@ -22,6 +22,7 @@
         <module name="gateway" />
         <module name="jtexpress" />
         <module name="customer" />
+        <module name="order" />
       </profile>
     </annotationProcessing>
   </component>
@@ -35,6 +36,7 @@
       <module name="gateway" options="-parameters" />
       <module name="jtexpress" options="-parameters" />
       <module name="oomall" options="-parameters" />
+      <module name="order" options="-parameters" />
       <module name="payment" options="-parameters" />
       <module name="prodorder" options="-parameters" />
       <module name="product" options="-parameters" />

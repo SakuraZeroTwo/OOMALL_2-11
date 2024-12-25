@@ -45,6 +45,9 @@ public class CommentService {
 
     public void deleteCommentById(Long commentId) {
         Comment comment = commentDao.findById(commentId);
+        if(comment.getStatus() == Comment.DELETED){
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST,"评论不存在或已删除");
+        }
         comment.setStatus(Comment.DELETED);
         this.commentDao.save(comment);
     }
