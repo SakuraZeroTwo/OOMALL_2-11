@@ -39,6 +39,4 @@ public class OrderPo {
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
 
-
-
 }

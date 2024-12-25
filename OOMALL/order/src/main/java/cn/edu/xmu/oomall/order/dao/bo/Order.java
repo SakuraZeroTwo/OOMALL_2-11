@@ -3,12 +3,16 @@ package cn.edu.xmu.oomall.order.dao.bo;
 
 import cn.edu.xmu.javaee.core.exception.BusinessException;
 import cn.edu.xmu.javaee.core.model.ReturnNo;
+import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.bo.OOMallObject;
 import cn.edu.xmu.oomall.order.controller.dto.OrderDto;
+import cn.edu.xmu.oomall.order.service.ExpressService;
+import cn.edu.xmu.oomall.order.service.RefundService;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @ToString(callSuper = true)
 @NoArgsConstructor
@@ -54,6 +58,27 @@ public class Order extends OOMallObject{
             throw new BusinessException(ReturnNo.STATENOTALLOW,"订单已发出，修改操作被禁止");
         }
         return this;
+    }
+    /**
+     * 检查订单是否可以被删除
+     * @return 删除结果
+     */
+    public boolean canDelete(Long customerId, Long shopId) {
+        if (!this.getCustomerId().equals(customerId) || !this.getShopId().equals(shopId)) {
+            throw new BusinessException(ReturnNo.RESOURCE_ID_NOTEXIST, "该订单不属于对应商户或顾客");
+        }
+        return Arrays.asList(101, 102, 201, 202, 203).contains(this.getStatus());
+    }
+
+    /**
+     * 删除订单，如果状态不允许，则不进行任何操作
+     */
+    public void deleteShopOrder(Long customerId, Long shopId) {
+        if (canDelete(customerId, shopId)) {
+            this.setStatus(999); // 设999是删除状态
+        } else {
+            throw new BusinessException(ReturnNo.STATENOTALLOW, "订单状态不允许删除");
+        }
     }
 
     public LocalDateTime getGmtCreate() {
