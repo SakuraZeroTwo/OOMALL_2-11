@@ -74,6 +74,7 @@ public class OnSale {
                 newCartItem.setPrice(this.price);
                 newCartItem.setProductId(this.productId);
                 newCartItem.setGmtCreate(LocalDateTime.now());
+                cartItemDao.save(newCartItem);
                 return newCartItem;
             }
             else {
