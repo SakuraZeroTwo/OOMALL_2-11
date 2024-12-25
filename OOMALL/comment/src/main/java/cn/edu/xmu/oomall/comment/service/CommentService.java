@@ -42,15 +42,12 @@ public class CommentService {
      * 用户创建评论
      */
     public CommentVo createComment(Long orderItemId, CommentDto commentDto) throws BusinessException {
-        Comment comment = new Comment();
-        BeanUtils.copyProperties(commentDto, comment);
-
         OrderItem orderItem = orderItemDao.findById(orderItemId);
         ProductPo productPo = productDao.findById(orderItem.getOnsaleId());
-        comment.setProductId(productPo.getId());
-        comment.setStatus(Comment.TOBEAUDIT);
-        comment.setGmtCreate(LocalDateTime.now());
-
+        Long productId = productPo.getId();
+        Long orderId = orderItem.getOrderId();
+        Comment comment = orderItem.createComment(commentDto,productId);
+        comment.setOrderId(orderId);
         this.commentDao.save(comment);
         CommentVo commentVo = new CommentVo();
         BeanUtils.copyProperties(comment, commentVo);
