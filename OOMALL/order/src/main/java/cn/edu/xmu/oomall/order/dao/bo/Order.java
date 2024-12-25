@@ -6,8 +6,10 @@ import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.bo.OOMallObject;
 import cn.edu.xmu.oomall.order.controller.dto.OrderDto;
+import cn.edu.xmu.oomall.order.dao.OrderDao;
 import cn.edu.xmu.oomall.order.service.ExpressService;
 import cn.edu.xmu.oomall.order.service.RefundService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,8 +35,14 @@ public class Order extends OOMallObject{
     private Long expressFee;
     private Long discountPrice;
     private Long originPrice;
+    private Long weight;
     private Long point;
     private int status;
+
+    @Setter
+    @JsonIgnore
+    @ToString.Exclude
+    private OrderDao orderDao;
 
     public Order updateOrderInfo(OrderDto orderDto) {
         if(this.getCustomerId() != orderDto.getCustomerId()){
@@ -80,6 +88,23 @@ public class Order extends OOMallObject{
             throw new BusinessException(ReturnNo.STATENOTALLOW, "订单状态不允许删除");
         }
     }
+
+    public void sendOrder(Long shopId,Order order)
+    {
+        if(shopId!=this.shopId)
+        {
+            throw new BusinessException(ReturnNo.RESOURCE_ID_OUTSCOPE, String.format(ReturnNo.RESOURCE_ID_OUTSCOPE.getMessage(), "订单", id, shopId));
+        }
+        if(this.status==203)
+        {
+            this.setWeight(order.getWeight());
+            orderDao.updateOrder(this);
+        }
+        else {
+            throw new BusinessException(ReturnNo.STATENOTALLOW,String.format(ReturnNo.STATENOTALLOW.getMessage(), "订单", id, "非确认"));
+        }
+    }
+
 
     public LocalDateTime getGmtCreate() {
         return gmtCreate;

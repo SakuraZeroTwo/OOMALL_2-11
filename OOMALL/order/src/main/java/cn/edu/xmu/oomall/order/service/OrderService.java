@@ -99,4 +99,11 @@ public class OrderService {
             return new ReturnObject(e.getErrno(), e.getMessage());
         }
     }
+
+    public void sendOrder(Long shopId,Long orderId,Order newOrder)
+    {
+        Order order = orderDao.findById(orderId);
+        order.setOrderDao(this.orderDao);
+        order.sendOrder(shopId,newOrder);
+    }
 }

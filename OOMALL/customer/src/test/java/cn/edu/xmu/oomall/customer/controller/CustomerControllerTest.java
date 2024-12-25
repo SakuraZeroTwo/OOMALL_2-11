@@ -186,6 +186,8 @@ public class CustomerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{ \"onsaleId\": 1, \"quantity\": 5 }"))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.CREATED.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("创建成功")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(1550)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.customerId", is(16666)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.quantity", is(5)))  // 验证 quantity
@@ -213,6 +215,8 @@ public class CustomerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{ \"onsaleId\": 749, \"quantity\": 5 }"))  // 确保 onsaleId 传递正确
                 .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.CREATED.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("创建成功")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.productId", is(2298)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.customerId", is(16666)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.quantity", is(11)))  // 验证 quantity
@@ -239,6 +243,8 @@ public class CustomerControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.post("/customers/{id}/cart", 16666L)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{ \"onsaleId\": 1, \"quantity\": 5 }"))
-                .andExpect(MockMvcResultMatchers.status().isForbidden());  // 验证返回状态码是 403
+                .andExpect(MockMvcResultMatchers.status().isForbidden())  // 验证返回状态码是 403
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.CUSTOMER_CARTNOTALLOW.getErrNo())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("商品(id = 1550)不能加入购物车")));
     }
 }

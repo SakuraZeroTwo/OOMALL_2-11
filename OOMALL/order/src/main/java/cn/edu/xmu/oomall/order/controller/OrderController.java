@@ -1,6 +1,7 @@
 package cn.edu.xmu.oomall.order.controller;
 
 import cn.edu.xmu.javaee.core.model.InternalReturnObject;
+import cn.edu.xmu.javaee.core.model.ReturnNo;
 import cn.edu.xmu.javaee.core.model.ReturnObject;
 import cn.edu.xmu.javaee.core.model.vo.PageVo;
 import cn.edu.xmu.oomall.order.OrdersApplication;
@@ -15,6 +16,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.data.domain.Page;
@@ -77,5 +79,13 @@ public class OrderController {
     @DeleteMapping("/deleteShopOrder")
     public ReturnObject deleteShopOrder(@RequestBody OrderDto request) {
         return orderService.deleteShopOrder(request.getCustomerId(), request.getShopId(), request.getOrderId());
+    }
+
+    @PutMapping("/shops/{shopId}/orders/{id}/send")
+    public ReturnObject sendOrder(@PathVariable Long shopId, @PathVariable Long id,@RequestBody OrderDto dto ) {
+        Order newOrder = new Order();
+        BeanUtils.copyProperties(dto, newOrder);
+        orderService.sendOrder(shopId,id,newOrder);
+        return new ReturnObject(ReturnNo.OK);
     }
 }
