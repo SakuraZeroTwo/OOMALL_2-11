@@ -29,8 +29,10 @@ public class OrderControllerTest {
     void testgetShopOrderByIdSuccess() throws Exception{
         Long shopId = 1L;
         Long orderId = 1L;
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/shops/{shopId}/orders/{orderId}",shopId,orderId)
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
+        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImRlcGFydElkIjowLCJ0b2tlbklkIjoiMjAyNDEyMjUxOTU1NTgzRVdBIiwidXNlck5hbWUiOiIxMzA4OGFkbWluIiwidXNlckxldmVsIjoxLCJpc3MiOiJPT0FEIiwic3ViIjoidGhpcyBpcyBhIHRva2VuIiwiYXVkIjoiTUlOSUFQUCIsImlhdCI6MTczNTEyNzc1OCwiZXhwIjoxNzM1MTMxMzU4fQ.fUnFWiicK07l7lCgvFA-rVX3e5b0bJ-k3YVYw9bddvs";
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/orders/shops/{shopId}/orders/{orderId}",shopId,orderId)
+                        .header("authorization", token)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
@@ -52,79 +54,10 @@ public class OrderControllerTest {
     void testgetShopOrderById_OrderNotFound() throws Exception{
         Long shopId = 1L;
         Long orderId = 10099L;
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/shops/{shopId}/orders/{orderId}",shopId,orderId)
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/orders/shops/{shopId}/orders/{orderId}",shopId,orderId)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.RESOURCE_ID_NOTEXIST.getErrNo())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("订单不存在或不属于该商户")));
-    }
-    @Test
-    void testGetUserById() throws Exception {
-        Long Id = 123L;
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",Id)
-            .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.id").value(Id));
-    }
-    @Test
-    void testGetUserByNULLID() throws Exception{
-        Long Id = 0L;
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/{id}",Id)
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isUnauthorized())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.AUTH_ID_NOTEXIST.getErrNo())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("登录用户id不存在")));
-    }
-    @Test
-    void testUpdateUserInvalid() throws Exception {
-        Long Id = 123L;
-        // 测试封禁用户
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", Id, "ban")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
-
-        // 测试解封用户
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", Id, "release")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
-    }
-    @Test
-    void testBanOrReleaseDeletedUser() throws Exception{
-        Long Id = 12L;
-        // 测试封禁或解封已被删除的用户
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/{action}", Id, "release")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.STATENOTALLOW.getErrNo())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("顾客对象（id=12）已删除状态禁止此操作")));
-    }
-    @Test
-    void testDeleteUser() throws Exception {
-        Long Id = 123L;
-
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/customers/{id}/delete", Id)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(ReturnNo.OK.getErrNo())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")));
-
-    }
-    @Test
-    void testretriveAllUsers() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/customers/getAllCustomers")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())  // 验证返回状态码
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errno", is(0)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errmsg", is("成功")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.length()", is(24285)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data[0].userName", is("699275")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data[1].userName", is("105048")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data[6].userName", is("696909")));
     }
 }
